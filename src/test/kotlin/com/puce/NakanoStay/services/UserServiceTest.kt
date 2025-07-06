@@ -3,7 +3,6 @@ package com.puce.NakanoStay.services
 import com.puce.NakanoStay.exceptions.NotFoundException
 import com.puce.NakanoStay.models.entities.User
 import com.puce.NakanoStay.repositories.UserRepository
-import org.junit.jupiter.api.AfterEach
 import java.util.*
 import kotlin.test.Test
 import org.junit.jupiter.api.Assertions.*
@@ -16,7 +15,7 @@ class UserServiceTest {
     private lateinit var service: UserService
 
     @BeforeEach
-    fun carga() {
+    fun setUp() {
         userRepository = mock(UserRepository::class.java)
         service = UserService(userRepository)
     }
@@ -24,14 +23,18 @@ class UserServiceTest {
     @Test
     fun `should return all users`() {
         val users = listOf(
-            User("Jeremy",
-                "9999999999",
-                "jmarin@puce.edu.ec",
-                "0911223344"),
-            User("Akimi",
-                "9999999991",
-                "alazaro@puce.edu.ec",
-                "0998877665")
+            User(
+                name = "Jeremy",
+                dni = "9999999999",
+                email = "jmarin@puce.edu.ec",
+                phone = "0911223344"
+            ),
+            User(
+                name = "Akimi",
+                dni = "9999999991",
+                email = "alazaro@puce.edu.ec",
+                phone = "0998877665"
+            )
         )
 
         `when`(userRepository.findAll())
@@ -46,10 +49,11 @@ class UserServiceTest {
 
     @Test
     fun `should get a user by id`() {
-        val user = User("Anghelo",
-            "9999999993",
-            "aamontiel@puce.edu.ec",
-            "999999999")
+        val user = User(
+            name = "Anghelo",
+            dni = "9999999993",
+            email = "aamontiel@puce.edu.ec",
+            phone = "999999999")
 
         `when`(userRepository.findById(1L))
             .thenReturn(Optional.of(user))
@@ -74,10 +78,11 @@ class UserServiceTest {
 
     @Test
     fun `should save a user`() {
-        val user = User("John",
-            "9999999994",
-            "jasan@puce.edu.ec",
-            "0912312312")
+        val user = User(
+            name = "John",
+            dni = "9999999994",
+            email = "jasan@puce.edu.ec",
+            phone = "0912312312")
 
         `when`(userRepository.save(user))
             .thenReturn(user)
@@ -110,8 +115,4 @@ class UserServiceTest {
         verify(userRepository, never()).deleteById(anyLong())
     }
 
-    @AfterEach
-    fun descarga() {
-
-    }
 }
