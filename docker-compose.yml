@@ -1,7 +1,6 @@
-
 services:
   postgres:
-    image: postgres
+    image: postgres:15
     container_name: nakanostay_postgres
     environment:
       POSTGRES_DB: nakanostay_db
@@ -11,6 +10,34 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d nakanostay_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  nakanostay-backend:
+    build: .
+    container_name: nakanostay_backend
+    environment:
+      # Database configuration
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/nakanostay_db
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      
+      # JPA/Hibernate configuration
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: true
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
+
+      SERVER_PORT: 8080
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: on-failure
 
 volumes:
   postgres_data:
