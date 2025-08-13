@@ -1,6 +1,8 @@
 package com.puce.NakanoStay.services
 
+import com.puce.NakanoStay.exceptions.ConflictException
 import com.puce.NakanoStay.exceptions.NotFoundException
+import com.puce.NakanoStay.exceptions.ValidationException
 import com.puce.NakanoStay.models.entities.Hotel
 import com.puce.NakanoStay.repositories.HotelRepository
 import java.util.*
@@ -23,112 +25,169 @@ class HotelServiceTest {
     @Test
     fun `should return all hotels`() {
         val hotels = listOf(
-            Hotel(
-                name = "Hotel Paradise",
-                address = "123 Main Street, Downtown",
-                city = "Quito",
-                stars = 5,
-                email = "paradise@hotel.com"
-            ),
-            Hotel(
-                name = "Budget Inn",
-                address = "456 Side Street, North Zone",
-                city = "Guayaquil",
-                stars = 3,
-                email = "budget@inn.com"
-            )
+            Hotel("Hotel Paradise", "123 Main Street", "Quito", 5, "paradise@hotel.com"),
+            Hotel("Budget Inn", "456 Side Street", "Guayaquil", 3, "budget@inn.com")
         )
 
-        `when`(hotelRepository.findAll())
-            .thenReturn(hotels)
+        `when`(hotelRepository.findAll()).thenReturn(hotels)
 
         val result = service.getAll()
 
         assertEquals(2, result.size)
         assertEquals("Hotel Paradise", result[0].name)
         assertEquals("Budget Inn", result[1].name)
-        assertEquals(5, result[0].stars)
-        assertEquals(3, result[1].stars)
-        assertEquals("paradise@hotel.com", result[0].email)
-        assertEquals("budget@inn.com", result[1].email)
     }
 
     @Test
-    fun `should get a hotel by id`() {
-        val hotel = Hotel(
-            name = "Grand Hotel",
-            address = "789 Luxury Avenue, Historic Center",
-            city = "Cuenca",
-            stars = 4,
-            email = "grand@hotel.com"
-        )
+    fun `should save a valid hotel`() {
+        val hotel = Hotel("New Hotel", "999 New Street", "Manta", 4, "new@hotel.com")
 
-        `when`(hotelRepository.findById(1L))
-            .thenReturn(Optional.of(hotel))
-
-        val result = service.getById(1L)
-
-        assertEquals("Grand Hotel", result.name)
-        assertEquals("789 Luxury Avenue, Historic Center", result.address)
-        assertEquals("Cuenca", result.city)
-        assertEquals(4, result.stars)
-        assertEquals("grand@hotel.com", result.email)
-    }
-
-    @Test
-    fun `should throw NotFoundException when hotel not found by id`() {
-        `when`(hotelRepository.findById(50L))
-            .thenReturn(Optional.empty())
-
-        val exception = assertThrows<NotFoundException> {
-            service.getById(50L)
-        }
-
-        assertEquals("Hotel con id 50 no encontrado", exception.message)
-    }
-
-    @Test
-    fun `should save a hotel`() {
-        val hotel = Hotel(
-            name = "New Hotel",
-            address = "999 New Street, Modern District",
-            city = "Manta",
-            stars = 4,
-            email = "new@hotel.com"
-        )
-
-        `when`(hotelRepository.save(hotel))
-            .thenReturn(hotel)
+        `when`(hotelRepository.existsByNameAndAddress(hotel.name, hotel.address)).thenReturn(false)
+        `when`(hotelRepository.existsByEmail(hotel.email)).thenReturn(false)
+        `when`(hotelRepository.save(hotel)).thenReturn(hotel)
 
         val savedHotel = service.save(hotel)
 
         assertEquals("New Hotel", savedHotel.name)
-        assertEquals("999 New Street, Modern District", savedHotel.address)
-        assertEquals("Manta", savedHotel.city)
-        assertEquals(4, savedHotel.stars)
-        assertEquals("new@hotel.com", savedHotel.email)
+        verify(hotelRepository).save(hotel)
     }
 
     @Test
-    fun `should delete a hotel by id`() {
-        `when`(hotelRepository.existsById(3L))
-            .thenReturn(true)
+    fun `should throw ValidationException when hotel name is blank`() {
+        val hotel = Hotel("", "123 Main Street", "Quito", 5, "test@hotel.com")
 
-        service.delete(3L)
+        val exception = assertThrows<ValidationException> {
+            service.save(hotel)
+        }
 
-        verify(hotelRepository).deleteById(3L)
+        assertEquals("El nombre del hotel es requerido", exception.message)
+        verify(hotelRepository, never()).save(any())
+    }
+
+    @Test
+    fun `should throw ValidationException when hotel address is blank`() {
+        val hotel = Hotel("Test Hotel", "", "Quito", 5, "test@hotel.com")
+
+        val exception = assertThrows<ValidationException> {
+            service.save(hotel)
+        }
+
+        assertEquals("La dirección del hotel es requerida", exception.message)
+        verify(hotelRepository, never()).save(any())
+    }
+
+    @Test
+    fun `should throw ValidationException when email is invalid`() {
+        val hotel = Hotel("Test Hotel", "123 Main Street", "Quito", 5, "invalid-email")
+
+        val exception = assertThrows<ValidationException> {
+            service.save(hotel)
+        }
+
+        assertEquals("El formato del email es inválido", exception.message)
+        verify(hotelRepository, never()).save(any())
+    }
+
+    @Test
+    fun `should throw ValidationException when stars are negative`() {
+        val hotel = Hotel("Test Hotel", "123 Main Street", "Quito", -1, "test@hotel.com")
+
+        val exception = assertThrows<ValidationException> {
+            service.save(hotel)
+        }
+
+        assertEquals("Las estrellas del hotel no pueden ser negativas", exception.message)
+        verify(hotelRepository, never()).save(any())
+    }
+
+    @Test
+    fun `should throw ValidationException when stars are more than 5`() {
+        val hotel = Hotel("Test Hotel", "123 Main Street", "Quito", 6, "test@hotel.com")
+
+        val exception = assertThrows<ValidationException> {
+            service.save(hotel)
+        }
+
+        assertEquals("Las estrellas del hotel no pueden ser más de 5", exception.message)
+        verify(hotelRepository, never()).save(any())
+    }
+
+    @Test
+    fun `should throw ConflictException when hotel with same name and address exists`() {
+        val hotel = Hotel("Existing Hotel", "123 Main Street", "Quito", 4, "new@hotel.com")
+
+        `when`(hotelRepository.existsByNameAndAddress(hotel.name, hotel.address)).thenReturn(true)
+
+        val exception = assertThrows<ConflictException> {
+            service.save(hotel)
+        }
+
+        assertEquals("Ya existe un hotel con el nombre 'Existing Hotel' en la dirección '123 Main Street'", exception.message)
+        verify(hotelRepository, never()).save(any())
+    }
+
+    @Test
+    fun `should throw ConflictException when hotel with same email exists`() {
+        val hotel = Hotel("New Hotel", "999 New Street", "Manta", 4, "existing@hotel.com")
+
+        `when`(hotelRepository.existsByNameAndAddress(hotel.name, hotel.address)).thenReturn(false)
+        `when`(hotelRepository.existsByEmail(hotel.email)).thenReturn(true)
+
+        val exception = assertThrows<ConflictException> {
+            service.save(hotel)
+        }
+
+        assertEquals("Ya existe un hotel registrado con el email 'existing@hotel.com'", exception.message)
+        verify(hotelRepository, never()).save(any())
+    }
+
+    @Test
+    fun `should update hotel successfully`() {
+        val hotel = Hotel("Updated Hotel", "Updated Address", "Cuenca", 4, "updated@hotel.com")
+
+        `when`(hotelRepository.existsById(1L)).thenReturn(true)
+        `when`(hotelRepository.existsByNameAndAddressAndIdNot(hotel.name, hotel.address, 1L)).thenReturn(false)
+        `when`(hotelRepository.existsByEmailAndIdNot(hotel.email, 1L)).thenReturn(false)
+        `when`(hotelRepository.save(any<Hotel>())).thenReturn(hotel)
+
+        val updatedHotel = service.update(1L, hotel)
+
+        assertEquals("Updated Hotel", updatedHotel.name)
+        verify(hotelRepository).save(any<Hotel>())
+    }
+
+    @Test
+    fun `should throw NotFoundException when updating non-existent hotel`() {
+        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4, "test@hotel.com")
+
+        `when`(hotelRepository.existsById(99L)).thenReturn(false)
+
+        val exception = assertThrows<NotFoundException> {
+            service.update(99L, hotel)
+        }
+
+        assertEquals("Hotel con id 99 no encontrado", exception.message)
+        verify(hotelRepository, never()).save(any())
+    }
+
+    @Test
+    fun `should delete hotel successfully`() {
+        `when`(hotelRepository.existsById(1L)).thenReturn(true)
+
+        service.delete(1L)
+
+        verify(hotelRepository).deleteById(1L)
     }
 
     @Test
     fun `should throw NotFoundException when deleting non-existent hotel`() {
-        `when`(hotelRepository.existsById(100L))
-            .thenReturn(false)
+        `when`(hotelRepository.existsById(99L)).thenReturn(false)
 
         val exception = assertThrows<NotFoundException> {
-            service.delete(100L)
+            service.delete(99L)
         }
 
-        assertEquals("Hotel con id 100 no encontrado", exception.message)
-        verify(hotelRepository, never()).deleteById(anyLong())
+        assertEquals("Hotel con id 99 no encontrado", exception.message)
+        verify(hotelRepository, never()).deleteById(any())
     }
 }

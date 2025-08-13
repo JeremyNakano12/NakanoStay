@@ -1,11 +1,16 @@
 package com.puce.NakanoStay.services
 
+import com.puce.NakanoStay.exceptions.ConflictException
 import com.puce.NakanoStay.exceptions.NotFoundException
+import com.puce.NakanoStay.exceptions.ValidationException
 import com.puce.NakanoStay.models.entities.Booking
-import com.puce.NakanoStay.repositories.BookingDetailRepository
+import com.puce.NakanoStay.models.entities.BookingDetail
+import com.puce.NakanoStay.models.entities.Hotel
+import com.puce.NakanoStay.models.entities.Room
+import com.puce.NakanoStay.models.enums.BookingStatus
 import com.puce.NakanoStay.repositories.BookingRepository
+import java.math.BigDecimal
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.util.*
 import kotlin.test.Test
 import org.junit.jupiter.api.Assertions.*
@@ -15,115 +20,346 @@ import org.mockito.Mockito.*
 
 class BookingServiceTest {
     private lateinit var bookingRepository: BookingRepository
-    private lateinit var bookingDetailRepository: BookingDetailRepository
     private lateinit var service: BookingService
 
     @BeforeEach
     fun setUp() {
         bookingRepository = mock(BookingRepository::class.java)
-        bookingDetailRepository = mock(BookingDetailRepository::class.java)
-        service = BookingService(bookingRepository, bookingDetailRepository)
+        service = BookingService(bookingRepository)
     }
 
     @Test
-    fun `should return all bookings`() {
-        val user = User("John", "1234567890", "john@puce.edu.ec", "0999999999")
-        val bookings = listOf(
-            Booking(
-                user = user,
-                checkIn = LocalDate.of(2025, 1, 15),
-                checkOut = LocalDate.of(2025, 1, 20),
-                status = "confirmed"
-            ),
-            Booking(
-                user = user,
-                checkIn = LocalDate.of(2025, 2, 10),
-                checkOut = LocalDate.of(2025, 2, 15),
-                status = "pending"
-            )
-        )
+    fun `should save a valid booking`() {
+        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4, "test@hotel.com").apply { id = 1L }
+        val room = Room(hotel, "101", "Single", BigDecimal("50.00"), true).apply { id = 1L }
 
-        `when`(bookingRepository.findAll())
-            .thenReturn(bookings)
-
-        val result = service.getAll()
-
-        assertEquals(2, result.size)
-        assertEquals("confirmed", result[0].status)
-        assertEquals("pending", result[1].status)
-    }
-
-    @Test
-    fun `should get a booking by id`() {
-        val user = User("Alice", "9876543210", "alice@puce.edu.ec", "0988888888")
         val booking = Booking(
-            user = user,
-            checkIn = LocalDate.of(2025, 3, 5),
-            checkOut = LocalDate.of(2025, 3, 10),
-            status = "confirmed"
+            bookingCode = "NKS-ABC123250814",
+            guestName = "John Doe",
+            guestDni = "1234567890",
+            guestEmail = "john@test.com",
+            guestPhone = "0999999999",
+            checkIn = LocalDate.now().plusDays(1),
+            checkOut = LocalDate.now().plusDays(3),
+            status = BookingStatus.PENDING
         )
 
-        `when`(bookingRepository.findById(1L))
-            .thenReturn(Optional.of(booking))
+        val bookingDetail = BookingDetail(booking, room, 2, BigDecimal("50.00"))
+        booking.bookingDetails.add(bookingDetail)
 
-        val result = service.getById(1L)
-
-        assertEquals("confirmed", result.status)
-        assertEquals(LocalDate.of(2025, 3, 5), result.checkIn)
-        assertEquals(LocalDate.of(2025, 3, 10), result.checkOut)
-    }
-
-    @Test
-    fun `should throw NotFoundException when booking not found by id`() {
-        `when`(bookingRepository.findById(99L))
-            .thenReturn(Optional.empty())
-
-        val exception = assertThrows<NotFoundException> {
-            service.getById(99L)
-        }
-
-        assertEquals("Reserva con id 99 no encontrada", exception.message)
-    }
-
-    @Test
-    fun `should save a booking`() {
-        val user = User("Bob", "1111111111", "bob@puce.edu.ec", "0977777777")
-        val booking = Booking(
-            user = user,
-            checkIn = LocalDate.of(2025, 4, 1),
-            checkOut = LocalDate.of(2025, 4, 5),
-            status = "pending"
-        )
-
-        `when`(bookingRepository.save(booking))
-            .thenReturn(booking)
+        `when`(bookingRepository.existsConflictingBooking(
+            listOf(1L),
+            booking.checkIn,
+            booking.checkOut,
+            listOf(BookingStatus.CANCELLED)
+        )).thenReturn(false)
+        `when`(bookingRepository.save(booking)).thenReturn(booking)
 
         val savedBooking = service.save(booking)
 
-        assertEquals("pending", savedBooking.status)
-        assertEquals(user, savedBooking.user)
+        assertEquals("John Doe", savedBooking.guestName)
+        verify(bookingRepository).save(booking)
     }
 
     @Test
-    fun `should delete a booking by id`() {
-        `when`(bookingRepository.existsById(5L))
-            .thenReturn(true)
+    fun `should throw ValidationException when guest name is blank`() {
+        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4, "test@hotel.com").apply { id = 1L }
+        val room = Room(hotel, "101", "Single", BigDecimal("50.00"), true).apply { id = 1L }
 
-        service.delete(5L)
+        val booking = Booking(
+            bookingCode = "NKS-ABC123250814",
+            guestName = "",
+            guestDni = "1234567890",
+            guestEmail = "john@test.com",
+            checkIn = LocalDate.now().plusDays(1),
+            checkOut = LocalDate.now().plusDays(3),
+            status = BookingStatus.PENDING
+        )
 
-        verify(bookingRepository).deleteById(5L)
-    }
+        val bookingDetail = BookingDetail(booking, room, 2, BigDecimal("50.00"))
+        booking.bookingDetails.add(bookingDetail)
 
-    @Test
-    fun `should throw NotFoundException when deleting non-existent booking`() {
-        `when`(bookingRepository.existsById(88L))
-            .thenReturn(false)
-
-        val exception = assertThrows<NotFoundException> {
-            service.delete(88L)
+        val exception = assertThrows<ValidationException> {
+            service.save(booking)
         }
 
-        assertEquals("Reserva con id 88 no encontrada", exception.message)
-        verify(bookingRepository, never()).deleteById(anyLong())
+        assertEquals("El nombre del huésped es requerido", exception.message)
+        verify(bookingRepository, never()).save(any())
+    }
+
+    @Test
+    fun `should throw ValidationException when DNI is invalid`() {
+        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4, "test@hotel.com").apply { id = 1L }
+        val room = Room(hotel, "101", "Single", BigDecimal("50.00"), true).apply { id = 1L }
+
+        val booking = Booking(
+            bookingCode = "NKS-ABC123250814",
+            guestName = "John Doe",
+            guestDni = "123456789", // Solo 9 dígitos
+            guestEmail = "john@test.com",
+            checkIn = LocalDate.now().plusDays(1),
+            checkOut = LocalDate.now().plusDays(3),
+            status = BookingStatus.PENDING
+        )
+
+        val bookingDetail = BookingDetail(booking, room, 2, BigDecimal("50.00"))
+        booking.bookingDetails.add(bookingDetail)
+
+        val exception = assertThrows<ValidationException> {
+            service.save(booking)
+        }
+
+        assertEquals("El DNI debe tener exactamente 10 dígitos", exception.message)
+        verify(bookingRepository, never()).save(any())
+    }
+
+    @Test
+    fun `should throw ValidationException when email is invalid`() {
+        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4, "test@hotel.com").apply { id = 1L }
+        val room = Room(hotel, "101", "Single", BigDecimal("50.00"), true).apply { id = 1L }
+
+        val booking = Booking(
+            bookingCode = "NKS-ABC123250814",
+            guestName = "John Doe",
+            guestDni = "1234567890",
+            guestEmail = "invalid-email",
+            checkIn = LocalDate.now().plusDays(1),
+            checkOut = LocalDate.now().plusDays(3),
+            status = BookingStatus.PENDING
+        )
+
+        val bookingDetail = BookingDetail(booking, room, 2, BigDecimal("50.00"))
+        booking.bookingDetails.add(bookingDetail)
+
+        val exception = assertThrows<ValidationException> {
+            service.save(booking)
+        }
+
+        assertEquals("El formato del email es inválido", exception.message)
+        verify(bookingRepository, never()).save(any())
+    }
+
+    @Test
+    fun `should throw ValidationException when check-in is in the past`() {
+        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4, "test@hotel.com").apply { id = 1L }
+        val room = Room(hotel, "101", "Single", BigDecimal("50.00"), true).apply { id = 1L }
+
+        val booking = Booking(
+            bookingCode = "NKS-ABC123250814",
+            guestName = "John Doe",
+            guestDni = "1234567890",
+            guestEmail = "john@test.com",
+            checkIn = LocalDate.now().minusDays(1), // Ayer
+            checkOut = LocalDate.now().plusDays(1),
+            status = BookingStatus.PENDING
+        )
+
+        val bookingDetail = BookingDetail(booking, room, 2, BigDecimal("50.00"))
+        booking.bookingDetails.add(bookingDetail)
+
+        val exception = assertThrows<ValidationException> {
+            service.save(booking)
+        }
+
+        assertEquals("La fecha de check-in no puede ser en el pasado", exception.message)
+        verify(bookingRepository, never()).save(any())
+    }
+
+    @Test
+    fun `should throw ValidationException when check-out is before check-in`() {
+        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4, "test@hotel.com").apply { id = 1L }
+        val room = Room(hotel, "101", "Single", BigDecimal("50.00"), true).apply { id = 1L }
+
+        val booking = Booking(
+            bookingCode = "NKS-ABC123250814",
+            guestName = "John Doe",
+            guestDni = "1234567890",
+            guestEmail = "john@test.com",
+            checkIn = LocalDate.now().plusDays(3),
+            checkOut = LocalDate.now().plusDays(1), // Antes del check-in
+            status = BookingStatus.PENDING
+        )
+
+        val bookingDetail = BookingDetail(booking, room, 2, BigDecimal("50.00"))
+        booking.bookingDetails.add(bookingDetail)
+
+        val exception = assertThrows<ValidationException> {
+            service.save(booking)
+        }
+
+        assertEquals("La fecha de check-out debe ser posterior a la fecha de check-in", exception.message)
+        verify(bookingRepository, never()).save(any())
+    }
+
+    @Test
+    fun `should throw ValidationException when stay is longer than 30 days`() {
+        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4, "test@hotel.com").apply { id = 1L }
+        val room = Room(hotel, "101", "Single", BigDecimal("50.00"), true).apply { id = 1L }
+
+        val booking = Booking(
+            bookingCode = "NKS-ABC123250814",
+            guestName = "John Doe",
+            guestDni = "1234567890",
+            guestEmail = "john@test.com",
+            checkIn = LocalDate.now().plusDays(1),
+            checkOut = LocalDate.now().plusDays(32), // 31 días
+            status = BookingStatus.PENDING
+        )
+
+        val bookingDetail = BookingDetail(booking, room, 2, BigDecimal("50.00"))
+        booking.bookingDetails.add(bookingDetail)
+
+        val exception = assertThrows<ValidationException> {
+            service.save(booking)
+        }
+
+        assertEquals("La estadía no puede ser mayor a 30 días", exception.message)
+        verify(bookingRepository, never()).save(any())
+    }
+
+    @Test
+    fun `should throw ConflictException when room is not available`() {
+        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4, "test@hotel.com").apply { id = 1L }
+        val room = Room(hotel, "101", "Single", BigDecimal("50.00"), false).apply { id = 1L } // No disponible
+
+        val booking = Booking(
+            bookingCode = "NKS-ABC123250814",
+            guestName = "John Doe",
+            guestDni = "1234567890",
+            guestEmail = "john@test.com",
+            checkIn = LocalDate.now().plusDays(1),
+            checkOut = LocalDate.now().plusDays(3),
+            status = BookingStatus.PENDING
+        )
+
+        val bookingDetail = BookingDetail(booking, room, 2, BigDecimal("50.00"))
+        booking.bookingDetails.add(bookingDetail)
+
+        `when`(bookingRepository.existsConflictingBooking(
+            listOf(1L),
+            booking.checkIn,
+            booking.checkOut,
+            listOf(BookingStatus.CANCELLED)
+        )).thenReturn(false)
+
+        val exception = assertThrows<ConflictException> {
+            service.save(booking)
+        }
+
+        assertEquals("La habitación 101 no está disponible", exception.message)
+        verify(bookingRepository, never()).save(any())
+    }
+
+    @Test
+    fun `should throw ConflictException when there are conflicting bookings`() {
+        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4, "test@hotel.com").apply { id = 1L }
+        val room = Room(hotel, "101", "Single", BigDecimal("50.00"), true).apply { id = 1L }
+
+        val booking = Booking(
+            bookingCode = "NKS-ABC123250814",
+            guestName = "John Doe",
+            guestDni = "1234567890",
+            guestEmail = "john@test.com",
+            checkIn = LocalDate.now().plusDays(1),
+            checkOut = LocalDate.now().plusDays(3),
+            status = BookingStatus.PENDING
+        )
+
+        val bookingDetail = BookingDetail(booking, room, 2, BigDecimal("50.00"))
+        booking.bookingDetails.add(bookingDetail)
+
+        `when`(bookingRepository.existsConflictingBooking(
+            listOf(1L),
+            booking.checkIn,
+            booking.checkOut,
+            listOf(BookingStatus.CANCELLED)
+        )).thenReturn(true)
+
+        val exception = assertThrows<ConflictException> {
+            service.save(booking)
+        }
+
+        assertTrue(exception.message!!.contains("Una o más habitaciones no están disponibles para las fechas seleccionadas"))
+        verify(bookingRepository, never()).save(any())
+    }
+
+    @Test
+    fun `should throw ValidationException when guests number is invalid`() {
+        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4, "test@hotel.com").apply { id = 1L }
+        val room = Room(hotel, "101", "Single", BigDecimal("50.00"), true).apply { id = 1L }
+
+        val booking = Booking(
+            bookingCode = "NKS-ABC123250814",
+            guestName = "John Doe",
+            guestDni = "1234567890",
+            guestEmail = "john@test.com",
+            checkIn = LocalDate.now().plusDays(1),
+            checkOut = LocalDate.now().plusDays(3),
+            status = BookingStatus.PENDING
+        )
+
+        val bookingDetail = BookingDetail(booking, room, 0, BigDecimal("50.00")) // 0 huéspedes
+        booking.bookingDetails.add(bookingDetail)
+
+        val exception = assertThrows<ValidationException> {
+            service.save(booking)
+        }
+
+        assertEquals("El número de huéspedes debe ser mayor a 0", exception.message)
+        verify(bookingRepository, never()).save(any())
+    }
+
+    @Test
+    fun `should cancel booking successfully`() {
+        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4, "test@hotel.com").apply { id = 1L }
+        val room = Room(hotel, "101", "Single", BigDecimal("50.00"), true).apply { id = 1L }
+
+        val existingBooking = Booking(
+            bookingCode = "NKS-ABC123250814",
+            guestName = "John Doe",
+            guestDni = "1234567890",
+            guestEmail = "john@test.com",
+            checkIn = LocalDate.now().plusDays(1),
+            checkOut = LocalDate.now().plusDays(3),
+            status = BookingStatus.CONFIRMED
+        ).apply { id = 1L }
+
+        val bookingDetail = BookingDetail(existingBooking, room, 2, BigDecimal("50.00"))
+        existingBooking.bookingDetails.add(bookingDetail)
+
+        `when`(bookingRepository.findByBookingCodeAndGuestDni("NKS-ABC123250814", "1234567890"))
+            .thenReturn(Optional.of(existingBooking))
+        `when`(bookingRepository.save(any<Booking>())).thenAnswer { it.arguments[0] }
+
+        val cancelledBooking = service.cancelBooking("NKS-ABC123250814", "1234567890")
+
+        assertEquals(BookingStatus.CANCELLED, cancelledBooking.status)
+        verify(bookingRepository).save(any<Booking>())
+    }
+
+    @Test
+    fun `should throw ConflictException when trying to cancel already cancelled booking`() {
+        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4, "test@hotel.com").apply { id = 1L }
+        val room = Room(hotel, "101", "Single", BigDecimal("50.00"), true).apply { id = 1L }
+
+        val existingBooking = Booking(
+            bookingCode = "NKS-ABC123250814",
+            guestName = "John Doe",
+            guestDni = "1234567890",
+            guestEmail = "john@test.com",
+            checkIn = LocalDate.now().plusDays(1),
+            checkOut = LocalDate.now().plusDays(3),
+            status = BookingStatus.CANCELLED // Ya cancelada
+        ).apply { id = 1L }
+
+        `when`(bookingRepository.findByBookingCodeAndGuestDni("NKS-ABC123250814", "1234567890"))
+            .thenReturn(Optional.of(existingBooking))
+
+        val exception = assertThrows<ConflictException> {
+            service.cancelBooking("NKS-ABC123250814", "1234567890")
+        }
+
+        assertEquals("La reserva ya está cancelada", exception.message)
+        verify(bookingRepository, never()).save(any())
     }
 }

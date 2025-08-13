@@ -41,7 +41,7 @@ class SecurityConfig(
                     .requestMatchers(HttpMethod.GET, "/api/bookings/code/**").permitAll()
                     .requestMatchers(HttpMethod.PUT, "/api/bookings/code/*/cancel").permitAll()
 
-                    // Todo lo demás requiere admin
+                    // Todo los demás requieren admin
                     .anyRequest().hasRole("ADMIN")
             }
             .addFilterBefore(supabaseJwtFilter, UsernamePasswordAuthenticationFilter::class.java)
@@ -86,15 +86,12 @@ class SupabaseJwtFilter(
 
     private fun isValidToken(token: String): Boolean {
         return try {
-            // Validación básica: verificar que el token tenga la estructura JWT
             val parts = token.split(".")
             if (parts.size != 3) return false
 
-            // Decodificar header y payload para verificar estructura
             val header = String(Base64.getUrlDecoder().decode(parts[0]))
             val payload = String(Base64.getUrlDecoder().decode(parts[1]))
 
-            // Verificaciones básicas
             header.contains("\"typ\":\"JWT\"") && payload.contains("\"sub\":")
         } catch (ex: Exception) {
             false

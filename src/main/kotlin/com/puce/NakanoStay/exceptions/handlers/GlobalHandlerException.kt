@@ -16,9 +16,13 @@ class GlobalExceptionHandler {
     fun handleBadRequest(ex: BadRequestException): ResponseEntity<Map<String, String>> =
         ResponseEntity(mapOf("error" to ex.message.orEmpty()), HttpStatus.BAD_REQUEST)
 
-    @ExceptionHandler(HandleUnauthorizedException::class)
-    fun handleUnauthorized(ex: HandleUnauthorizedException): ResponseEntity<Map<String, String>> =
-        ResponseEntity(mapOf("error" to ex.message.orEmpty()), HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(ConflictException::class)
+    fun handleConflict(ex: ConflictException): ResponseEntity<Map<String, String>> =
+        ResponseEntity(mapOf("error" to ex.message.orEmpty()), HttpStatus.CONFLICT)
+
+    @ExceptionHandler(ValidationException::class)
+    fun handleValidation(ex: ValidationException): ResponseEntity<Map<String, String>> =
+        ResponseEntity(mapOf("error" to ex.message.orEmpty()), HttpStatus.BAD_REQUEST)
 
     @ExceptionHandler(Exception::class)
     fun handleGeneric(ex: Exception): ResponseEntity<Map<String, String>> =

@@ -1,11 +1,12 @@
 package com.puce.NakanoStay.services
 
+import com.puce.NakanoStay.exceptions.ConflictException
 import com.puce.NakanoStay.exceptions.NotFoundException
+import com.puce.NakanoStay.exceptions.ValidationException
 import com.puce.NakanoStay.models.entities.Room
 import com.puce.NakanoStay.repositories.RoomRepository
 import org.springframework.stereotype.Service
-
-import java.util.*
+import java.math.BigDecimal
 
 @Service
 class RoomService(private val roomRepository: RoomRepository) {
@@ -19,12 +20,20 @@ class RoomService(private val roomRepository: RoomRepository) {
             NotFoundException("Habitación con id $id no encontrada")
         }
 
-    fun save(room: Room): Room = roomRepository.save(room)
+    fun save(room: Room): Room {
+        validateRoom(room)
+        validateUniqueConstraints(room)
+        return roomRepository.save(room)
+    }
 
     fun update(id: Long, room: Room): Room {
         if (!roomRepository.existsById(id)) {
             throw NotFoundException("Habitación con id $id no encontrada")
         }
+
+        validateRoom(room)
+        validateUniqueConstraintsForUpdate(room, id)
+
         val updatedRoom = Room(
             hotel = room.hotel,
             roomNumber = room.roomNumber,
@@ -41,5 +50,49 @@ class RoomService(private val roomRepository: RoomRepository) {
             throw NotFoundException("Habitación con id $id no encontrada")
         }
         roomRepository.deleteById(id)
+    }
+
+    private fun validateRoom(room: Room) {
+        if (room.roomNumber.isBlank()) {
+            throw ValidationException("El número de habitación es requerido")
+        }
+        if (room.roomNumber.length > 10) {
+            throw ValidationException("El número de habitación no puede tener más de 10 caracteres")
+        }
+
+        room.roomType?.let { roomType ->
+            if (roomType.isBlank()) {
+                throw ValidationException("El tipo de habitación no puede estar vacío")
+            }
+            if (roomType.length > 50) {
+                throw ValidationException("El tipo de habitación no puede tener más de 50 caracteres")
+            }
+        }
+
+        if (room.pricePerNight < BigDecimal.ZERO) {
+            throw ValidationException("El precio por noche no puede ser negativo")
+        }
+        if (room.pricePerNight.scale() > 2) {
+            throw ValidationException("El precio por noche no puede tener más de 2 decimales")
+        }
+        if (room.pricePerNight.precision() > 10) {
+            throw ValidationException("El precio por noche es demasiado grande")
+        }
+
+        if (room.hotel.id == 0L) {
+            throw ValidationException("El hotel asociado a la habitación es requerido")
+        }
+    }
+
+    private fun validateUniqueConstraints(room: Room) {
+        if (roomRepository.existsByHotelIdAndRoomNumber(room.hotel.id, room.roomNumber)) {
+            throw ConflictException("Ya existe una habitación con el número '${room.roomNumber}' en este hotel")
+        }
+    }
+
+    private fun validateUniqueConstraintsForUpdate(room: Room, id: Long) {
+        if (roomRepository.existsByHotelIdAndRoomNumberAndIdNot(room.hotel.id, room.roomNumber, id)) {
+            throw ConflictException("Ya existe otra habitación con el número '${room.roomNumber}' en este hotel")
+        }
     }
 }

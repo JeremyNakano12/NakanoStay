@@ -14,7 +14,7 @@
             padding: 20px;
         }
         .header {
-            background-color: #e74c3c;
+            background-color: #FFB6C1;
             color: white;
             padding: 20px;
             text-align: center;
@@ -77,7 +77,8 @@
 </head>
 <body>
 <div class="header">
-    <h1>🏨 Nueva Reserva Recibida</h1>
+    <img src="https://imgur.com/ESpW19O.png" style="max-height: 160px; display: block; margin-left: auto; margin-right: auto;" />
+    <h1>Nueva Reserva Recibida</h1>
     <p>Sistema de Gestión NakanoStay</p>
 </div>
 
@@ -90,7 +91,7 @@
         <h3 class="section-title">Detalles de la Reserva</h3>
         <div class="info-row">
             <span class="info-label">ID de Reserva:</span>
-            <span th:text="${booking.id}"></span>
+            <span th:text="${booking.bookingCode}"></span>
         </div>
         <div class="info-row">
             <span class="info-label">Fecha de Reserva:</span>
@@ -118,19 +119,19 @@
         <h3 class="section-title">Información del Cliente</h3>
         <div class="info-row">
             <span class="info-label">Nombre Completo:</span>
-            <span th:text="${user.name}"></span>
+            <span th:text="${booking.guestName}"></span>
         </div>
         <div class="info-row">
             <span class="info-label">Cédula de Identidad:</span>
-            <span th:text="${user.dni}"></span>
+            <span th:text="${booking.guestDni}"></span>
         </div>
         <div class="info-row">
             <span class="info-label">Email de Contacto:</span>
-            <span th:text="${user.email}"></span>
+            <span th:text="${booking.guestEmail}"></span>
         </div>
-        <div class="info-row" th:if="${user.phone}">
+        <div class="info-row" th:if="${booking.guestPhone}">
             <span class="info-label">Teléfono:</span>
-            <span th:text="${user.phone}"></span>
+            <span th:text="${booking.guestPhone}"></span>
         </div>
     </div>
 
@@ -186,7 +187,7 @@
         </ul>
     </div>
 
-    <p>Esta es una notificación automática del sistema NakanoStay. No responda a este correo.</p>
+    <p>Esta es una notificación automática del sistema. No responda a este correo.</p>
 
     <p>Saludos,<br>
         <strong>Sistema de Gestión NakanoStay</strong></p>

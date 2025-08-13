@@ -4,6 +4,5 @@ import java.math.BigDecimal
 
 data class BookingDetailRequest(
     val roomId: Long,
-    val guests: Int,
-    val priceAtBooking: BigDecimal
+    val guests: Int
 )

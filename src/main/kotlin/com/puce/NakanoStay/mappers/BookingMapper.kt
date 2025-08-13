@@ -43,13 +43,15 @@ fun BookingRequest.toEntity(bookingCode: String, rooms: List<Room>): Booking {
         status = BookingStatus.valueOf(this.status)
     )
 
+    val numberOfNights = this.checkIn.until(this.checkOut).days.toLong()
+
     val details = this.details.map { detail ->
         val room = rooms.first { it.id == detail.roomId }
         BookingDetail(
             booking = booking,
             room = room,
             guests = detail.guests,
-            priceAtBooking = detail.priceAtBooking
+            priceAtBooking = room.pricePerNight.multiply(numberOfNights.toBigDecimal())
         )
     }
 
