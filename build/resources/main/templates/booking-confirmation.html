@@ -70,14 +70,14 @@
 <body>
 <div class="header">
 
-    <h1>¡Reserva Confirmada!</h1>
+    <h1>¡Reserva recibida!</h1>
     <p>Gracias por elegirnos.</p>
     <img src="https://imgur.com/ESpW19O.png" style="max-height: 160px; display: block; margin-left: auto; margin-right: auto;" />
 </div>
 
 <div class="content">
     <h2>Estimado/a <span th:text="${booking.guestName}"></span>,</h2>
-    <p>Su reserva con código <span th:text="${booking.bookingCode}"></span> ha sido confirmada exitosamente. A continuación encontrará todos los detalles:</p>
+    <p>Su reserva con código <span th:text="${booking.bookingCode}"></span> ha sido recibida exitosamente. A continuación encontrará todos los detalles:</p>
 
     <div class="booking-info">
         <h3 class="section-title">Información de la Reserva</h3>
@@ -139,7 +139,7 @@
         </div>
         <div class="info-row" th:if="${hotel.stars}">
             <span class="info-label">Estrellas:</span>
-            <span th:text="${hotel.stars} + ' ⭐'"></span>
+            <span th:text="${hotel.stars}"></span>
         </div>
     </div>
 

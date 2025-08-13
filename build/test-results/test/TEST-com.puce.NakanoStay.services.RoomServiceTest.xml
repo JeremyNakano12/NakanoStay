@@ -1,13 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.puce.NakanoStay.services.RoomServiceTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2025-08-13T00:22:41.488Z" hostname="JEREMYNAKANO" time="0.053">
+<testsuite name="com.puce.NakanoStay.services.RoomServiceTest" tests="32" skipped="0" failures="0" errors="0" timestamp="2025-08-13T19:56:10.849Z" hostname="JEREMYNAKANO" time="0.084">
   <properties/>
-  <testcase name="should throw NotFoundException when room not found by id()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.044"/>
+  <testcase name="should throw ValidationException when updating with invalid data()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.044"/>
+  <testcase name="should throw ValidationException when room type is empty()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.001"/>
+  <testcase name="should throw NotFoundException when room not found by id()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.002"/>
+  <testcase name="should save a valid room()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.001"/>
+  <testcase name="should update room with null room type()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.001"/>
   <testcase name="should return all rooms()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.001"/>
-  <testcase name="should get a room by id()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.001"/>
-  <testcase name="should get rooms by hotel id()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.001"/>
-  <testcase name="should throw NotFoundException when deleting non-existent room()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.002"/>
-  <testcase name="should delete a room by id()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.001"/>
-  <testcase name="should save a room()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.001"/>
+  <testcase name="should delete room successfully()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.0"/>
+  <testcase name="should get a room by id()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.0"/>
+  <testcase name="should make room available successfully()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.001"/>
+  <testcase name="should return empty list when hotel has no rooms()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.001"/>
+  <testcase name="should throw NotFoundException when making non-existent room available()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.001"/>
+  <testcase name="should save unavailable room()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.001"/>
+  <testcase name="should throw ValidationException when hotel id is zero()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.001"/>
+  <testcase name="should throw ConflictException when updating with duplicate room number()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.001"/>
+  <testcase name="should return empty list when no rooms exist()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.001"/>
+  <testcase name="should throw ValidationException when price has more than 2 decimals()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.001"/>
+  <testcase name="should throw ValidationException when room number is too long()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.001"/>
+  <testcase name="should throw NotFoundException when updating non-existent room()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.001"/>
+  <testcase name="should throw ValidationException when room type is too long()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.001"/>
+  <testcase name="should throw ConflictException when room number already exists in hotel()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.002"/>
+  <testcase name="should throw NotFoundException when making non-existent room unavailable()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.001"/>
+  <testcase name="should throw ConflictException when making already available room available()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.002"/>
+  <testcase name="should make room unavailable successfully()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.001"/>
+  <testcase name="should throw ValidationException when price has more than 10 digits()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.002"/>
+  <testcase name="should update room successfully()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.001"/>
+  <testcase name="should throw NotFoundException when deleting non-existent room()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.001"/>
+  <testcase name="should get rooms by hotel()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.0"/>
+  <testcase name="should save room with null room type()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.0"/>
+  <testcase name="should throw ValidationException when room number is blank()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.002"/>
+  <testcase name="should throw ConflictException when making already unavailable room unavailable()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.002"/>
+  <testcase name="should throw ValidationException when price is negative()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.001"/>
+  <testcase name="should save room with zero price()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

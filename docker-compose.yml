@@ -25,7 +25,8 @@ services:
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: admin
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
-      
+      EMAIL_USERNAME: ${EMAIL_USERNAME:-MailUsername}
+      EMAIL_PASSWORD: ${EMAIL_PASSWORD:-MailPassword}
       # JPA/Hibernate configuration
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_JPA_SHOW_SQL: true

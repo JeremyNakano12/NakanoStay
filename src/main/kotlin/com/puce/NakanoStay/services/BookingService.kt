@@ -10,6 +10,7 @@ import com.puce.NakanoStay.repositories.BookingRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDate
+import java.time.temporal.ChronoUnit
 
 @Service
 class BookingService(
@@ -220,7 +221,7 @@ class BookingService(
             throw ValidationException("La fecha de check-out debe ser posterior a la fecha de check-in")
         }
 
-        val daysBetween = booking.checkIn.until(booking.checkOut).days
+        val daysBetween = ChronoUnit.DAYS.between(booking.checkIn, booking.checkOut)
         if (daysBetween > 30) {
             throw ValidationException("La estadía no puede ser mayor a 30 días")
         }
