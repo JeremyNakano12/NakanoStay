@@ -4,6 +4,7 @@ import com.puce.NakanoStay.exceptions.ConflictException
 import com.puce.NakanoStay.exceptions.NotFoundException
 import com.puce.NakanoStay.exceptions.ValidationException
 import com.puce.NakanoStay.models.entities.Room
+import com.puce.NakanoStay.models.enums.BookingStatus
 import com.puce.NakanoStay.repositories.RoomRepository
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
@@ -43,6 +44,54 @@ class RoomService(private val roomRepository: RoomRepository) {
         )
         updatedRoom.id = id
         return roomRepository.save(updatedRoom)
+    }
+
+    fun unavailableRoom(id: Long): Room {
+        val room = getById(id)
+        if (!roomRepository.existsById(id)) {
+            throw NotFoundException("Habitación con id $id no encontrada")
+        }
+
+        if (!room.isAvailable) {
+            throw ConflictException("La habitación no está disponible")
+        }
+
+        validateRoom(room)
+        validateUniqueConstraintsForUpdate(room, id)
+
+        val updatedRoom = Room(
+            hotel = room.hotel,
+            roomNumber = room.roomNumber,
+            roomType = room.roomType,
+            pricePerNight = room.pricePerNight,
+            isAvailable = false
+        )
+        updatedRoom.id = id
+        return roomRepository.save(updatedRoom)
+    }
+
+    fun availableRoom(id: Long): Room {
+        val room = getById(id)
+        if (!roomRepository.existsById(id)) {
+            throw NotFoundException("Habitación con id $id no encontrada")
+        }
+
+        if (room.isAvailable) {
+            throw ConflictException("La habitación ya está disponible")
+        }
+
+        validateRoom(room)
+        validateUniqueConstraintsForUpdate(room, id)
+
+        val availableRoom = Room(
+            hotel = room.hotel,
+            roomNumber = room.roomNumber,
+            roomType = room.roomType,
+            pricePerNight = room.pricePerNight,
+            isAvailable = true
+        )
+        availableRoom.id = id
+        return roomRepository.save(availableRoom)
     }
 
     fun delete(id: Long) {

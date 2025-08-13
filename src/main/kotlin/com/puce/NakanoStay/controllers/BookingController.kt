@@ -73,6 +73,30 @@ class BookingController(
         return ResponseEntity.ok(cancelledBooking.toResponse())
     }
 
+    @PutMapping("/code/{code}/confirm")
+    fun confirmBooking(
+        @PathVariable code: String,
+        @RequestParam dni: String
+    ): ResponseEntity<BookingResponse> {
+        val confirmedBooking = bookingService.confirmBooking(code, dni)
+
+        emailService.sendBookingLastConfirmation(confirmedBooking)
+
+        return ResponseEntity.ok(confirmedBooking.toResponse())
+    }
+
+    @PutMapping("/code/{code}/complete")
+    fun completeBooking(
+        @PathVariable code: String,
+        @RequestParam dni: String
+    ): ResponseEntity<BookingResponse> {
+        val completedBooking = bookingService.completeBooking(code, dni)
+
+        emailService.sendBookingCompletedNotification(completedBooking)
+
+        return ResponseEntity.ok(completedBooking.toResponse())
+    }
+
     @DeleteMapping(Routes.DELETE + Routes.ID)
     fun delete(@PathVariable id: Long): ResponseEntity<Void> {
         bookingService.delete(id)

@@ -66,6 +66,74 @@ class BookingService(
         return bookingRepository.save(cancelledBooking)
     }
 
+    @Transactional
+    fun confirmBooking(bookingCode: String, guestDni: String): Booking {
+        val booking = getByCodeAndDni(bookingCode, guestDni)
+
+        if (booking.status == BookingStatus.CONFIRMED) {
+            throw ConflictException("La reserva ya está confirmada")
+        }
+
+        if (booking.status == BookingStatus.CANCELLED) {
+            throw ConflictException("No se puede confirmar una reserva cancelada")
+        }
+
+        if (booking.status == BookingStatus.COMPLETED) {
+            throw ConflictException("No se puede confirmar una reserva completada")
+        }
+
+        val confirmedBooking = Booking(
+            bookingCode = booking.bookingCode,
+            guestName = booking.guestName,
+            guestDni = booking.guestDni,
+            guestEmail = booking.guestEmail,
+            guestPhone = booking.guestPhone,
+            bookingDate = booking.bookingDate,
+            checkIn = booking.checkIn,
+            checkOut = booking.checkOut,
+            status = BookingStatus.CONFIRMED
+        )
+
+        confirmedBooking.id = booking.id
+        confirmedBooking.bookingDetails.addAll(booking.bookingDetails)
+
+        return bookingRepository.save(confirmedBooking)
+    }
+
+    @Transactional
+    fun completeBooking(bookingCode: String, guestDni: String): Booking {
+        val booking = getByCodeAndDni(bookingCode, guestDni)
+
+        if (booking.status == BookingStatus.COMPLETED) {
+            throw ConflictException("La reserva ya está completada")
+        }
+
+        if (booking.status == BookingStatus.PENDING) {
+            throw ConflictException("No se puede completar una reserva no confirmada")
+        }
+
+        if (booking.status == BookingStatus.CANCELLED) {
+            throw ConflictException("No se puede completar una reserva cancelada")
+        }
+
+        val completedBooking = Booking(
+            bookingCode = booking.bookingCode,
+            guestName = booking.guestName,
+            guestDni = booking.guestDni,
+            guestEmail = booking.guestEmail,
+            guestPhone = booking.guestPhone,
+            bookingDate = booking.bookingDate,
+            checkIn = booking.checkIn,
+            checkOut = booking.checkOut,
+            status = BookingStatus.COMPLETED
+        )
+
+        completedBooking.id = booking.id
+        completedBooking.bookingDetails.addAll(booking.bookingDetails)
+
+        return bookingRepository.save(completedBooking)
+    }
+
     fun delete(id: Long) {
         if (!bookingRepository.existsById(id)) {
             throw NotFoundException("Reserva con id $id no encontrada")
@@ -160,7 +228,7 @@ class BookingService(
 
     private fun validateRoomAvailability(booking: Booking) {
         val roomIds = booking.bookingDetails.map { it.room.id }
-        
+
         val hasConflict = bookingRepository.existsConflictingBooking(
             roomIds = roomIds,
             checkIn = booking.checkIn,

@@ -177,4 +177,134 @@ class EmailService(
             throw RuntimeException("Error al enviar notificación de cancelación al hotel: ${e.message}", e)
         }
     }
+
+    fun sendBookingLastConfirmation(booking: Booking) {
+        try {
+            logger.info("Iniciando envío de correo de última confirmación para reserva código: ${booking.bookingCode}")
+
+            if (booking.bookingDetails.isEmpty()) {
+                throw RuntimeException("La reserva no tiene detalles de habitaciones")
+            }
+
+            val hotel = booking.bookingDetails.firstOrNull()?.room?.hotel
+                ?: throw RuntimeException("No se pudo obtener información del hotel")
+
+            logger.info("Enviando correo a huésped: ${booking.guestEmail}")
+            sendUserBookingConfirmation(booking)
+
+            logger.info("Enviando correo a hotel: ${hotel.email}")
+            sendHotelBookingConfirmation(booking, hotel.email)
+
+            logger.info("Correos enviados exitosamente para reserva código: ${booking.bookingCode}")
+
+        } catch (e: Exception) {
+            logger.error("Error al enviar correo de confirmación para reserva código: ${booking.bookingCode}", e)
+            throw RuntimeException("Error al enviar correo de confirmación: ${e.message}", e)
+        }
+    }
+
+    private fun sendUserBookingConfirmation(booking: Booking) {
+        try {
+            val mimeMessage = mailSender.createMimeMessage()
+            val helper = MimeMessageHelper(mimeMessage, true, "UTF-8")
+
+            val context = Context().apply {
+                setVariable("booking", booking)
+                setVariable("hotel", booking.bookingDetails.firstOrNull()?.room?.hotel)
+                setVariable("totalGuests", booking.bookingDetails.sumOf { it.guests })
+            }
+
+            val htmlContent = templateEngine.process("booking-confirmed-guest", context)
+
+            helper.setTo(booking.guestEmail)
+            helper.setSubject("Reserva confirmada - NakanoStay")
+            helper.setText(htmlContent, true)
+            helper.setFrom("noreply@nakanostay.com")
+
+            mailSender.send(mimeMessage)
+
+            logger.info("Correo de última confirmación enviado exitosamente a: ${booking.guestEmail}")
+
+        } catch (e: Exception) {
+            logger.error("Error al enviar correo al huésped: ${booking.guestEmail}", e)
+            throw RuntimeException("Error al enviar correo al huésped: ${e.message}", e)
+        }
+    }
+
+    private fun sendHotelBookingConfirmation(booking: Booking, hotelEmail: String) {
+        try {
+            val mimeMessage = mailSender.createMimeMessage()
+            val helper = MimeMessageHelper(mimeMessage, true, "UTF-8")
+
+            val context = Context().apply {
+                setVariable("booking", booking)
+                setVariable("hotel", booking.bookingDetails.firstOrNull()?.room?.hotel)
+                setVariable("totalGuests", booking.bookingDetails.sumOf { it.guests })
+            }
+
+            val htmlContent = templateEngine.process("booking-confirmed-hotel", context)
+
+            helper.setTo(hotelEmail)
+            helper.setSubject("Nueva Reserva Confirmada - NakanoStay")
+            helper.setText(htmlContent, true)
+            helper.setFrom("noreply@nakanostay.com")
+
+            mailSender.send(mimeMessage)
+
+            logger.info("Notificación enviada exitosamente al hotel: $hotelEmail")
+
+        } catch (e: Exception) {
+            logger.error("Error al enviar notificación al hotel: $hotelEmail", e)
+            throw RuntimeException("Error al enviar notificación al hotel: ${e.message}", e)
+        }
+    }
+
+    fun sendBookingCompletedNotification(booking: Booking) {
+        try {
+            logger.info("Iniciando envío de correo de reserva completada para código: ${booking.bookingCode}")
+
+            if (booking.bookingDetails.isEmpty()) {
+                throw RuntimeException("La reserva no tiene detalles de habitaciones")
+            }
+
+            val hotel = booking.bookingDetails.firstOrNull()?.room?.hotel
+                ?: throw RuntimeException("No se pudo obtener información del hotel")
+
+            logger.info("Enviando correo a huésped: ${booking.guestEmail}")
+            sendUserCompletedBooking(booking)
+
+            logger.info("Correos enviados exitosamente para reserva código: ${booking.bookingCode}")
+
+        } catch (e: Exception) {
+            logger.error("Error al enviar correo de reserva completada para código: ${booking.bookingCode}", e)
+            throw RuntimeException("Error al enviar correo de confirmación: ${e.message}", e)
+        }
+    }
+
+    private fun sendUserCompletedBooking(booking: Booking) {
+        try {
+            val mimeMessage = mailSender.createMimeMessage()
+            val helper = MimeMessageHelper(mimeMessage, true, "UTF-8")
+
+            val context = Context().apply {
+                setVariable("booking", booking)
+                setVariable("hotel", booking.bookingDetails.firstOrNull()?.room?.hotel)
+            }
+
+            val htmlContent = templateEngine.process("booking-completed-guest", context)
+
+            helper.setTo(booking.guestEmail)
+            helper.setSubject("Reserva completada - NakanoStay")
+            helper.setText(htmlContent, true)
+            helper.setFrom("noreply@nakanostay.com")
+
+            mailSender.send(mimeMessage)
+
+            logger.info("Correo de reserva completada enviado exitosamente a: ${booking.guestEmail}")
+
+        } catch (e: Exception) {
+            logger.error("Error al enviar correo al huésped: ${booking.guestEmail}", e)
+            throw RuntimeException("Error al enviar correo al huésped: ${e.message}", e)
+        }
+    }
 }

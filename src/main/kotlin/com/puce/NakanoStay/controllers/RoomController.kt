@@ -2,6 +2,7 @@ package com.puce.NakanoStay.controllers
 
 import com.puce.NakanoStay.mappers.*
 import com.puce.NakanoStay.models.requests.RoomRequest
+import com.puce.NakanoStay.models.responses.BookingResponse
 import com.puce.NakanoStay.models.responses.RoomResponse
 import com.puce.NakanoStay.routes.Routes
 import com.puce.NakanoStay.services.HotelService
@@ -42,6 +43,18 @@ class RoomController(
         val room = request.toEntity(hotel)
         val updatedRoom = roomService.update(id, room)
         return ResponseEntity.ok(updatedRoom.toResponse())
+    }
+
+    @PutMapping("/{id}/available")
+    fun available(@PathVariable id: Long): ResponseEntity<RoomResponse> {
+        val availableRoom = roomService.availableRoom(id)
+        return ResponseEntity.ok(availableRoom.toResponse())
+    }
+
+    @PutMapping("/{id}/unavailable")
+    fun unavailable(@PathVariable id: Long): ResponseEntity<RoomResponse> {
+        val unavailableRoom = roomService.unavailableRoom(id)
+        return ResponseEntity.ok(unavailableRoom.toResponse())
     }
 
     @DeleteMapping(Routes.DELETE + Routes.ID)
