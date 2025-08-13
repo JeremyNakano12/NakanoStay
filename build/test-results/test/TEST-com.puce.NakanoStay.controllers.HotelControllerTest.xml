@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.puce.NakanoStay.controllers.HotelControllerTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-08-13T00:22:40.304Z" hostname="JEREMYNAKANO" time="0.063">
+  <properties/>
+  <testcase name="should delete hotel when delete by id()" classname="com.puce.NakanoStay.controllers.HotelControllerTest" time="0.014"/>
+  <testcase name="should return 404 when get hotel by non-existent id()" classname="com.puce.NakanoStay.controllers.HotelControllerTest" time="0.007"/>
+  <testcase name="should create hotel when post()" classname="com.puce.NakanoStay.controllers.HotelControllerTest" time="0.022"/>
+  <testcase name="should return all hotels when get all()" classname="com.puce.NakanoStay.controllers.HotelControllerTest" time="0.01"/>
+  <testcase name="should return hotel when get by id()" classname="com.puce.NakanoStay.controllers.HotelControllerTest" time="0.008"/>
+  <system-out><![CDATA[2025-08-12T19:22:40.073-05:00  INFO 8120 --- [NakanoStay] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.puce.NakanoStay.controllers.HotelControllerTest]: HotelControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-08-12T19:22:40.080-05:00  INFO 8120 --- [NakanoStay] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.puce.NakanoStay.NakanoStayApplication for test class com.puce.NakanoStay.controllers.HotelControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.0)
+
+2025-08-12T19:22:40.105-05:00  INFO 8120 --- [NakanoStay] [    Test worker] c.p.N.controllers.HotelControllerTest    : Starting HotelControllerTest using Java 21.0.7 with PID 8120 (started by Jeremy in C:\Users\Jeremy\OneDrive\Documentos\Programming\Spring\NakanoStay)
+2025-08-12T19:22:40.105-05:00  INFO 8120 --- [NakanoStay] [    Test worker] c.p.N.controllers.HotelControllerTest    : No active profile set, falling back to 1 default profile: "default"
+2025-08-12T19:22:40.297-05:00  INFO 8120 --- [NakanoStay] [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2025-08-12T19:22:40.298-05:00  INFO 8120 --- [NakanoStay] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-08-12T19:22:40.298-05:00  INFO 8120 --- [NakanoStay] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2025-08-12T19:22:40.302-05:00  INFO 8120 --- [NakanoStay] [    Test worker] c.p.N.controllers.HotelControllerTest    : Started HotelControllerTest in 0.219 seconds (process running for 9.032)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

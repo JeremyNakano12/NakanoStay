@@ -55,7 +55,7 @@ class RoomControllerTest {
 
     @Test
     fun `should return all rooms when get all`() {
-        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4)
+        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4, "test@hotel.com")
         val rooms = listOf(
             Room(hotel, "101", "Single", BigDecimal("50.00"), true),
             Room(hotel, "201", "Double", BigDecimal("80.00"), false)
@@ -80,7 +80,7 @@ class RoomControllerTest {
 
     @Test
     fun `should return rooms by hotel when get by hotel id`() {
-        val hotel = Hotel("Beach Resort", "Beach Address", "Coastal City", 5)
+        val hotel = Hotel("Beach Resort", "Beach Address", "Coastal City", 5, "beach@resort.com")
         val rooms = listOf(
             Room(hotel, "301", "Suite", BigDecimal("150.00"), true),
             Room(hotel, "302", "Suite", BigDecimal("150.00"), true)
@@ -103,7 +103,7 @@ class RoomControllerTest {
 
     @Test
     fun `should create room when post`() {
-        val hotel = Hotel("Mountain Lodge", "Mountain Road", "Highland", 3)
+        val hotel = Hotel("Mountain Lodge", "Mountain Road", "Highland", 3, "mountain@lodge.com")
         val request = RoomRequest(
             hotelId = 1L,
             roomNumber = "A5",

@@ -2,7 +2,6 @@ package com.puce.NakanoStay.services
 
 import com.puce.NakanoStay.exceptions.NotFoundException
 import com.puce.NakanoStay.models.entities.Booking
-import com.puce.NakanoStay.models.entities.User
 import com.puce.NakanoStay.repositories.BookingDetailRepository
 import com.puce.NakanoStay.repositories.BookingRepository
 import java.time.LocalDate

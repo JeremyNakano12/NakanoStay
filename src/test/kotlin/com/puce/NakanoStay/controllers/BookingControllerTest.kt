@@ -7,16 +7,16 @@ import com.puce.NakanoStay.exceptions.NotFoundException
 import com.puce.NakanoStay.models.entities.Booking
 import com.puce.NakanoStay.models.entities.Hotel
 import com.puce.NakanoStay.models.entities.Room
-import com.puce.NakanoStay.models.entities.User
 import com.puce.NakanoStay.models.requests.BookingDetailRequest
 import com.puce.NakanoStay.models.requests.BookingRequest
 import com.puce.NakanoStay.routes.Routes
 import com.puce.NakanoStay.services.BookingService
+import com.puce.NakanoStay.services.EmailService
 import com.puce.NakanoStay.services.RoomService
-import com.puce.NakanoStay.services.UserService
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.any
+import org.mockito.kotlin.doNothing
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
@@ -50,6 +50,9 @@ class BookingControllerTest {
     @Autowired
     private lateinit var roomService: RoomService
 
+    @Autowired
+    private lateinit var emailService: EmailService
+
     private lateinit var objectMapper: ObjectMapper
 
     @BeforeEach
@@ -57,6 +60,9 @@ class BookingControllerTest {
         objectMapper = ObjectMapper()
             .registerModule(JavaTimeModule())
             .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+
+        // Configurar el mock del EmailService para que no haga nada
+        doNothing().`when`(emailService).sendBookingConfirmation(any())
     }
 
     val BASE_URL = Routes.BASE_URL + Routes.BOOKINGS
@@ -136,7 +142,7 @@ class BookingControllerTest {
     @Test
     fun `should create booking when post`() {
         val user = User("Bob Johnson", "1111111111", "bob@puce.edu.ec", "0977777777")
-        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4)
+        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4, "test@hotel.com")
         val room = Room(hotel, "101", "Single", BigDecimal("50.00"), true)
 
         val detailRequest = BookingDetailRequest(
@@ -270,4 +276,7 @@ class BookingMockConfig {
 
     @Bean
     fun roomService(): RoomService = mock(RoomService::class.java)
+
+    @Bean
+    fun emailService(): EmailService = mock(EmailService::class.java)
 }

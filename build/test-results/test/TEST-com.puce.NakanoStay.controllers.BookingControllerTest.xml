@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.puce.NakanoStay.controllers.BookingControllerTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2025-08-13T00:22:39.540Z" hostname="JEREMYNAKANO" time="0.529">
+  <properties/>
+  <testcase name="should return 404 when user not found for booking creation()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.331"/>
+  <testcase name="should return 404 when room not found for booking creation()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.015"/>
+  <testcase name="should delete booking when delete by id()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.048"/>
+  <testcase name="should return 404 when get booking by non-existent id()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.009"/>
+  <testcase name="should return booking when get by id()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.096"/>
+  <testcase name="should return all bookings when get all()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.012"/>
+  <testcase name="should create booking when post()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.011"/>
+  <system-out><![CDATA[2025-08-12T19:22:38.965-05:00  INFO 8120 --- [NakanoStay] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.puce.NakanoStay.controllers.BookingControllerTest]: BookingControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-08-12T19:22:39.003-05:00  INFO 8120 --- [NakanoStay] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.puce.NakanoStay.NakanoStayApplication for test class com.puce.NakanoStay.controllers.BookingControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.0)
+
+2025-08-12T19:22:39.030-05:00  INFO 8120 --- [NakanoStay] [    Test worker] c.p.N.controllers.BookingControllerTest  : Starting BookingControllerTest using Java 21.0.7 with PID 8120 (started by Jeremy in C:\Users\Jeremy\OneDrive\Documentos\Programming\Spring\NakanoStay)
+2025-08-12T19:22:39.030-05:00  INFO 8120 --- [NakanoStay] [    Test worker] c.p.N.controllers.BookingControllerTest  : No active profile set, falling back to 1 default profile: "default"
+2025-08-12T19:22:39.513-05:00  INFO 8120 --- [NakanoStay] [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2025-08-12T19:22:39.514-05:00  INFO 8120 --- [NakanoStay] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-08-12T19:22:39.515-05:00  INFO 8120 --- [NakanoStay] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2025-08-12T19:22:39.536-05:00  INFO 8120 --- [NakanoStay] [    Test worker] c.p.N.controllers.BookingControllerTest  : Started BookingControllerTest in 0.53 seconds (process running for 8.266)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

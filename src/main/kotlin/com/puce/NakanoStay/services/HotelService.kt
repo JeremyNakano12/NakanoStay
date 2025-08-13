@@ -18,6 +18,21 @@ class HotelService(private val hotelRepository: HotelRepository) {
 
     fun save(hotel: Hotel): Hotel = hotelRepository.save(hotel)
 
+    fun update(id: Long, hotel: Hotel): Hotel {
+        if (!hotelRepository.existsById(id)) {
+            throw NotFoundException("Hotel con id $id no encontrado")
+        }
+        val updatedHotel = Hotel(
+            name = hotel.name,
+            address = hotel.address,
+            city = hotel.city,
+            stars = hotel.stars,
+            email = hotel.email
+        )
+        updatedHotel.id = id
+        return hotelRepository.save(updatedHotel)
+    }
+
     fun delete(id: Long) {
         if (!hotelRepository.existsById(id)) {
             throw NotFoundException("Hotel con id $id no encontrado")

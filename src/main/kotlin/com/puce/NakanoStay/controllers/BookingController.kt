@@ -5,9 +5,11 @@ import com.puce.NakanoStay.models.entities.BookingDetail
 import com.puce.NakanoStay.models.requests.BookingRequest
 import com.puce.NakanoStay.models.responses.BookingResponse
 import com.puce.NakanoStay.routes.Routes
+import com.puce.NakanoStay.services.BookingCodeService
 import com.puce.NakanoStay.services.BookingService
+import com.puce.NakanoStay.services.EmailService
 import com.puce.NakanoStay.services.RoomService
-import com.puce.NakanoStay.services.UserService
+import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import com.puce.NakanoStay.mappers.*
@@ -16,8 +18,9 @@ import com.puce.NakanoStay.mappers.*
 @RequestMapping(Routes.BASE_URL + Routes.BOOKINGS)
 class BookingController(
     private val bookingService: BookingService,
-    private val userService: UserService,
-    private val roomService: RoomService
+    private val roomService: RoomService,
+    private val emailService: EmailService,
+    private val bookingCodeService: BookingCodeService
 ) {
 
     @GetMapping
@@ -32,38 +35,42 @@ class BookingController(
         return ResponseEntity.ok(booking.toResponse())
     }
 
+    @GetMapping("/code/{code}")
+    fun getByCode(
+        @PathVariable code: String,
+        @RequestParam dni: String
+    ): ResponseEntity<BookingResponse> {
+        val booking = bookingService.getByCodeAndDni(code, dni)
+        return ResponseEntity.ok(booking.toResponse())
+    }
+
     @PostMapping
-    fun create(@RequestBody request: BookingRequest): ResponseEntity<BookingResponse> {
-        val user = userService.getById(request.userId)
+    fun create(@Valid @RequestBody request: BookingRequest): ResponseEntity<BookingResponse> {
+        val bookingCode = bookingCodeService.generateUniqueBookingCode()
 
-        // Crea el booking
-        val booking = Booking(
-            user = user,
-            checkIn = request.checkIn,
-            checkOut = request.checkOut,
-            status = request.status
-        )
-
-        // Guarda primero el booking para obtener el ID
-        val savedBooking = bookingService.save(booking)
-
-        // Crea los detalles con el booking ya guardado
-        val details = request.details.map { detailReq ->
-            val room = roomService.getById(detailReq.roomId)
-            BookingDetail(
-                booking = savedBooking,
-                room = room,
-                guests = detailReq.guests,
-                priceAtBooking = detailReq.priceAtBooking
-            )
+        val rooms = request.details.map { detail ->
+            roomService.getById(detail.roomId)
         }
 
-        // Agrega los detalles a la colección
-        savedBooking.bookingDetails.addAll(details)
+        val booking = request.toEntity(bookingCode, rooms)
 
-        // Guarda nuevamente para persistir los detalles
-        val finalBooking = bookingService.save(savedBooking)
-        return ResponseEntity.ok(finalBooking.toResponse())
+        val savedBooking = bookingService.save(booking)
+
+        emailService.sendBookingConfirmation(savedBooking)
+
+        return ResponseEntity.ok(savedBooking.toResponse())
+    }
+
+    @PutMapping("/code/{code}/cancel")
+    fun cancelBooking(
+        @PathVariable code: String,
+        @RequestParam dni: String
+    ): ResponseEntity<BookingResponse> {
+        val cancelledBooking = bookingService.cancelBooking(code, dni)
+
+        emailService.sendCancellationNotification(cancelledBooking)
+
+        return ResponseEntity.ok(cancelledBooking.toResponse())
     }
 
     @DeleteMapping(Routes.DELETE + Routes.ID)

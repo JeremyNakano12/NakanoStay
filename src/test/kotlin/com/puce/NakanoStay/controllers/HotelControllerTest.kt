@@ -51,8 +51,8 @@ class HotelControllerTest {
     @Test
     fun `should return all hotels when get all`() {
         val hotels = listOf(
-            Hotel("Grand Palace", "123 Main St", "Quito", 5),
-            Hotel("Budget Inn", "456 Side St", "Guayaquil", 3)
+            Hotel("Grand Palace", "123 Main St", "Quito", 5, "grand@palace.com"),
+            Hotel("Budget Inn", "456 Side St", "Guayaquil", 3, "budget@inn.com")
         )
 
         `when`(hotelService.getAll()).thenReturn(hotels)
@@ -63,9 +63,11 @@ class HotelControllerTest {
                 jsonPath("$[0].name") { value("Grand Palace") }
                 jsonPath("$[0].city") { value("Quito") }
                 jsonPath("$[0].stars") { value(5) }
+                jsonPath("$[0].email") { value("grand@palace.com") }
                 jsonPath("$[1].name") { value("Budget Inn") }
                 jsonPath("$[1].city") { value("Guayaquil") }
                 jsonPath("$[1].stars") { value(3) }
+                jsonPath("$[1].email") { value("budget@inn.com") }
             }.andReturn()
 
         assertEquals(200, result.response.status)
@@ -73,7 +75,7 @@ class HotelControllerTest {
 
     @Test
     fun `should return hotel when get by id`() {
-        val hotel = Hotel("Luxury Resort", "789 Beach Ave", "Manta", 4)
+        val hotel = Hotel("Luxury Resort", "789 Beach Ave", "Manta", 4, "luxury@resort.com")
 
         `when`(hotelService.getById(1L)).thenReturn(hotel)
 
@@ -84,6 +86,7 @@ class HotelControllerTest {
                 jsonPath("$.address") { value("789 Beach Ave") }
                 jsonPath("$.city") { value("Manta") }
                 jsonPath("$.stars") { value(4) }
+                jsonPath("$.email") { value("luxury@resort.com") }
             }.andReturn()
 
         assertEquals(200, result.response.status)
@@ -110,14 +113,16 @@ class HotelControllerTest {
             name = "New Hotel",
             address = "999 New Street",
             city = "Cuenca",
-            stars = 4
+            stars = 4,
+            email = "new@hotel.com"
         )
 
         val hotel = Hotel(
             name = request.name,
             address = request.address,
             city = request.city,
-            stars = request.stars
+            stars = request.stars,
+            email = request.email
         )
 
         `when`(hotelService.save(hotel)).thenReturn(hotel)
@@ -133,6 +138,7 @@ class HotelControllerTest {
             jsonPath("$.address") { value("999 New Street") }
             jsonPath("$.city") { value("Cuenca") }
             jsonPath("$.stars") { value(4) }
+            jsonPath("$.email") { value("new@hotel.com") }
         }.andReturn()
 
         assertEquals(200, result.response.status)

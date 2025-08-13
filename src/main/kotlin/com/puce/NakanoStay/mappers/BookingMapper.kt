@@ -3,7 +3,7 @@ package com.puce.NakanoStay.mappers
 import com.puce.NakanoStay.models.entities.Booking
 import com.puce.NakanoStay.models.entities.BookingDetail
 import com.puce.NakanoStay.models.entities.Room
-import com.puce.NakanoStay.models.entities.User
+import com.puce.NakanoStay.models.enums.BookingStatus
 import com.puce.NakanoStay.models.requests.BookingRequest
 import com.puce.NakanoStay.models.responses.BookingDetailResponse
 import com.puce.NakanoStay.models.responses.BookingResponse
@@ -11,7 +11,12 @@ import com.puce.NakanoStay.models.responses.BookingResponse
 fun Booking.toResponse(): BookingResponse =
     BookingResponse(
         id = this.id,
-        userId = this.user.id,
+        bookingCode = this.bookingCode,
+        guestName = this.guestName,
+        guestDni = this.guestDni,
+        guestEmail = this.guestEmail,
+        guestPhone = this.guestPhone,
+        bookingDate = this.bookingDate,
         checkIn = this.checkIn,
         checkOut = this.checkOut,
         status = this.status,
@@ -26,12 +31,16 @@ fun BookingDetail.toResponse(): BookingDetailResponse =
         priceAtBooking = this.priceAtBooking
     )
 
-fun BookingRequest.toEntity(user: User, rooms: List<Room>): Booking {
+fun BookingRequest.toEntity(bookingCode: String, rooms: List<Room>): Booking {
     val booking = Booking(
-        user = user,
+        bookingCode = bookingCode,
+        guestName = this.guestName,
+        guestDni = this.guestDni,
+        guestEmail = this.guestEmail,
+        guestPhone = this.guestPhone,
         checkIn = this.checkIn,
         checkOut = this.checkOut,
-        status = this.status
+        status = BookingStatus.valueOf(this.status)
     )
 
     val details = this.details.map { detail ->
@@ -44,8 +53,6 @@ fun BookingRequest.toEntity(user: User, rooms: List<Room>): Booking {
         )
     }
 
-    // Agregar los detalles a la colección mutable
     booking.bookingDetails.addAll(details)
-
     return booking
 }

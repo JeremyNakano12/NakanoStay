@@ -27,13 +27,15 @@ class HotelServiceTest {
                 name = "Hotel Paradise",
                 address = "123 Main Street, Downtown",
                 city = "Quito",
-                stars = 5
+                stars = 5,
+                email = "paradise@hotel.com"
             ),
             Hotel(
                 name = "Budget Inn",
                 address = "456 Side Street, North Zone",
                 city = "Guayaquil",
-                stars = 3
+                stars = 3,
+                email = "budget@inn.com"
             )
         )
 
@@ -47,6 +49,8 @@ class HotelServiceTest {
         assertEquals("Budget Inn", result[1].name)
         assertEquals(5, result[0].stars)
         assertEquals(3, result[1].stars)
+        assertEquals("paradise@hotel.com", result[0].email)
+        assertEquals("budget@inn.com", result[1].email)
     }
 
     @Test
@@ -55,7 +59,8 @@ class HotelServiceTest {
             name = "Grand Hotel",
             address = "789 Luxury Avenue, Historic Center",
             city = "Cuenca",
-            stars = 4
+            stars = 4,
+            email = "grand@hotel.com"
         )
 
         `when`(hotelRepository.findById(1L))
@@ -67,6 +72,7 @@ class HotelServiceTest {
         assertEquals("789 Luxury Avenue, Historic Center", result.address)
         assertEquals("Cuenca", result.city)
         assertEquals(4, result.stars)
+        assertEquals("grand@hotel.com", result.email)
     }
 
     @Test
@@ -87,7 +93,8 @@ class HotelServiceTest {
             name = "New Hotel",
             address = "999 New Street, Modern District",
             city = "Manta",
-            stars = 4
+            stars = 4,
+            email = "new@hotel.com"
         )
 
         `when`(hotelRepository.save(hotel))
@@ -99,6 +106,7 @@ class HotelServiceTest {
         assertEquals("999 New Street, Modern District", savedHotel.address)
         assertEquals("Manta", savedHotel.city)
         assertEquals(4, savedHotel.stars)
+        assertEquals("new@hotel.com", savedHotel.email)
     }
 
     @Test

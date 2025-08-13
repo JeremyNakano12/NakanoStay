@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.puce.NakanoStay.services.RoomServiceTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2025-08-13T00:22:41.488Z" hostname="JEREMYNAKANO" time="0.053">
+  <properties/>
+  <testcase name="should throw NotFoundException when room not found by id()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.044"/>
+  <testcase name="should return all rooms()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.001"/>
+  <testcase name="should get a room by id()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.001"/>
+  <testcase name="should get rooms by hotel id()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.001"/>
+  <testcase name="should throw NotFoundException when deleting non-existent room()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.002"/>
+  <testcase name="should delete a room by id()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.001"/>
+  <testcase name="should save a room()" classname="com.puce.NakanoStay.services.RoomServiceTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

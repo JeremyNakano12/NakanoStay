@@ -5,5 +5,6 @@ data class HotelResponse(
     val name: String,
     val address: String,
     val city: String?,
-    val stars: Int?
+    val stars: Int?,
+    val email: String
 )

@@ -8,7 +8,8 @@ fun HotelRequest.toEntity(): Hotel = Hotel(
         name = this.name,
         address = this.address,
         city = this.city,
-        stars = this.stars
+        stars = this.stars,
+        email = this.email
     )
 
 fun Hotel.toResponse(): HotelResponse = HotelResponse(
@@ -17,5 +18,6 @@ fun Hotel.toResponse(): HotelResponse = HotelResponse(
         address = this.address,
         city = this.city,
         stars = this.stars,
+        email = this.email
     )
 

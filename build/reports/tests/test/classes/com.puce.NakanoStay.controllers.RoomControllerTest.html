@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.986s</div>
+<div class="counter">0.069s</div>
 <p>duration</p>
 </div>
 </td>
@@ -66,9 +66,6 @@
 <li>
 <a href="#">Standard output</a>
 </li>
-<li>
-<a href="#">Standard error</a>
-</li>
 </ul>
 <div class="tab">
 <h2>Tests</h2>
@@ -82,27 +79,27 @@
 </thead>
 <tr>
 <td class="success">should create room when post()</td>
-<td class="success">0.140s</td>
+<td class="success">0.022s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">should delete room when delete by id()</td>
-<td class="success">0.034s</td>
+<td class="success">0.007s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">should return 404 when hotel not found for room creation()</td>
-<td class="success">0.052s</td>
+<td class="success">0.010s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">should return all rooms when get all()</td>
-<td class="success">0.734s</td>
+<td class="success">0.022s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">should return rooms by hotel when get by hotel id()</td>
-<td class="success">0.026s</td>
+<td class="success">0.008s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -110,8 +107,8 @@
 <div class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>21:30:48.933 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.puce.NakanoStay.controllers.RoomControllerTest]: RoomControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-21:30:49.457 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.puce.NakanoStay.NakanoStayApplication for test class com.puce.NakanoStay.controllers.RoomControllerTest
+<pre>2025-08-12T19:22:40.371-05:00  INFO 8120 --- [NakanoStay] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.puce.NakanoStay.controllers.RoomControllerTest]: RoomControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-08-12T19:22:40.376-05:00  INFO 8120 --- [NakanoStay] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.puce.NakanoStay.NakanoStayApplication for test class com.puce.NakanoStay.controllers.RoomControllerTest
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -122,23 +119,12 @@
 
  :: Spring Boot ::                (v3.5.0)
 
-2025-07-05T21:30:50.275-05:00  INFO 17385 --- [NakanoStay] [    Test worker] c.p.N.controllers.RoomControllerTest     : Starting RoomControllerTest using Java 21.0.7 with PID 17385 (started by jeremy-nakano in /home/jeremy-nakano/Documentos/NakanoStay)
-2025-07-05T21:30:50.280-05:00  INFO 17385 --- [NakanoStay] [    Test worker] c.p.N.controllers.RoomControllerTest     : No active profile set, falling back to 1 default profile: &quot;default&quot;
-2025-07-05T21:30:55.196-05:00  INFO 17385 --- [NakanoStay] [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2025-07-05T21:30:55.197-05:00  INFO 17385 --- [NakanoStay] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2025-07-05T21:30:55.202-05:00  INFO 17385 --- [NakanoStay] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
-2025-07-05T21:30:55.258-05:00  INFO 17385 --- [NakanoStay] [    Test worker] c.p.N.controllers.RoomControllerTest     : Started RoomControllerTest in 5.671 seconds (process running for 7.809)
-</pre>
-</span>
-</div>
-<div class="tab">
-<h2>Standard error</h2>
-<span class="code">
-<pre>Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
-WARNING: A Java agent has been loaded dynamically (/home/jeremy-nakano/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.17.5/58f9507f5f28d1d3e7adfb4ec2fe37c29d332c9b/byte-buddy-agent-1.17.5.jar)
-WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
-WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
-WARNING: Dynamic loading of agents will be disallowed by default in a future release
+2025-08-12T19:22:40.397-05:00  INFO 8120 --- [NakanoStay] [    Test worker] c.p.N.controllers.RoomControllerTest     : Starting RoomControllerTest using Java 21.0.7 with PID 8120 (started by Jeremy in C:\Users\Jeremy\OneDrive\Documentos\Programming\Spring\NakanoStay)
+2025-08-12T19:22:40.397-05:00  INFO 8120 --- [NakanoStay] [    Test worker] c.p.N.controllers.RoomControllerTest     : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2025-08-12T19:22:40.545-05:00  INFO 8120 --- [NakanoStay] [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2025-08-12T19:22:40.545-05:00  INFO 8120 --- [NakanoStay] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-08-12T19:22:40.545-05:00  INFO 8120 --- [NakanoStay] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2025-08-12T19:22:40.548-05:00  INFO 8120 --- [NakanoStay] [    Test worker] c.p.N.controllers.RoomControllerTest     : Started RoomControllerTest in 0.17 seconds (process running for 9.278)
 </pre>
 </span>
 </div>
@@ -150,7 +136,7 @@ WARNING: Dynamic loading of agents will be disallowed by default in a future rel
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="https://www.gradle.org">Gradle 8.14.2</a> at 5 jul 2025 21:30:56</p>
+<a href="https://www.gradle.org">Gradle 8.14.2</a> at Aug 12, 2025, 7:22:42 PM</p>
 </div>
 </div>
 </body>

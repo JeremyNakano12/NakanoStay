@@ -21,6 +21,21 @@ class RoomService(private val roomRepository: RoomRepository) {
 
     fun save(room: Room): Room = roomRepository.save(room)
 
+    fun update(id: Long, room: Room): Room {
+        if (!roomRepository.existsById(id)) {
+            throw NotFoundException("Habitación con id $id no encontrada")
+        }
+        val updatedRoom = Room(
+            hotel = room.hotel,
+            roomNumber = room.roomNumber,
+            roomType = room.roomType,
+            pricePerNight = room.pricePerNight,
+            isAvailable = room.isAvailable
+        )
+        updatedRoom.id = id
+        return roomRepository.save(updatedRoom)
+    }
+
     fun delete(id: Long) {
         if (!roomRepository.existsById(id)) {
             throw NotFoundException("Habitación con id $id no encontrada")
@@ -28,4 +43,3 @@ class RoomService(private val roomRepository: RoomRepository) {
         roomRepository.deleteById(id)
     }
 }
-

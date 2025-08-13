@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación de Reserva</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #FFB6C1;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+        .content {
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 0 0 8px 8px;
+        }
+        .booking-info {
+            background-color: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section-title {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .info-label {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .total {
+            background-color: #e8f5e8;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #27ae60;
+        }
+        .room-item {
+            background-color: #f1f2f6;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+
+    <h1>¡Reserva Confirmada!</h1>
+    <p>Gracias por elegirnos.</p>
+    <img src="https://imgur.com/ESpW19O.png" style="max-height: 160px; display: block; margin-left: auto; margin-right: auto;" />
+</div>
+
+<div class="content">
+    <h2>Estimado/a <span th:text="${booking.guestName}"></span>,</h2>
+    <p>Su reserva con código <span th:text="${booking.bookingCode}"></span> ha sido confirmada exitosamente. A continuación encontrará todos los detalles:</p>
+
+    <div class="booking-info">
+        <h3 class="section-title">Información de la Reserva</h3>
+        <div class="info-row">
+            <span class="info-label">Código de Reserva:</span>
+            <span th:text="${booking.bookingCode}"></span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Fecha de Check-in:</span>
+            <span th:text="${#temporals.format(booking.checkIn, 'dd/MM/yyyy')}"></span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Fecha de Check-out:</span>
+            <span th:text="${#temporals.format(booking.checkOut, 'dd/MM/yyyy')}"></span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Estado:</span>
+            <span th:text="${booking.status}"></span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Total de Huéspedes:</span>
+            <span th:text="${totalGuests}"></span>
+        </div>
+    </div>
+
+    <div class="booking-info">
+        <h3 class="section-title">Información del Huésped</h3>
+        <div class="info-row">
+            <span class="info-label">Nombre:</span>
+            <span th:text="${booking.guestName}"></span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Cédula:</span>
+            <span th:text="${booking.guestDni}"></span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Email:</span>
+            <span th:text="${booking.guestEmail}"></span>
+        </div>
+        <div class="info-row" th:if="${booking.guestPhone}">
+            <span class="info-label">Teléfono:</span>
+            <span th:text="${booking.guestPhone}"></span>
+        </div>
+    </div>
+
+    <div class="booking-info" th:if="${hotel}">
+        <h3 class="section-title">Información del Hotel</h3>
+        <div class="info-row">
+            <span class="info-label">Hotel:</span>
+            <span th:text="${hotel.name}"></span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Dirección:</span>
+            <span th:text="${hotel.address}"></span>
+        </div>
+        <div class="info-row" th:if="${hotel.city}">
+            <span class="info-label">Ciudad:</span>
+            <span th:text="${hotel.city}"></span>
+        </div>
+        <div class="info-row" th:if="${hotel.stars}">
+            <span class="info-label">Estrellas:</span>
+            <span th:text="${hotel.stars} + ' ⭐'"></span>
+        </div>
+    </div>
+
+    <div class="booking-info">
+        <h3 class="section-title">Habitaciones Reservadas</h3>
+        <div th:each="detail : ${booking.bookingDetails}" class="room-item">
+            <div class="info-row">
+                <span class="info-label">Habitación:</span>
+                <span th:text="${detail.room.roomNumber}"></span>
+            </div>
+            <div class="info-row" th:if="${detail.room.roomType}">
+                <span class="info-label">Tipo:</span>
+                <span th:text="${detail.room.roomType}"></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Huéspedes:</span>
+                <span th:text="${detail.guests}"></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Precio por noche:</span>
+                <span th:text="'$' + ${detail.priceAtBooking}"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="total">
+        Total de la Reserva: $<span th:text="${booking.total}"></span>
+    </div>
+
+    <p><strong>Nota importante:</strong> Por favor, conserve este correo o el código como comprobantes de su reserva. Preséntelos al momento del check-in.</p>
+
+    <p>Si tiene alguna pregunta o necesita modificar su reserva, no dude en contactarnos.</p>
+
+    <p>¡Esperamos verle pronto!</p>
+
+    <p>Saludos cordiales,<br>
+        <strong>Equipo NakanoStay</strong></p>
+</div>
+</body>
+</html>

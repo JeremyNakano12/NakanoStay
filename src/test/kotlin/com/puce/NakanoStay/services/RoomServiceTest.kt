@@ -24,7 +24,7 @@ class RoomServiceTest {
 
     @Test
     fun `should return all rooms`() {
-        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4)
+        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4, "test@hotel.com")
         val rooms = listOf(
             Room(
                 hotel = hotel,
@@ -58,7 +58,7 @@ class RoomServiceTest {
 
     @Test
     fun `should get rooms by hotel id`() {
-        val hotel = Hotel("Beach Hotel", "Beach Address", "Coastal City", 5)
+        val hotel = Hotel("Beach Hotel", "Beach Address", "Coastal City", 5, "beach@hotel.com")
         val rooms = listOf(
             Room(
                 hotel = hotel,
@@ -90,7 +90,7 @@ class RoomServiceTest {
 
     @Test
     fun `should get a room by id`() {
-        val hotel = Hotel("Mountain Hotel", "Mountain Address", "Highland City", 3)
+        val hotel = Hotel("Mountain Hotel", "Mountain Address", "Highland City", 3, "mountain@hotel.com")
         val room = Room(
             hotel = hotel,
             roomNumber = "A1",
@@ -124,7 +124,7 @@ class RoomServiceTest {
 
     @Test
     fun `should save a room`() {
-        val hotel = Hotel("City Hotel", "City Address", "Urban City", 4)
+        val hotel = Hotel("City Hotel", "City Address", "Urban City", 4, "city@hotel.com")
         val room = Room(
             hotel = hotel,
             roomNumber = "B5",

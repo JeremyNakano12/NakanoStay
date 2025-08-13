@@ -4,5 +4,6 @@ data class HotelRequest(
     val name: String,
     val address: String,
     val city: String? = null,
-    val stars: Int? = null
+    val stars: Int? = null,
+    val email: String
 )

@@ -36,10 +36,17 @@ class RoomController(
         return ResponseEntity.ok(savedRoom.toResponse())
     }
 
+    @PutMapping(Routes.ID)
+    fun update(@PathVariable id: Long, @RequestBody request: RoomRequest): ResponseEntity<RoomResponse> {
+        val hotel = hotelService.getById(request.hotelId)
+        val room = request.toEntity(hotel)
+        val updatedRoom = roomService.update(id, room)
+        return ResponseEntity.ok(updatedRoom.toResponse())
+    }
+
     @DeleteMapping(Routes.DELETE + Routes.ID)
     fun delete(@PathVariable id: Long): ResponseEntity<Void> {
         roomService.delete(id)
         return ResponseEntity.noContent().build()
     }
 }
-

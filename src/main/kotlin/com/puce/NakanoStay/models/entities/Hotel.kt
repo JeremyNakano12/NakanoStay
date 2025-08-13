@@ -18,4 +18,7 @@ data class Hotel(
     @Column
     val stars: Int? = null,
 
+    @Column(nullable = false, unique = true, length = 100)
+    val email: String
+
 ): BaseEntity()
