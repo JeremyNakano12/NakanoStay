@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.puce.NakanoStay.services.BookingCodeServiceTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2025-08-13T19:56:10.038Z" hostname="JEREMYNAKANO" time="0.137">
+<testsuite name="com.puce.NakanoStay.services.BookingCodeServiceTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2025-08-14T00:39:01.608Z" hostname="JEREMYNAKANO" time="0.161">
   <properties/>
-  <testcase name="should throw exception when unable to generate unique code after max attempts()" classname="com.puce.NakanoStay.services.BookingCodeServiceTest" time="0.127"/>
-  <testcase name="should include current date in generated code()" classname="com.puce.NakanoStay.services.BookingCodeServiceTest" time="0.002"/>
+  <testcase name="should throw exception when unable to generate unique code after max attempts()" classname="com.puce.NakanoStay.services.BookingCodeServiceTest" time="0.147"/>
+  <testcase name="should include current date in generated code()" classname="com.puce.NakanoStay.services.BookingCodeServiceTest" time="0.003"/>
   <testcase name="should retry when code already exists and then succeed()" classname="com.puce.NakanoStay.services.BookingCodeServiceTest" time="0.002"/>
   <testcase name="should generate codes with only valid characters()" classname="com.puce.NakanoStay.services.BookingCodeServiceTest" time="0.002"/>
   <testcase name="should generate different codes on multiple calls()" classname="com.puce.NakanoStay.services.BookingCodeServiceTest" time="0.002"/>

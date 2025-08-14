@@ -23,15 +23,12 @@ import org.junit.jupiter.api.Test
 import org.mockito.kotlin.any
 import org.mockito.kotlin.doNothing
 import org.mockito.kotlin.doThrow
-import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
-import org.springframework.boot.test.context.TestConfiguration
-import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Import
+import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.get
@@ -47,22 +44,21 @@ import kotlin.test.assertEquals
     controllers = [BookingController::class],
     excludeAutoConfiguration = [SecurityAutoConfiguration::class]
 )
-@Import(BookingMockConfig::class)
 class BookingControllerTest {
 
     @Autowired
     private lateinit var mockMvc: MockMvc
 
-    @Autowired
+    @MockBean
     private lateinit var bookingService: BookingService
 
-    @Autowired
+    @MockBean
     private lateinit var roomService: RoomService
 
-    @Autowired
+    @MockBean
     private lateinit var emailService: EmailService
 
-    @Autowired
+    @MockBean
     private lateinit var bookingCodeService: BookingCodeService
 
     private lateinit var objectMapper: ObjectMapper
@@ -93,11 +89,11 @@ class BookingControllerTest {
         val result = mockMvc.get(BASE_URL)
             .andExpect {
                 status { isOk() }
-                jsonPath("$[0].bookingCode") { value("NKS-ABC123250814") }
-                jsonPath("$[0].guestName") { value("John Doe") }
+                jsonPath("$[0].booking_code") { value("NKS-ABC123250814") }
+                jsonPath("$[0].guest_name") { value("John Doe") }
                 jsonPath("$[0].status") { value("CONFIRMED") }
-                jsonPath("$[1].bookingCode") { value("NKS-DEF456250814") }
-                jsonPath("$[1].guestName") { value("Jane Smith") }
+                jsonPath("$[1].booking_code") { value("NKS-DEF456250814") }
+                jsonPath("$[1].guest_name") { value("Jane Smith") }
                 jsonPath("$[1].status") { value("PENDING") }
             }.andReturn()
 
@@ -126,9 +122,9 @@ class BookingControllerTest {
         val result = mockMvc.get("$BASE_URL/1")
             .andExpect {
                 status { isOk() }
-                jsonPath("$.bookingCode") { value("NKS-XYZ789250814") }
-                jsonPath("$.guestName") { value("Alice Brown") }
-                jsonPath("$.guestDni") { value("1122334455") }
+                jsonPath("$.booking_code") { value("NKS-XYZ789250814") }
+                jsonPath("$.guest_name") { value("Alice Brown") }
+                jsonPath("$.guest_dni") { value("1122334455") }
                 jsonPath("$.status") { value("CONFIRMED") }
             }.andReturn()
 
@@ -144,9 +140,9 @@ class BookingControllerTest {
         val result = mockMvc.get("$BASE_URL/code/NKS-CODE123456?dni=1234567890")
             .andExpect {
                 status { isOk() }
-                jsonPath("$.bookingCode") { value("NKS-CODE123456") }
-                jsonPath("$.guestName") { value("Test User") }
-                jsonPath("$.guestDni") { value("1234567890") }
+                jsonPath("$.booking_code") { value("NKS-CODE123456") }
+                jsonPath("$.guest_name") { value("Test User") }
+                jsonPath("$.guest_dni") { value("1234567890") }
             }.andReturn()
 
         assertEquals(200, result.response.status)
@@ -210,8 +206,8 @@ class BookingControllerTest {
             content = json
         }.andExpect {
             status { isOk() }
-            jsonPath("$.bookingCode") { value("NKS-GENERATED123") }
-            jsonPath("$.guestName") { value("Bob Johnson") }
+            jsonPath("$.booking_code") { value("NKS-GENERATED123") }
+            jsonPath("$.guest_name") { value("Bob Johnson") }
             jsonPath("$.status") { value("PENDING") }
         }.andReturn()
 
@@ -236,7 +232,7 @@ class BookingControllerTest {
             details = listOf(detailRequest)
         )
 
-        val booking = createTestBooking("NKS-GENERATED456", request.guestName, request.guestDni, request.guestEmail, BookingStatus.PENDING)
+        val booking = createTestBookingWithPhone("NKS-GENERATED456", request.guestName, request.guestDni, request.guestEmail, BookingStatus.PENDING, null)
 
         `when`(bookingCodeService.generateUniqueBookingCode()).thenReturn("NKS-GENERATED456")
         `when`(roomService.getById(1L)).thenReturn(room)
@@ -249,9 +245,9 @@ class BookingControllerTest {
             content = json
         }.andExpect {
             status { isOk() }
-            jsonPath("$.bookingCode") { value("NKS-GENERATED456") }
-            jsonPath("$.guestName") { value("Charlie Brown") }
-            jsonPath("$.guestPhone") { value(null) }
+            jsonPath("$.booking_code") { value("NKS-GENERATED456") }
+            jsonPath("$.guest_name") { value("Charlie Brown") }
+            jsonPath("$.guest_phone") { value(null) }
         }.andReturn()
 
         assertEquals(200, result.response.status)
@@ -536,19 +532,38 @@ class BookingControllerTest {
         booking.bookingDetails.add(bookingDetail)
         return booking
     }
-}
 
-@TestConfiguration
-class BookingMockConfig {
-    @Bean
-    fun bookingService(): BookingService = mock(BookingService::class.java)
+    private fun createTestBookingWithPhone(
+        bookingCode: String,
+        guestName: String,
+        guestDni: String,
+        guestEmail: String,
+        status: BookingStatus,
+        guestPhone: String?
+    ): Booking {
+        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4, "test@hotel.com")
+        val room = Room(hotel, "101", "Single", BigDecimal("50.00"), true)
 
-    @Bean
-    fun roomService(): RoomService = mock(RoomService::class.java)
+        val booking = Booking(
+            bookingCode = bookingCode,
+            guestName = guestName,
+            guestDni = guestDni,
+            guestEmail = guestEmail,
+            guestPhone = guestPhone,
+            bookingDate = LocalDateTime.now(),
+            checkIn = LocalDate.of(2025, 3, 15),
+            checkOut = LocalDate.of(2025, 3, 20),
+            status = status
+        )
 
-    @Bean
-    fun emailService(): EmailService = mock(EmailService::class.java)
+        val bookingDetail = BookingDetail(
+            booking = booking,
+            room = room,
+            guests = 2,
+            priceAtBooking = BigDecimal("250.00")
+        )
 
-    @Bean
-    fun bookingCodeService(): BookingCodeService = mock(BookingCodeService::class.java)
+        booking.bookingDetails.add(bookingDetail)
+        return booking
+    }
 }

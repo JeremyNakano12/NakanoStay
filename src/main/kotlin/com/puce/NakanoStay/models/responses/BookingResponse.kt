@@ -1,10 +1,13 @@
 package com.puce.NakanoStay.models.responses
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies
+import com.fasterxml.jackson.databind.annotation.JsonNaming
 import com.puce.NakanoStay.models.enums.BookingStatus
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalDateTime
 
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class BookingResponse(
     val id: Long,
     val bookingCode: String,

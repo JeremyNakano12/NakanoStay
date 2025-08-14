@@ -14,19 +14,18 @@ import com.puce.NakanoStay.services.HotelService
 import com.puce.NakanoStay.services.RoomService
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
-import org.mockito.Mock
-import org.mockito.junit.jupiter.MockitoExtension
 import org.mockito.kotlin.any
 import org.mockito.kotlin.doNothing
 import org.mockito.kotlin.doThrow
 import org.mockito.kotlin.eq
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
+import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
-import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
 import org.springframework.test.web.servlet.put
@@ -34,23 +33,25 @@ import org.springframework.test.web.servlet.delete
 import java.math.BigDecimal
 import kotlin.test.assertEquals
 
-@ExtendWith(MockitoExtension::class, SpringExtension::class)
+@WebMvcTest(
+    controllers = [RoomController::class],
+    excludeAutoConfiguration = [SecurityAutoConfiguration::class]
+)
 class RoomControllerTest {
 
-    @Mock
+    @Autowired
+    private lateinit var mockMvc: MockMvc
+
+    @MockBean
     private lateinit var roomService: RoomService
 
-    @Mock
+    @MockBean
     private lateinit var hotelService: HotelService
 
-    private lateinit var mockMvc: MockMvc
     private lateinit var objectMapper: ObjectMapper
 
     @BeforeEach
     fun setup() {
-        val controller = RoomController(roomService, hotelService)
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build()
-
         objectMapper = ObjectMapper()
             .registerModule(JavaTimeModule())
             .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
@@ -71,14 +72,14 @@ class RoomControllerTest {
         val result = mockMvc.get(BASE_URL)
             .andExpect {
                 status { isOk() }
-                jsonPath("$[0].roomNumber") { value("101") }
-                jsonPath("$[0].roomType") { value("Single") }
-                jsonPath("$[0].pricePerNight") { value(50.00) }
-                jsonPath("$[0].isAvailable") { value(true) }
-                jsonPath("$[1].roomNumber") { value("201") }
-                jsonPath("$[1].roomType") { value("Double") }
-                jsonPath("$[1].pricePerNight") { value(80.00) }
-                jsonPath("$[1].isAvailable") { value(false) }
+                jsonPath("$[0].room_number") { value("101") }
+                jsonPath("$[0].room_type") { value("Single") }
+                jsonPath("$[0].price_per_night") { value(50.00) }
+                jsonPath("$[0].is_available") { value(true) }
+                jsonPath("$[1].room_number") { value("201") }
+                jsonPath("$[1].room_type") { value("Double") }
+                jsonPath("$[1].price_per_night") { value(80.00) }
+                jsonPath("$[1].is_available") { value(false) }
             }.andReturn()
 
         assertEquals(200, result.response.status)
@@ -110,11 +111,11 @@ class RoomControllerTest {
         val result = mockMvc.get("$BASE_URL/hotel/1")
             .andExpect {
                 status { isOk() }
-                jsonPath("$[0].roomNumber") { value("301") }
-                jsonPath("$[0].roomType") { value("Suite") }
-                jsonPath("$[0].pricePerNight") { value(150.00) }
-                jsonPath("$[1].roomNumber") { value("302") }
-                jsonPath("$[1].roomType") { value("Suite") }
+                jsonPath("$[0].room_number") { value("301") }
+                jsonPath("$[0].room_type") { value("Suite") }
+                jsonPath("$[0].price_per_night") { value(150.00) }
+                jsonPath("$[1].room_number") { value("302") }
+                jsonPath("$[1].room_type") { value("Suite") }
             }.andReturn()
 
         assertEquals(200, result.response.status)
@@ -162,10 +163,10 @@ class RoomControllerTest {
             content = json
         }.andExpect {
             status { isOk() }
-            jsonPath("$.roomNumber") { value("A5") }
-            jsonPath("$.roomType") { value("Deluxe") }
-            jsonPath("$.pricePerNight") { value(120.00) }
-            jsonPath("$.isAvailable") { value(true) }
+            jsonPath("$.room_number") { value("A5") }
+            jsonPath("$.room_type") { value("Deluxe") }
+            jsonPath("$.price_per_night") { value(120.00) }
+            jsonPath("$.is_available") { value(true) }
         }.andReturn()
 
         assertEquals(200, result.response.status)
@@ -200,10 +201,10 @@ class RoomControllerTest {
             content = json
         }.andExpect {
             status { isOk() }
-            jsonPath("$.roomNumber") { value("B1") }
-            jsonPath("$.roomType") { value(null) }
-            jsonPath("$.pricePerNight") { value(60.00) }
-            jsonPath("$.isAvailable") { value(true) }
+            jsonPath("$.room_number") { value("B1") }
+            jsonPath("$.room_type") { value(null) }
+            jsonPath("$.price_per_night") { value(60.00) }
+            jsonPath("$.is_available") { value(true) }
         }.andReturn()
 
         assertEquals(200, result.response.status)
@@ -218,10 +219,12 @@ class RoomControllerTest {
             pricePerNight = BigDecimal("75.00"),
             isAvailable = true
         )
+
         `when`(hotelService.getById(99L))
             .thenThrow(NotFoundException("Hotel con id 99 no encontrado"))
 
         val json = objectMapper.writeValueAsString(request)
+
         mockMvc.post(BASE_URL) {
             contentType = MediaType.APPLICATION_JSON
             content = json
@@ -241,11 +244,13 @@ class RoomControllerTest {
             pricePerNight = BigDecimal("75.00"),
             isAvailable = true
         )
+
         `when`(hotelService.getById(1L)).thenReturn(hotel)
         `when`(roomService.save(any()))
             .thenThrow(ValidationException("El número de habitación es requerido"))
 
         val json = objectMapper.writeValueAsString(request)
+
         mockMvc.post(BASE_URL) {
             contentType = MediaType.APPLICATION_JSON
             content = json
@@ -265,11 +270,13 @@ class RoomControllerTest {
             pricePerNight = BigDecimal("75.00"),
             isAvailable = true
         )
+
         `when`(hotelService.getById(1L)).thenReturn(hotel)
         `when`(roomService.save(any()))
             .thenThrow(ConflictException("Ya existe una habitación con el número '101' en este hotel"))
 
         val json = objectMapper.writeValueAsString(request)
+
         mockMvc.post(BASE_URL) {
             contentType = MediaType.APPLICATION_JSON
             content = json
@@ -307,10 +314,11 @@ class RoomControllerTest {
             content = json
         }.andExpect {
             status { isOk() }
-            jsonPath("$.roomNumber") { value("102") }
-            jsonPath("$.pricePerNight") { value(90.00) }
-            jsonPath("$.isAvailable") { value(false) }
+            jsonPath("$.room_number") { value("102") }
+            jsonPath("$.price_per_night") { value(90.00) }
+            jsonPath("$.is_available") { value(false) }
         }
+
         verify(roomService).update(eq(1L), any())
     }
 
@@ -366,26 +374,117 @@ class RoomControllerTest {
     }
 
     @Test
-    fun `should delete room when delete by id`() {
-        val roomId = 1L
-        doNothing().`when`(roomService).delete(roomId)
+    fun `should make room available when put available`() {
+        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4, "test@hotel.com")
+        val availableRoom = Room(hotel, "101", "Single", BigDecimal("50.00"), true).apply { id = 1L }
 
-        mockMvc.delete("$BASE_URL/$roomId")
+        `when`(roomService.availableRoom(1L)).thenReturn(availableRoom)
+
+        mockMvc.put("$BASE_URL/1/available")
             .andExpect {
                 status { isOk() }
+                jsonPath("$.is_available") { value(true) }
             }
-        verify(roomService).delete(roomId)
+
+        verify(roomService).availableRoom(1L)
+    }
+
+    @Test
+    fun `should return 404 when making non-existent room available`() {
+        `when`(roomService.availableRoom(99L))
+            .thenThrow(NotFoundException("Habitación con id 99 no encontrada"))
+
+        mockMvc.put("$BASE_URL/99/available")
+            .andExpect {
+                status { isNotFound() }
+                jsonPath("$.error") { value("Habitación con id 99 no encontrada") }
+            }
+    }
+
+    @Test
+    fun `should return 409 when making already available room available`() {
+        `when`(roomService.availableRoom(1L))
+            .thenThrow(ConflictException("La habitación ya está disponible"))
+
+        mockMvc.put("$BASE_URL/1/available")
+            .andExpect {
+                status { isConflict() }
+                jsonPath("$.error") { value("La habitación ya está disponible") }
+            }
+    }
+
+    @Test
+    fun `should make room unavailable when put unavailable`() {
+        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4, "test@hotel.com")
+        val unavailableRoom = Room(hotel, "101", "Single", BigDecimal("50.00"), false).apply { id = 1L }
+
+        `when`(roomService.unavailableRoom(1L)).thenReturn(unavailableRoom)
+
+        mockMvc.put("$BASE_URL/1/unavailable")
+            .andExpect {
+                status { isOk() }
+                jsonPath("$.is_available") { value(false) }
+            }
+
+        verify(roomService).unavailableRoom(1L)
+    }
+
+    @Test
+    fun `should return 404 when making non-existent room unavailable`() {
+        `when`(roomService.unavailableRoom(99L))
+            .thenThrow(NotFoundException("Habitación con id 99 no encontrada"))
+
+        mockMvc.put("$BASE_URL/99/unavailable")
+            .andExpect {
+                status { isNotFound() }
+                jsonPath("$.error") { value("Habitación con id 99 no encontrada") }
+            }
+    }
+
+    @Test
+    fun `should return 409 when making already unavailable room unavailable`() {
+        `when`(roomService.unavailableRoom(1L))
+            .thenThrow(ConflictException("La habitación no está disponible"))
+
+        mockMvc.put("$BASE_URL/1/unavailable")
+            .andExpect {
+                status { isConflict() }
+                jsonPath("$.error") { value("La habitación no está disponible") }
+            }
+    }
+
+    @Test
+    fun `should delete room when delete by id`() {
+        val result = mockMvc.delete("$BASE_URL/delete/1")
+            .andExpect {
+                status { isNoContent() }
+            }.andReturn()
+
+        verify(roomService).delete(1L)
+        assertEquals(204, result.response.status)
     }
 
     @Test
     fun `should return 404 when deleting non-existent room`() {
-        val roomId = 99L
-        doThrow(NotFoundException("Habitación con id $roomId no encontrada")).`when`(roomService).delete(roomId)
+        doThrow(NotFoundException("Habitación con id 99 no encontrada"))
+            .`when`(roomService).delete(99L)
 
-        mockMvc.delete("$BASE_URL/$roomId")
+        mockMvc.delete("$BASE_URL/delete/99")
             .andExpect {
                 status { isNotFound() }
                 jsonPath("$.error") { value("Habitación con id 99 no encontrada") }
+            }
+    }
+
+    @Test
+    fun `should return 500 when unexpected error occurs`() {
+        `when`(roomService.getAll())
+            .thenThrow(RuntimeException("Database connection error"))
+
+        mockMvc.get(BASE_URL)
+            .andExpect {
+                status { isInternalServerError() }
+                jsonPath("$.error") { value("Unexpected error: Database connection error") }
             }
     }
 }

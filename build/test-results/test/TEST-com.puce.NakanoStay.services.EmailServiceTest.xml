@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.puce.NakanoStay.services.EmailServiceTest" tests="17" skipped="0" failures="0" errors="0" timestamp="2025-08-13T19:56:10.261Z" hostname="JEREMYNAKANO" time="0.482">
+<testsuite name="com.puce.NakanoStay.services.EmailServiceTest" tests="17" skipped="0" failures="0" errors="0" timestamp="2025-08-14T00:39:01.850Z" hostname="JEREMYNAKANO" time="0.455">
   <properties/>
-  <testcase name="should send booking completed notification successfully()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.226"/>
-  <testcase name="should handle mail sending error()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.019"/>
+  <testcase name="should send booking completed notification successfully()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.231"/>
+  <testcase name="should handle mail sending error()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.02"/>
   <testcase name="should throw exception when cancellation booking has no details()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.005"/>
-  <testcase name="should handle completed mail sending error()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.015"/>
-  <testcase name="should send booking last confirmation successfully()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.009"/>
-  <testcase name="should throw exception when last confirmation booking has no details()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.005"/>
+  <testcase name="should handle completed mail sending error()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.012"/>
+  <testcase name="should send booking last confirmation successfully()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.01"/>
+  <testcase name="should throw exception when last confirmation booking has no details()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.006"/>
   <testcase name="should handle template processing error()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.013"/>
-  <testcase name="should handle booking with multiple rooms()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.009"/>
-  <testcase name="should handle last confirmation mail sending error()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.012"/>
-  <testcase name="should send email to correct recipients()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.009"/>
-  <testcase name="should throw exception when booking has no details()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.005"/>
-  <testcase name="should throw exception when completed booking has no details()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.005"/>
+  <testcase name="should handle booking with multiple rooms()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.008"/>
+  <testcase name="should handle last confirmation mail sending error()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.013"/>
+  <testcase name="should send email to correct recipients()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.008"/>
+  <testcase name="should throw exception when booking has no details()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.004"/>
+  <testcase name="should throw exception when completed booking has no details()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.006"/>
   <testcase name="should send cancellation notification successfully()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.009"/>
-  <testcase name="should handle cancellation mail sending error()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.013"/>
-  <testcase name="should throw exception when hotel is null()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.092"/>
-  <testcase name="should process correct templates for user and hotel()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.011"/>
-  <testcase name="should send booking confirmation successfully()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.02"/>
-  <system-out><![CDATA[2025-08-13T14:56:10.451-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Iniciando envío de correo de reserva completada para código: NKS-TEST123456
-2025-08-13T14:56:10.451-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo a huésped: john@test.com
-2025-08-13T14:56:10.487-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Correo de reserva completada enviado exitosamente a: john@test.com
-2025-08-13T14:56:10.487-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Correos enviados exitosamente para reserva código: NKS-TEST123456
-2025-08-13T14:56:10.489-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Iniciando envío de correo de confirmación para reserva código: NKS-TEST123456
-2025-08-13T14:56:10.490-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo a huésped: john@test.com
-2025-08-13T14:56:10.493-05:00 ERROR 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Error al enviar correo al huésped: john@test.com
+  <testcase name="should handle cancellation mail sending error()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.012"/>
+  <testcase name="should throw exception when hotel is null()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.076"/>
+  <testcase name="should process correct templates for user and hotel()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.01"/>
+  <testcase name="should send booking confirmation successfully()" classname="com.puce.NakanoStay.services.EmailServiceTest" time="0.008"/>
+  <system-out><![CDATA[2025-08-13T19:39:02.038-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Iniciando envío de correo de reserva completada para código: NKS-TEST123456
+2025-08-13T19:39:02.039-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo a huésped: john@test.com
+2025-08-13T19:39:02.081-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Correo de reserva completada enviado exitosamente a: john@test.com
+2025-08-13T19:39:02.081-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Correos enviados exitosamente para reserva código: NKS-TEST123456
+2025-08-13T19:39:02.083-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Iniciando envío de correo de confirmación para reserva código: NKS-TEST123456
+2025-08-13T19:39:02.083-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo a huésped: john@test.com
+2025-08-13T19:39:02.088-05:00 ERROR 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Error al enviar correo al huésped: john@test.com
 
 java.lang.RuntimeException: Mail server error
 	at org.springframework.mail.javamail.JavaMailSender.send(JavaMailSender.java:101) ~[spring-context-support-6.2.7.jar:6.2.7]
@@ -118,7 +118,7 @@ java.lang.RuntimeException: Mail server error
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) ~[gradle-worker.jar:na]
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) ~[gradle-worker.jar:na]
 
-2025-08-13T14:56:10.501-05:00 ERROR 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Error al enviar correo de confirmación para reserva código: NKS-TEST123456
+2025-08-13T19:39:02.095-05:00 ERROR 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Error al enviar correo de confirmación para reserva código: NKS-TEST123456
 
 java.lang.RuntimeException: Error al enviar correo al huésped: Mail server error
 	at com.puce.NakanoStay.services.EmailService.sendUserConfirmation(EmailService.kt:68) ~[main/:na]
@@ -215,8 +215,8 @@ Caused by: java.lang.RuntimeException: Mail server error
 	at com.puce.NakanoStay.services.EmailService.sendUserConfirmation(EmailService.kt:62) ~[main/:na]
 	... 88 common frames omitted
 
-2025-08-13T14:56:10.509-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando notificación de cancelación para reserva: NKS-CANCEL123
-2025-08-13T14:56:10.509-05:00 ERROR 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Error al enviar correos de cancelación para reserva: NKS-CANCEL123
+2025-08-13T19:39:02.103-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando notificación de cancelación para reserva: NKS-CANCEL123
+2025-08-13T19:39:02.103-05:00 ERROR 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Error al enviar correos de cancelación para reserva: NKS-CANCEL123
 
 java.lang.RuntimeException: La reserva no tiene detalles de habitaciones
 	at com.puce.NakanoStay.services.EmailService.sendCancellationNotification(EmailService.kt:105) ~[main/:na]
@@ -308,9 +308,9 @@ java.lang.RuntimeException: La reserva no tiene detalles de habitaciones
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) ~[gradle-worker.jar:na]
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) ~[gradle-worker.jar:na]
 
-2025-08-13T14:56:10.514-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Iniciando envío de correo de reserva completada para código: NKS-TEST123456
-2025-08-13T14:56:10.515-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo a huésped: john@test.com
-2025-08-13T14:56:10.519-05:00 ERROR 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Error al enviar correo al huésped: john@test.com
+2025-08-13T19:39:02.108-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Iniciando envío de correo de reserva completada para código: NKS-TEST123456
+2025-08-13T19:39:02.109-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo a huésped: john@test.com
+2025-08-13T19:39:02.112-05:00 ERROR 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Error al enviar correo al huésped: john@test.com
 
 java.lang.RuntimeException: Mail server error
 	at org.springframework.mail.javamail.JavaMailSender.send(JavaMailSender.java:101) ~[spring-context-support-6.2.7.jar:6.2.7]
@@ -404,7 +404,7 @@ java.lang.RuntimeException: Mail server error
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) ~[gradle-worker.jar:na]
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) ~[gradle-worker.jar:na]
 
-2025-08-13T14:56:10.522-05:00 ERROR 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Error al enviar correo de reserva completada para código: NKS-TEST123456
+2025-08-13T19:39:02.115-05:00 ERROR 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Error al enviar correo de reserva completada para código: NKS-TEST123456
 
 java.lang.RuntimeException: Error al enviar correo al huésped: Mail server error
 	at com.puce.NakanoStay.services.EmailService.sendUserCompletedBooking(EmailService.kt:307) ~[main/:na]
@@ -501,14 +501,14 @@ Caused by: java.lang.RuntimeException: Mail server error
 	at com.puce.NakanoStay.services.EmailService.sendUserCompletedBooking(EmailService.kt:301) ~[main/:na]
 	... 88 common frames omitted
 
-2025-08-13T14:56:10.529-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Iniciando envío de correo de última confirmación para reserva código: NKS-TEST123456
-2025-08-13T14:56:10.529-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo a huésped: john@test.com
-2025-08-13T14:56:10.533-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Correo de última confirmación enviado exitosamente a: john@test.com
-2025-08-13T14:56:10.533-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo a hotel: hotel@test.com
-2025-08-13T14:56:10.536-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Notificación enviada exitosamente al hotel: hotel@test.com
-2025-08-13T14:56:10.536-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Correos enviados exitosamente para reserva código: NKS-TEST123456
-2025-08-13T14:56:10.537-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Iniciando envío de correo de última confirmación para reserva código: NKS-LASTCONF123
-2025-08-13T14:56:10.537-05:00 ERROR 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Error al enviar correo de confirmación para reserva código: NKS-LASTCONF123
+2025-08-13T19:39:02.122-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Iniciando envío de correo de última confirmación para reserva código: NKS-TEST123456
+2025-08-13T19:39:02.122-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo a huésped: john@test.com
+2025-08-13T19:39:02.126-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Correo de última confirmación enviado exitosamente a: john@test.com
+2025-08-13T19:39:02.126-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo a hotel: hotel@test.com
+2025-08-13T19:39:02.129-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Notificación enviada exitosamente al hotel: hotel@test.com
+2025-08-13T19:39:02.129-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Correos enviados exitosamente para reserva código: NKS-TEST123456
+2025-08-13T19:39:02.130-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Iniciando envío de correo de última confirmación para reserva código: NKS-LASTCONF123
+2025-08-13T19:39:02.131-05:00 ERROR 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Error al enviar correo de confirmación para reserva código: NKS-LASTCONF123
 
 java.lang.RuntimeException: La reserva no tiene detalles de habitaciones
 	at com.puce.NakanoStay.services.EmailService.sendBookingLastConfirmation(EmailService.kt:186) ~[main/:na]
@@ -600,9 +600,9 @@ java.lang.RuntimeException: La reserva no tiene detalles de habitaciones
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) ~[gradle-worker.jar:na]
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) ~[gradle-worker.jar:na]
 
-2025-08-13T14:56:10.543-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Iniciando envío de correo de confirmación para reserva código: NKS-TEST123456
-2025-08-13T14:56:10.543-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo a huésped: john@test.com
-2025-08-13T14:56:10.546-05:00 ERROR 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Error al enviar correo al huésped: john@test.com
+2025-08-13T19:39:02.138-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Iniciando envío de correo de confirmación para reserva código: NKS-TEST123456
+2025-08-13T19:39:02.138-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo a huésped: john@test.com
+2025-08-13T19:39:02.141-05:00 ERROR 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Error al enviar correo al huésped: john@test.com
 
 java.lang.RuntimeException: Template error
 	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1053) ~[thymeleaf-3.1.3.RELEASE.jar:3.1.3.RELEASE]
@@ -696,7 +696,7 @@ java.lang.RuntimeException: Template error
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) ~[gradle-worker.jar:na]
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) ~[gradle-worker.jar:na]
 
-2025-08-13T14:56:10.550-05:00 ERROR 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Error al enviar correo de confirmación para reserva código: NKS-TEST123456
+2025-08-13T19:39:02.144-05:00 ERROR 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Error al enviar correo de confirmación para reserva código: NKS-TEST123456
 
 java.lang.RuntimeException: Error al enviar correo al huésped: Template error
 	at com.puce.NakanoStay.services.EmailService.sendUserConfirmation(EmailService.kt:68) ~[main/:na]
@@ -793,15 +793,15 @@ Caused by: java.lang.RuntimeException: Template error
 	at com.puce.NakanoStay.services.EmailService.sendUserConfirmation(EmailService.kt:55) ~[main/:na]
 	... 88 common frames omitted
 
-2025-08-13T14:56:10.557-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Iniciando envío de correo de confirmación para reserva código: NKS-MULTI123456
-2025-08-13T14:56:10.557-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo a huésped: john@test.com
-2025-08-13T14:56:10.561-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Correo de confirmación enviado exitosamente a: john@test.com
-2025-08-13T14:56:10.561-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo a hotel: hotel@test.com
-2025-08-13T14:56:10.564-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Notificación enviada exitosamente al hotel: hotel@test.com
-2025-08-13T14:56:10.564-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Correos enviados exitosamente para reserva código: NKS-MULTI123456
-2025-08-13T14:56:10.566-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Iniciando envío de correo de última confirmación para reserva código: NKS-TEST123456
-2025-08-13T14:56:10.566-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo a huésped: john@test.com
-2025-08-13T14:56:10.570-05:00 ERROR 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Error al enviar correo al huésped: john@test.com
+2025-08-13T19:39:02.150-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Iniciando envío de correo de confirmación para reserva código: NKS-MULTI123456
+2025-08-13T19:39:02.150-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo a huésped: john@test.com
+2025-08-13T19:39:02.154-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Correo de confirmación enviado exitosamente a: john@test.com
+2025-08-13T19:39:02.154-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo a hotel: hotel@test.com
+2025-08-13T19:39:02.157-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Notificación enviada exitosamente al hotel: hotel@test.com
+2025-08-13T19:39:02.157-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Correos enviados exitosamente para reserva código: NKS-MULTI123456
+2025-08-13T19:39:02.159-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Iniciando envío de correo de última confirmación para reserva código: NKS-TEST123456
+2025-08-13T19:39:02.159-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo a huésped: john@test.com
+2025-08-13T19:39:02.162-05:00 ERROR 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Error al enviar correo al huésped: john@test.com
 
 java.lang.RuntimeException: Mail server error
 	at org.springframework.mail.javamail.JavaMailSender.send(JavaMailSender.java:101) ~[spring-context-support-6.2.7.jar:6.2.7]
@@ -895,7 +895,7 @@ java.lang.RuntimeException: Mail server error
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) ~[gradle-worker.jar:na]
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) ~[gradle-worker.jar:na]
 
-2025-08-13T14:56:10.572-05:00 ERROR 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Error al enviar correo de confirmación para reserva código: NKS-TEST123456
+2025-08-13T19:39:02.166-05:00 ERROR 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Error al enviar correo de confirmación para reserva código: NKS-TEST123456
 
 java.lang.RuntimeException: Error al enviar correo al huésped: Mail server error
 	at com.puce.NakanoStay.services.EmailService.sendUserBookingConfirmation(EmailService.kt:230) ~[main/:na]
@@ -992,14 +992,14 @@ Caused by: java.lang.RuntimeException: Mail server error
 	at com.puce.NakanoStay.services.EmailService.sendUserBookingConfirmation(EmailService.kt:224) ~[main/:na]
 	... 88 common frames omitted
 
-2025-08-13T14:56:10.578-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Iniciando envío de correo de confirmación para reserva código: NKS-TEST123456
-2025-08-13T14:56:10.578-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo a huésped: john@test.com
-2025-08-13T14:56:10.582-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Correo de confirmación enviado exitosamente a: john@test.com
-2025-08-13T14:56:10.582-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo a hotel: hotel@test.com
-2025-08-13T14:56:10.585-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Notificación enviada exitosamente al hotel: hotel@test.com
-2025-08-13T14:56:10.585-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Correos enviados exitosamente para reserva código: NKS-TEST123456
-2025-08-13T14:56:10.587-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Iniciando envío de correo de confirmación para reserva código: NKS-TEST123456
-2025-08-13T14:56:10.587-05:00 ERROR 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Error al enviar correo de confirmación para reserva código: NKS-TEST123456
+2025-08-13T19:39:02.172-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Iniciando envío de correo de confirmación para reserva código: NKS-TEST123456
+2025-08-13T19:39:02.172-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo a huésped: john@test.com
+2025-08-13T19:39:02.176-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Correo de confirmación enviado exitosamente a: john@test.com
+2025-08-13T19:39:02.176-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo a hotel: hotel@test.com
+2025-08-13T19:39:02.179-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Notificación enviada exitosamente al hotel: hotel@test.com
+2025-08-13T19:39:02.179-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Correos enviados exitosamente para reserva código: NKS-TEST123456
+2025-08-13T19:39:02.181-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Iniciando envío de correo de confirmación para reserva código: NKS-TEST123456
+2025-08-13T19:39:02.181-05:00 ERROR 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Error al enviar correo de confirmación para reserva código: NKS-TEST123456
 
 java.lang.RuntimeException: La reserva no tiene detalles de habitaciones
 	at com.puce.NakanoStay.services.EmailService.sendBookingConfirmation(EmailService.kt:24) ~[main/:na]
@@ -1091,8 +1091,8 @@ java.lang.RuntimeException: La reserva no tiene detalles de habitaciones
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) ~[gradle-worker.jar:na]
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) ~[gradle-worker.jar:na]
 
-2025-08-13T14:56:10.593-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Iniciando envío de correo de reserva completada para código: NKS-COMPLETED123
-2025-08-13T14:56:10.593-05:00 ERROR 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Error al enviar correo de reserva completada para código: NKS-COMPLETED123
+2025-08-13T19:39:02.186-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Iniciando envío de correo de reserva completada para código: NKS-COMPLETED123
+2025-08-13T19:39:02.186-05:00 ERROR 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Error al enviar correo de reserva completada para código: NKS-COMPLETED123
 
 java.lang.RuntimeException: La reserva no tiene detalles de habitaciones
 	at com.puce.NakanoStay.services.EmailService.sendBookingCompletedNotification(EmailService.kt:267) ~[main/:na]
@@ -1184,15 +1184,15 @@ java.lang.RuntimeException: La reserva no tiene detalles de habitaciones
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) ~[gradle-worker.jar:na]
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) ~[gradle-worker.jar:na]
 
-2025-08-13T14:56:10.598-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando notificación de cancelación para reserva: NKS-TEST123456
-2025-08-13T14:56:10.598-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo de cancelación a huésped: john@test.com
-2025-08-13T14:56:10.602-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Correo de cancelación enviado exitosamente al huésped: john@test.com
-2025-08-13T14:56:10.602-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo de cancelación a hotel: hotel@test.com
-2025-08-13T14:56:10.605-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Notificación de cancelación enviada exitosamente al hotel: hotel@test.com
-2025-08-13T14:56:10.605-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Correos de cancelación enviados exitosamente para reserva: NKS-TEST123456
-2025-08-13T14:56:10.607-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando notificación de cancelación para reserva: NKS-TEST123456
-2025-08-13T14:56:10.607-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo de cancelación a huésped: john@test.com
-2025-08-13T14:56:10.611-05:00 ERROR 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Error al enviar correo de cancelación al huésped: john@test.com
+2025-08-13T19:39:02.192-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando notificación de cancelación para reserva: NKS-TEST123456
+2025-08-13T19:39:02.192-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo de cancelación a huésped: john@test.com
+2025-08-13T19:39:02.196-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Correo de cancelación enviado exitosamente al huésped: john@test.com
+2025-08-13T19:39:02.196-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo de cancelación a hotel: hotel@test.com
+2025-08-13T19:39:02.199-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Notificación de cancelación enviada exitosamente al hotel: hotel@test.com
+2025-08-13T19:39:02.199-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Correos de cancelación enviados exitosamente para reserva: NKS-TEST123456
+2025-08-13T19:39:02.200-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando notificación de cancelación para reserva: NKS-TEST123456
+2025-08-13T19:39:02.200-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo de cancelación a huésped: john@test.com
+2025-08-13T19:39:02.203-05:00 ERROR 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Error al enviar correo de cancelación al huésped: john@test.com
 
 java.lang.RuntimeException: Mail server error
 	at org.springframework.mail.javamail.JavaMailSender.send(JavaMailSender.java:101) ~[spring-context-support-6.2.7.jar:6.2.7]
@@ -1286,7 +1286,7 @@ java.lang.RuntimeException: Mail server error
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) ~[gradle-worker.jar:na]
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) ~[gradle-worker.jar:na]
 
-2025-08-13T14:56:10.613-05:00 ERROR 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Error al enviar correos de cancelación para reserva: NKS-TEST123456
+2025-08-13T19:39:02.207-05:00 ERROR 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Error al enviar correos de cancelación para reserva: NKS-TEST123456
 
 java.lang.RuntimeException: Error al enviar correo de cancelación al huésped: Mail server error
 	at com.puce.NakanoStay.services.EmailService.sendCancellationEmailToGuest(EmailService.kt:149) ~[main/:na]
@@ -1383,8 +1383,8 @@ Caused by: java.lang.RuntimeException: Mail server error
 	at com.puce.NakanoStay.services.EmailService.sendCancellationEmailToGuest(EmailService.kt:143) ~[main/:na]
 	... 88 common frames omitted
 
-2025-08-13T14:56:10.706-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Iniciando envío de correo de confirmación para reserva código: NKS-TEST123456
-2025-08-13T14:56:10.707-05:00 ERROR 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Error al enviar correo de confirmación para reserva código: NKS-TEST123456
+2025-08-13T19:39:02.282-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Iniciando envío de correo de confirmación para reserva código: NKS-TEST123456
+2025-08-13T19:39:02.282-05:00 ERROR 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Error al enviar correo de confirmación para reserva código: NKS-TEST123456
 
 java.lang.RuntimeException: No se pudo obtener información del hotel
 	at com.puce.NakanoStay.services.EmailService.sendBookingConfirmation(EmailService.kt:28) ~[main/:na]
@@ -1476,18 +1476,18 @@ java.lang.RuntimeException: No se pudo obtener información del hotel
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) ~[gradle-worker.jar:na]
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) ~[gradle-worker.jar:na]
 
-2025-08-13T14:56:10.713-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Iniciando envío de correo de confirmación para reserva código: NKS-TEST123456
-2025-08-13T14:56:10.713-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo a huésped: john@test.com
-2025-08-13T14:56:10.718-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Correo de confirmación enviado exitosamente a: john@test.com
-2025-08-13T14:56:10.718-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo a hotel: hotel@test.com
-2025-08-13T14:56:10.722-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Notificación enviada exitosamente al hotel: hotel@test.com
-2025-08-13T14:56:10.722-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Correos enviados exitosamente para reserva código: NKS-TEST123456
-2025-08-13T14:56:10.725-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Iniciando envío de correo de confirmación para reserva código: NKS-TEST123456
-2025-08-13T14:56:10.725-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo a huésped: john@test.com
-2025-08-13T14:56:10.731-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Correo de confirmación enviado exitosamente a: john@test.com
-2025-08-13T14:56:10.731-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo a hotel: hotel@test.com
-2025-08-13T14:56:10.742-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Notificación enviada exitosamente al hotel: hotel@test.com
-2025-08-13T14:56:10.742-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Correos enviados exitosamente para reserva código: NKS-TEST123456
+2025-08-13T19:39:02.289-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Iniciando envío de correo de confirmación para reserva código: NKS-TEST123456
+2025-08-13T19:39:02.289-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo a huésped: john@test.com
+2025-08-13T19:39:02.294-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Correo de confirmación enviado exitosamente a: john@test.com
+2025-08-13T19:39:02.294-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo a hotel: hotel@test.com
+2025-08-13T19:39:02.296-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Notificación enviada exitosamente al hotel: hotel@test.com
+2025-08-13T19:39:02.297-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Correos enviados exitosamente para reserva código: NKS-TEST123456
+2025-08-13T19:39:02.298-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Iniciando envío de correo de confirmación para reserva código: NKS-TEST123456
+2025-08-13T19:39:02.298-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo a huésped: john@test.com
+2025-08-13T19:39:02.302-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Correo de confirmación enviado exitosamente a: john@test.com
+2025-08-13T19:39:02.302-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Enviando correo a hotel: hotel@test.com
+2025-08-13T19:39:02.305-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Notificación enviada exitosamente al hotel: hotel@test.com
+2025-08-13T19:39:02.305-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.puce.NakanoStay.services.EmailService  : Correos enviados exitosamente para reserva código: NKS-TEST123456
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

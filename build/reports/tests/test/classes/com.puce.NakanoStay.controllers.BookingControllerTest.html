@@ -29,7 +29,7 @@
 </td>
 <td>
 <div class="infoBox" id="failures">
-<div class="counter">5</div>
+<div class="counter">0</div>
 <p>failures</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.704s</div>
+<div class="counter">0.688s</div>
 <p>duration</p>
 </div>
 </td>
@@ -50,8 +50,8 @@
 </div>
 </td>
 <td>
-<div class="infoBox failures" id="successRate">
-<div class="percent">78%</div>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
 <p>successful</p>
 </div>
 </td>
@@ -61,104 +61,12 @@
 <div class="tab-container">
 <ul class="tabLinks">
 <li>
-<a href="#">Failed tests</a>
-</li>
-<li>
 <a href="#">Tests</a>
 </li>
 <li>
 <a href="#">Standard output</a>
 </li>
 </ul>
-<div class="tab">
-<h2>Failed tests</h2>
-<div class="test">
-<a name="should confirm booking successfully()"></a>
-<h3 class="failures">should confirm booking successfully()</h3>
-<span class="code">
-<pre>com.puce.NakanoStay.exceptions.ConflictException: La reserva ya está confirmada
-	at app//com.puce.NakanoStay.services.BookingService.confirmBooking(BookingService.kt:72)
-	at app//com.puce.NakanoStay.controllers.BookingControllerTest.should confirm booking successfully(BookingControllerTest.kt:396)
-	at java.base@21.0.7/java.lang.reflect.Method.invoke(Method.java:580)
-	at java.base@21.0.7/java.util.ArrayList.forEach(ArrayList.java:1596)
-	at java.base@21.0.7/java.util.ArrayList.forEach(ArrayList.java:1596)
-</pre>
-</span>
-</div>
-<div class="test">
-<a name="should create booking when post()"></a>
-<h3 class="failures">should create booking when post()</h3>
-<span class="code">
-<pre>org.mockito.exceptions.verification.TooManyActualInvocations: 
-emailService.sendBookingConfirmation(
-    &lt;any com.puce.NakanoStay.models.entities.Booking&gt;
-);
-Wanted 1 time:
--&gt; at com.puce.NakanoStay.services.EmailService.sendBookingConfirmation(EmailService.kt:20)
-But was 2 times:
--&gt; at com.puce.NakanoStay.controllers.BookingController.create(BookingController.kt:59)
--&gt; at com.puce.NakanoStay.controllers.BookingController.create(BookingController.kt:59)
-
-
-	at app//com.puce.NakanoStay.services.EmailService.sendBookingConfirmation(EmailService.kt:20)
-	at app//com.puce.NakanoStay.controllers.BookingControllerTest.should create booking when post(BookingControllerTest.kt:219)
-	at java.base@21.0.7/java.lang.reflect.Method.invoke(Method.java:580)
-	at java.base@21.0.7/java.util.ArrayList.forEach(ArrayList.java:1596)
-	at java.base@21.0.7/java.util.ArrayList.forEach(ArrayList.java:1596)
-</pre>
-</span>
-</div>
-<div class="test">
-<a name="should create booking with null phone when post()"></a>
-<h3 class="failures">should create booking with null phone when post()</h3>
-<span class="code">
-<pre>java.lang.AssertionError: JSON path &quot;$.guestPhone&quot; expected:&lt;null&gt; but was:&lt;0999999999&gt;
-	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:61)
-	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:128)
-	at org.springframework.test.util.JsonPathExpectationsHelper.assertValue(JsonPathExpectationsHelper.java:172)
-	at org.springframework.test.web.servlet.result.JsonPathResultMatchers.lambda$value$2(JsonPathResultMatchers.java:112)
-	at org.springframework.test.web.servlet.MockMvc$1.andExpect(MockMvc.java:214)
-	at org.springframework.test.web.servlet.result.JsonPathResultMatchersDsl.value(JsonPathResultMatchersDsl.kt:51)
-	at com.puce.NakanoStay.controllers.BookingControllerTest$should create booking with null phone when post$result$2$4.invoke(BookingControllerTest.kt:254)
-	at com.puce.NakanoStay.controllers.BookingControllerTest$should create booking with null phone when post$result$2$4.invoke(BookingControllerTest.kt:254)
-	at org.springframework.test.web.servlet.MockMvcResultMatchersDsl.jsonPath(MockMvcResultMatchersDsl.kt:125)
-	at com.puce.NakanoStay.controllers.BookingControllerTest$should create booking with null phone when post$result$2.invoke(BookingControllerTest.kt:254)
-	at com.puce.NakanoStay.controllers.BookingControllerTest$should create booking with null phone when post$result$2.invoke(BookingControllerTest.kt:250)
-	at org.springframework.test.web.servlet.ResultActionsDsl.andExpect(ResultActionsDsl.kt:18)
-	at com.puce.NakanoStay.controllers.BookingControllerTest.should create booking with null phone when post(BookingControllerTest.kt:250)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-</pre>
-</span>
-</div>
-<div class="test">
-<a name="should return all bookings when get all()"></a>
-<h3 class="failures">should return all bookings when get all()</h3>
-<span class="code">
-<pre>java.lang.RuntimeException: Database connection error
-	at com.puce.NakanoStay.services.BookingService.getAll(BookingService.kt:20)
-	at com.puce.NakanoStay.controllers.BookingControllerTest.should return all bookings when get all(BookingControllerTest.kt:91)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-</pre>
-</span>
-</div>
-<div class="test">
-<a name="should return empty list when no bookings exist()"></a>
-<h3 class="failures">should return empty list when no bookings exist()</h3>
-<span class="code">
-<pre>java.lang.RuntimeException: Database connection error
-	at com.puce.NakanoStay.services.BookingService.getAll(BookingService.kt:20)
-	at com.puce.NakanoStay.controllers.BookingControllerTest.should return empty list when no bookings exist(BookingControllerTest.kt:109)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-</pre>
-</span>
-</div>
-</div>
 <div class="tab">
 <h2>Tests</h2>
 <table>
@@ -180,19 +88,19 @@ But was 2 times:
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="failures">should confirm booking successfully()</td>
-<td class="failures">0.003s</td>
-<td class="failures">failed</td>
+<td class="success">should confirm booking successfully()</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
 </tr>
 <tr>
-<td class="failures">should create booking when post()</td>
-<td class="failures">0.023s</td>
-<td class="failures">failed</td>
+<td class="success">should create booking when post()</td>
+<td class="success">0.012s</td>
+<td class="success">passed</td>
 </tr>
 <tr>
-<td class="failures">should create booking with null phone when post()</td>
-<td class="failures">0.012s</td>
-<td class="failures">failed</td>
+<td class="success">should create booking with null phone when post()</td>
+<td class="success">0.010s</td>
+<td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">should delete booking when delete by id()</td>
@@ -201,7 +109,7 @@ But was 2 times:
 </tr>
 <tr>
 <td class="success">should return 400 when create booking with validation error()</td>
-<td class="success">0.010s</td>
+<td class="success">0.011s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -211,17 +119,17 @@ But was 2 times:
 </tr>
 <tr>
 <td class="success">should return 404 when complete non-existent booking()</td>
-<td class="success">0.006s</td>
+<td class="success">0.007s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">should return 404 when confirm non-existent booking()</td>
-<td class="success">0.010s</td>
+<td class="success">0.006s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">should return 404 when deleting non-existent booking()</td>
-<td class="success">0.007s</td>
+<td class="success">0.006s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -231,7 +139,7 @@ But was 2 times:
 </tr>
 <tr>
 <td class="success">should return 404 when get booking by non-existent id()</td>
-<td class="success">0.006s</td>
+<td class="success">0.009s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -241,7 +149,7 @@ But was 2 times:
 </tr>
 <tr>
 <td class="success">should return 409 when create booking with conflict error()</td>
-<td class="success">0.092s</td>
+<td class="success">0.090s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -261,17 +169,17 @@ But was 2 times:
 </tr>
 <tr>
 <td class="success">should return 500 when unexpected error occurs()</td>
-<td class="success">0.285s</td>
+<td class="success">0.259s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="failures">should return all bookings when get all()</td>
-<td class="failures">0.003s</td>
-<td class="failures">failed</td>
+<td class="success">should return all bookings when get all()</td>
+<td class="success">0.009s</td>
+<td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">should return booking when get by code and dni()</td>
-<td class="success">0.157s</td>
+<td class="success">0.175s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -280,17 +188,17 @@ But was 2 times:
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="failures">should return empty list when no bookings exist()</td>
-<td class="failures">0.010s</td>
-<td class="failures">failed</td>
+<td class="success">should return empty list when no bookings exist()</td>
+<td class="success">0.008s</td>
+<td class="success">passed</td>
 </tr>
 </table>
 </div>
 <div class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>2025-08-13T14:56:08.009-05:00  INFO 2772 --- [NakanoStay] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.puce.NakanoStay.controllers.BookingControllerTest]: BookingControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2025-08-13T14:56:08.052-05:00  INFO 2772 --- [NakanoStay] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.puce.NakanoStay.NakanoStayApplication for test class com.puce.NakanoStay.controllers.BookingControllerTest
+<pre>2025-08-13T19:38:59.445-05:00  INFO 9432 --- [NakanoStay] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.puce.NakanoStay.controllers.BookingControllerTest]: BookingControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-08-13T19:38:59.498-05:00  INFO 9432 --- [NakanoStay] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.puce.NakanoStay.NakanoStayApplication for test class com.puce.NakanoStay.controllers.BookingControllerTest
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -301,86 +209,12 @@ But was 2 times:
 
  :: Spring Boot ::                (v3.5.0)
 
-2025-08-13T14:56:08.075-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.p.N.controllers.BookingControllerTest  : Starting BookingControllerTest using Java 21.0.7 with PID 2772 (started by Jeremy in C:\Users\Jeremy\OneDrive\Documentos\Programming\Spring\NakanoStay)
-2025-08-13T14:56:08.075-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.p.N.controllers.BookingControllerTest  : No active profile set, falling back to 1 default profile: &quot;default&quot;
-2025-08-13T14:56:08.606-05:00  INFO 2772 --- [NakanoStay] [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2025-08-13T14:56:08.606-05:00  INFO 2772 --- [NakanoStay] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2025-08-13T14:56:08.607-05:00  INFO 2772 --- [NakanoStay] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
-2025-08-13T14:56:08.625-05:00  INFO 2772 --- [NakanoStay] [    Test worker] c.p.N.controllers.BookingControllerTest  : Started BookingControllerTest in 0.57 seconds (process running for 9.526)
-
-MockHttpServletRequest:
-      HTTP Method = POST
-      Request URI = /api/bookings
-       Parameters = {}
-          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;205&quot;]
-             Body = {&quot;guestName&quot;:&quot;Charlie Brown&quot;,&quot;guestDni&quot;:&quot;1111111111&quot;,&quot;guestEmail&quot;:&quot;charlie@test.com&quot;,&quot;guestPhone&quot;:null,&quot;checkIn&quot;:&quot;2025-06-01&quot;,&quot;checkOut&quot;:&quot;2025-06-05&quot;,&quot;status&quot;:&quot;PENDING&quot;,&quot;details&quot;:[{&quot;roomId&quot;:1,&quot;guests&quot;:2}]}
-    Session Attrs = {}
-
-Handler:
-             Type = com.puce.NakanoStay.controllers.BookingController
-           Method = com.puce.NakanoStay.controllers.BookingController#create(BookingRequest)
-
-Async:
-    Async started = false
-     Async result = null
-
-Resolved Exception:
-             Type = null
-
-ModelAndView:
-        View name = null
-             View = null
-            Model = null
-
-FlashMap:
-       Attributes = null
-
-MockHttpServletResponse:
-           Status = 200
-    Error message = null
-          Headers = [Content-Type:&quot;application/json&quot;]
-     Content type = application/json
-             Body = {&quot;id&quot;:0,&quot;bookingCode&quot;:&quot;NKS-GENERATED456&quot;,&quot;guestName&quot;:&quot;Charlie Brown&quot;,&quot;guestDni&quot;:&quot;1111111111&quot;,&quot;guestEmail&quot;:&quot;charlie@test.com&quot;,&quot;guestPhone&quot;:&quot;0999999999&quot;,&quot;bookingDate&quot;:&quot;2025-08-13T14:56:09.2251487&quot;,&quot;checkIn&quot;:&quot;2025-03-15&quot;,&quot;checkOut&quot;:&quot;2025-03-20&quot;,&quot;status&quot;:&quot;PENDING&quot;,&quot;total&quot;:250.00,&quot;details&quot;:[{&quot;roomId&quot;:0,&quot;guests&quot;:2,&quot;priceAtBooking&quot;:250.00}]}
-    Forwarded URL = null
-   Redirected URL = null
-          Cookies = []
-
-MockHttpServletRequest:
-      HTTP Method = POST
-      Request URI = /api/bookings
-       Parameters = {}
-          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;207&quot;]
-             Body = {&quot;guestName&quot;:&quot;Bob Johnson&quot;,&quot;guestDni&quot;:&quot;1234567890&quot;,&quot;guestEmail&quot;:&quot;bob@test.com&quot;,&quot;guestPhone&quot;:&quot;0977777777&quot;,&quot;checkIn&quot;:&quot;2025-06-01&quot;,&quot;checkOut&quot;:&quot;2025-06-05&quot;,&quot;status&quot;:&quot;PENDING&quot;,&quot;details&quot;:[{&quot;roomId&quot;:1,&quot;guests&quot;:2}]}
-    Session Attrs = {}
-
-Handler:
-             Type = com.puce.NakanoStay.controllers.BookingController
-           Method = com.puce.NakanoStay.controllers.BookingController#create(BookingRequest)
-
-Async:
-    Async started = false
-     Async result = null
-
-Resolved Exception:
-             Type = null
-
-ModelAndView:
-        View name = null
-             View = null
-            Model = null
-
-FlashMap:
-       Attributes = null
-
-MockHttpServletResponse:
-           Status = 200
-    Error message = null
-          Headers = [Content-Type:&quot;application/json&quot;]
-     Content type = application/json
-             Body = {&quot;id&quot;:0,&quot;bookingCode&quot;:&quot;NKS-GENERATED123&quot;,&quot;guestName&quot;:&quot;Bob Johnson&quot;,&quot;guestDni&quot;:&quot;1234567890&quot;,&quot;guestEmail&quot;:&quot;bob@test.com&quot;,&quot;guestPhone&quot;:&quot;0999999999&quot;,&quot;bookingDate&quot;:&quot;2025-08-13T14:56:09.3285638&quot;,&quot;checkIn&quot;:&quot;2025-03-15&quot;,&quot;checkOut&quot;:&quot;2025-03-20&quot;,&quot;status&quot;:&quot;PENDING&quot;,&quot;total&quot;:250.00,&quot;details&quot;:[{&quot;roomId&quot;:0,&quot;guests&quot;:2,&quot;priceAtBooking&quot;:250.00}]}
-    Forwarded URL = null
-   Redirected URL = null
-          Cookies = []
+2025-08-13T19:38:59.522-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.p.N.controllers.BookingControllerTest  : Starting BookingControllerTest using Java 21.0.7 with PID 9432 (started by Jeremy in C:\Users\Jeremy\OneDrive\Documentos\Programming\Spring\NakanoStay)
+2025-08-13T19:38:59.522-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.p.N.controllers.BookingControllerTest  : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2025-08-13T19:39:00.087-05:00  INFO 9432 --- [NakanoStay] [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2025-08-13T19:39:00.087-05:00  INFO 9432 --- [NakanoStay] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-08-13T19:39:00.088-05:00  INFO 9432 --- [NakanoStay] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2025-08-13T19:39:00.102-05:00  INFO 9432 --- [NakanoStay] [    Test worker] c.p.N.controllers.BookingControllerTest  : Started BookingControllerTest in 0.6 seconds (process running for 9.584)
 </pre>
 </span>
 </div>
@@ -392,7 +226,7 @@ MockHttpServletResponse:
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="https://www.gradle.org">Gradle 8.14.2</a> at Aug 13, 2025, 2:56:11 PM</p>
+<a href="https://www.gradle.org">Gradle 8.14.2</a> at Aug 13, 2025, 7:39:03 PM</p>
 </div>
 </div>
 </body>
