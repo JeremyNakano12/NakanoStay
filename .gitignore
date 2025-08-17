@@ -34,3 +34,6 @@ docker-compose.prod.yml
 docker-compose.yml
 Dockerfile.prod
 Dockerfile
+
+#Scripts
+deploy.ps1
