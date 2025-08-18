@@ -1,0 +1,33 @@
+# Build outputs
+.gradle/
+out/
+
+# IDE files
+.idea/
+*.iml
+*.iws
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Git
+.git/
+.gitignore
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Documentation
+README.md
+*.md
+
+# Tests reports
+build/reports/
+build/test-results/

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Reserva Recibida</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #FFB6C1;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+        .content {
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 0 0 8px 8px;
+        }
+        .booking-info {
+            background-color: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section-title {
+            color: #e74c3c;
+            border-bottom: 2px solid #f39c12;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .info-label {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .total {
+            background-color: #e8f5e8;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #27ae60;
+        }
+        .room-item {
+            background-color: #f1f2f6;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #f39c12;
+        }
+        .alert {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <img src="https://imgur.com/ESpW19O.png" style="max-height: 160px; display: block; margin-left: auto; margin-right: auto;" />
+    <h1>Nueva Reserva Recibida</h1>
+    <p>Sistema de Gestión NakanoStay</p>
+</div>
+
+<div class="content">
+    <div class="alert">
+        <strong>¡Atención!</strong> Se ha recibido una nueva reserva para su hotel. Por favor, revise los detalles a continuación.
+    </div>
+
+    <div class="booking-info">
+        <h3 class="section-title">Detalles de la Reserva</h3>
+        <div class="info-row">
+            <span class="info-label">ID de Reserva:</span>
+            <span th:text="${booking.bookingCode}"></span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Fecha de Reserva:</span>
+            <span th:text="${#temporals.format(booking.bookingDate, 'dd/MM/yyyy HH:mm')}"></span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Check-in:</span>
+            <span th:text="${#temporals.format(booking.checkIn, 'dd/MM/yyyy')}"></span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Check-out:</span>
+            <span th:text="${#temporals.format(booking.checkOut, 'dd/MM/yyyy')}"></span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Estado:</span>
+            <span th:text="${booking.status}"></span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Total de Huéspedes:</span>
+            <span th:text="${totalGuests}"></span>
+        </div>
+    </div>
+
+    <div class="booking-info">
+        <h3 class="section-title">Información del Cliente</h3>
+        <div class="info-row">
+            <span class="info-label">Nombre Completo:</span>
+            <span th:text="${booking.guestName}"></span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Cédula de Identidad:</span>
+            <span th:text="${booking.guestDni}"></span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Email de Contacto:</span>
+            <span th:text="${booking.guestEmail}"></span>
+        </div>
+        <div class="info-row" th:if="${booking.guestPhone}">
+            <span class="info-label">Teléfono:</span>
+            <span th:text="${booking.guestPhone}"></span>
+        </div>
+    </div>
+
+    <div class="booking-info" th:if="${hotel}">
+        <h3 class="section-title">Hotel</h3>
+        <div class="info-row">
+            <span class="info-label">Nombre:</span>
+            <span th:text="${hotel.name}"></span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Dirección:</span>
+            <span th:text="${hotel.address}"></span>
+        </div>
+        <div class="info-row" th:if="${hotel.city}">
+            <span class="info-label">Ciudad:</span>
+            <span th:text="${hotel.city}"></span>
+        </div>
+    </div>
+
+    <div class="booking-info">
+        <h3 class="section-title">Habitaciones Reservadas</h3>
+        <div th:each="detail : ${booking.bookingDetails}" class="room-item">
+            <div class="info-row">
+                <span class="info-label">Número de Habitación:</span>
+                <span th:text="${detail.room.roomNumber}"></span>
+            </div>
+            <div class="info-row" th:if="${detail.room.roomType}">
+                <span class="info-label">Tipo de Habitación:</span>
+                <span th:text="${detail.room.roomType}"></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Número de Huéspedes:</span>
+                <span th:text="${detail.guests}"></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Precio Acordado por Noche:</span>
+                <span th:text="'$' + ${detail.priceAtBooking}"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="total">
+        Ingresos Esperados: $<span th:text="${booking.total}"></span>
+    </div>
+
+    <div class="alert">
+        <strong>Próximos pasos:</strong>
+        <ul>
+            <li>Verificar disponibilidad de las habitaciones</li>
+            <li>Preparar las habitaciones para la fecha de llegada</li>
+            <li>Contactar al cliente si es necesario</li>
+            <li>Actualizar el estado de la reserva en el sistema</li>
+        </ul>
+    </div>
+
+    <p>Esta es una notificación automática del sistema. No responda a este correo.</p>
+
+    <p>Saludos,<br>
+        <strong>Sistema de Gestión NakanoStay</strong></p>
+</div>
+</body>
+</html>

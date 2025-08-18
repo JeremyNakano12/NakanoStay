@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva Confirmada</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #FFB6C1;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+        .content {
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 0 0 8px 8px;
+        }
+        .booking-info {
+            background-color: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section-title {
+            color: #27ae60;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .info-label {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .total {
+            background-color: #d4edda;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #155724;
+        }
+        .room-item {
+            background-color: #f1f2f6;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #27ae60;
+        }
+        .instructions {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>¡Reserva Completada!</h1>
+</div>
+
+<div class="content">
+    <h2>Estimado/a <span th:text="${booking.guestName}"></span>,</h2>
+
+    <p>Nos complace confirmarle que su reserva con código <strong th:text="${booking.bookingCode}"></strong> ha sido completada.</p>
+
+    <div class="booking-info">
+        <h3 class="section-title">Detalles</h3>
+        <div class="info-row">
+            <span class="info-label">Código de Reserva:</span>
+            <span th:text="${booking.bookingCode}"></span>
+        </div>
+    </div>
+
+    <div class="instructions">
+        <strong>Considere:</strong>
+        <ul>
+            <li><strong>Puntuar la aplicación:</strong> Dejenos una review en la play store para poder mejorar</li>
+            <li><strong>Mandar un ticket:</strong> Dejenos sus dudas o inconvenientes con la aplicación al correo support@nakanostay.com</li>
+            <li><strong>Dejar una reseña al hotel:</strong> Deje una buena reseña al hotel en internet si estuvo satisfecho/a con su estadía</li>
+        </ul>
+    </div>
+
+    <p><strong>¿Necesita ayuda?</strong> Contacte al hotel directamente para cualquier inquietud al correo <span th:text="${hotel.email}"></span></p>
+
+    <p>¡Esperamos verlo denuevo!</p>
+
+    <p>Cordialmente,<br>
+        <strong>Equipo</strong></p>
+    <img src="https://imgur.com/ESpW19O.png" style="max-height: 160px; display: block; margin-left: auto; margin-right: auto;" />
+</div>
+</body>
+</html>
