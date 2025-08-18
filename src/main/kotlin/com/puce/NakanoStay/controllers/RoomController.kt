@@ -2,13 +2,16 @@ package com.puce.NakanoStay.controllers
 
 import com.puce.NakanoStay.mappers.*
 import com.puce.NakanoStay.models.requests.RoomRequest
+import com.puce.NakanoStay.models.responses.AvailabilityResponse
 import com.puce.NakanoStay.models.responses.BookingResponse
 import com.puce.NakanoStay.models.responses.RoomResponse
 import com.puce.NakanoStay.routes.Routes
 import com.puce.NakanoStay.services.HotelService
 import com.puce.NakanoStay.services.RoomService
+import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.time.LocalDate
 
 @RestController
 @RequestMapping(Routes.BASE_URL + Routes.ROOM)
@@ -27,6 +30,16 @@ class RoomController(
     fun getByHotel(@PathVariable hotelId: Long): ResponseEntity<List<RoomResponse>> {
         val rooms = roomService.getByHotel(hotelId).map { it.toResponse() }
         return ResponseEntity.ok(rooms)
+    }
+
+    @GetMapping("/{id}/availability")
+    fun getRoomAvailability(
+        @PathVariable id: Long,
+        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) startDate: LocalDate,
+        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) endDate: LocalDate
+    ): ResponseEntity<AvailabilityResponse> {
+        val availability = roomService.getAvailability(id, startDate, endDate)
+        return ResponseEntity.ok(availability)
     }
 
     @PostMapping

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.puce.NakanoStay.services.BookingServiceTest" tests="48" skipped="0" failures="0" errors="0" timestamp="2025-08-18T02:10:29.526Z" hostname="JEREMYNAKANO" time="0.096">
+  <properties/>
+  <testcase name="should throw ValidationException when DNI is blank()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.004"/>
+  <testcase name="should validate ecuadorian DNI correctly()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.001"/>
+  <testcase name="should save booking with valid international phone()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.003"/>
+  <testcase name="should throw ValidationException when phone has too few digits()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.002"/>
+  <testcase name="should return empty list when no bookings exist()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.0"/>
+  <testcase name="should throw ConflictException when trying to complete pending booking()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.002"/>
+  <testcase name="should throw ValidationException when guests number is too high()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.001"/>
+  <testcase name="should throw ValidationException when booking code is too long()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.001"/>
+  <testcase name="should throw ConflictException when trying to confirm already confirmed booking()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.001"/>
+  <testcase name="should throw ValidationException when booking has no details()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.001"/>
+  <testcase name="should throw ValidationException when booking code is blank()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.002"/>
+  <testcase name="should save booking for multiple guests()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.002"/>
+  <testcase name="should throw ConflictException when trying to confirm completed booking()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.002"/>
+  <testcase name="should throw ValidationException when phone has invalid characters()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.002"/>
+  <testcase name="should delete booking successfully()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.0"/>
+  <testcase name="should return all bookings()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.001"/>
+  <testcase name="should save booking with empty phone()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.002"/>
+  <testcase name="should throw ValidationException when guest name is blank()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.002"/>
+  <testcase name="should throw ValidationException when check-in is in the past()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.002"/>
+  <testcase name="should throw ConflictException when trying to complete already completed booking()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.002"/>
+  <testcase name="should cancel booking successfully()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.001"/>
+  <testcase name="should throw ValidationException when check-out equals check-in()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.001"/>
+  <testcase name="should throw ValidationException when phone is too long()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.001"/>
+  <testcase name="should throw ValidationException when DNI is invalid()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.002"/>
+  <testcase name="should throw ConflictException when trying to cancel completed booking()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.002"/>
+  <testcase name="should throw ValidationException when guests number is zero()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.002"/>
+  <testcase name="should throw NotFoundException when booking not found by id()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.002"/>
+  <testcase name="should throw ConflictException when trying to complete cancelled booking()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.002"/>
+  <testcase name="should save a valid booking()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.002"/>
+  <testcase name="should throw ValidationException when guest name is too short()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.002"/>
+  <testcase name="should throw ValidationException when check-out is before check-in()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.002"/>
+  <testcase name="should throw ValidationException when email is too long()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.002"/>
+  <testcase name="should throw ConflictException when trying to cancel already cancelled booking()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.002"/>
+  <testcase name="should throw ConflictException when there are conflicting bookings()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.002"/>
+  <testcase name="should throw ValidationException when email is blank()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.002"/>
+  <testcase name="should throw ValidationException when email is invalid()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.002"/>
+  <testcase name="should return booking by id()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.001"/>
+  <testcase name="should throw ValidationException when stay is longer than 30 days()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.001"/>
+  <testcase name="should return booking by code and dni()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.0"/>
+  <testcase name="should throw NotFoundException when booking not found by code and dni()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.001"/>
+  <testcase name="should throw NotFoundException when deleting non-existent booking()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.002"/>
+  <testcase name="should throw ConflictException when room is not available()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.002"/>
+  <testcase name="should throw ConflictException when trying to confirm cancelled booking()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.003"/>
+  <testcase name="should confirm booking successfully()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.001"/>
+  <testcase name="should complete booking successfully()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.001"/>
+  <testcase name="should throw ValidationException when guest name is too long()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.001"/>
+  <testcase name="should save booking with null phone()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.003"/>
+  <testcase name="should throw ValidationException when phone is too short()" classname="com.puce.NakanoStay.services.BookingServiceTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

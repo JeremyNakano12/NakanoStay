@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.puce.NakanoStay.controllers.HotelControllerTest" tests="16" skipped="0" failures="0" errors="0" timestamp="2025-08-18T02:10:28.848Z" hostname="JEREMYNAKANO" time="0.15">
+  <properties/>
+  <testcase name="should return 500 when unexpected error occurs()" classname="com.puce.NakanoStay.controllers.HotelControllerTest" time="0.014"/>
+  <testcase name="should create hotel with null city and stars when post()" classname="com.puce.NakanoStay.controllers.HotelControllerTest" time="0.023"/>
+  <testcase name="should delete hotel when delete by id()" classname="com.puce.NakanoStay.controllers.HotelControllerTest" time="0.005"/>
+  <testcase name="should return hotel with null values when get by id()" classname="com.puce.NakanoStay.controllers.HotelControllerTest" time="0.009"/>
+  <testcase name="should return empty list when no hotels exist()" classname="com.puce.NakanoStay.controllers.HotelControllerTest" time="0.005"/>
+  <testcase name="should update hotel when put()" classname="com.puce.NakanoStay.controllers.HotelControllerTest" time="0.01"/>
+  <testcase name="should return 400 when update hotel with validation error()" classname="com.puce.NakanoStay.controllers.HotelControllerTest" time="0.008"/>
+  <testcase name="should return 409 when create hotel with conflict error()" classname="com.puce.NakanoStay.controllers.HotelControllerTest" time="0.007"/>
+  <testcase name="should return 404 when delete non-existent hotel()" classname="com.puce.NakanoStay.controllers.HotelControllerTest" time="0.006"/>
+  <testcase name="should return 404 when get hotel by non-existent id()" classname="com.puce.NakanoStay.controllers.HotelControllerTest" time="0.006"/>
+  <testcase name="should return 400 when create hotel with validation error()" classname="com.puce.NakanoStay.controllers.HotelControllerTest" time="0.007"/>
+  <testcase name="should create hotel when post()" classname="com.puce.NakanoStay.controllers.HotelControllerTest" time="0.009"/>
+  <testcase name="should return all hotels when get all()" classname="com.puce.NakanoStay.controllers.HotelControllerTest" time="0.008"/>
+  <testcase name="should return hotel when get by id()" classname="com.puce.NakanoStay.controllers.HotelControllerTest" time="0.007"/>
+  <testcase name="should return 404 when update non-existent hotel()" classname="com.puce.NakanoStay.controllers.HotelControllerTest" time="0.007"/>
+  <testcase name="should return 409 when update hotel with conflict error()" classname="com.puce.NakanoStay.controllers.HotelControllerTest" time="0.007"/>
+  <system-out><![CDATA[2025-08-17T21:10:28.576-05:00  INFO 23228 --- [NakanoStay] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.puce.NakanoStay.controllers.HotelControllerTest]: HotelControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-08-17T21:10:28.583-05:00  INFO 23228 --- [NakanoStay] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.puce.NakanoStay.NakanoStayApplication for test class com.puce.NakanoStay.controllers.HotelControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.0)
+
+2025-08-17T21:10:28.609-05:00  INFO 23228 --- [NakanoStay] [    Test worker] c.p.N.controllers.HotelControllerTest    : Starting HotelControllerTest using Java 21.0.7 with PID 23228 (started by Jeremy in C:\Users\Jeremy\OneDrive\Documentos\Programming\Spring\NakanoStay)
+2025-08-17T21:10:28.609-05:00  INFO 23228 --- [NakanoStay] [    Test worker] c.p.N.controllers.HotelControllerTest    : No active profile set, falling back to 1 default profile: "default"
+2025-08-17T21:10:28.841-05:00  INFO 23228 --- [NakanoStay] [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2025-08-17T21:10:28.841-05:00  INFO 23228 --- [NakanoStay] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-08-17T21:10:28.842-05:00  INFO 23228 --- [NakanoStay] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2025-08-17T21:10:28.846-05:00  INFO 23228 --- [NakanoStay] [    Test worker] c.p.N.controllers.HotelControllerTest    : Started HotelControllerTest in 0.26 seconds (process running for 10.59)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

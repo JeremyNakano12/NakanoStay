@@ -37,6 +37,7 @@ class SecurityConfig(
                     // Endpoints públicos
                     .requestMatchers(HttpMethod.GET, "/api/hotels/**").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/rooms/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/rooms/*/availability").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/bookings").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/bookings/code/**").permitAll()
                     .requestMatchers(HttpMethod.PUT, "/api/bookings/code/*/cancel").permitAll()

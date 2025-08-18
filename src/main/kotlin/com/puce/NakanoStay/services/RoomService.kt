@@ -5,12 +5,19 @@ import com.puce.NakanoStay.exceptions.NotFoundException
 import com.puce.NakanoStay.exceptions.ValidationException
 import com.puce.NakanoStay.models.entities.Room
 import com.puce.NakanoStay.models.enums.BookingStatus
+import com.puce.NakanoStay.models.responses.AvailabilityResponse
+import com.puce.NakanoStay.models.responses.DateRange
+import com.puce.NakanoStay.repositories.BookingRepository
 import com.puce.NakanoStay.repositories.RoomRepository
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
+import java.time.LocalDate
 
 @Service
-class RoomService(private val roomRepository: RoomRepository) {
+class RoomService(
+    private val roomRepository: RoomRepository,
+    private val bookingRepository: BookingRepository
+) {
 
     fun getAll(): List<Room> = roomRepository.findAll()
 
@@ -20,6 +27,48 @@ class RoomService(private val roomRepository: RoomRepository) {
         roomRepository.findById(id).orElseThrow {
             NotFoundException("Habitación con id $id no encontrada")
         }
+
+    fun getAvailability(roomId: Long, startDate: LocalDate, endDate: LocalDate): AvailabilityResponse {
+        val room = getById(roomId)
+
+        if (startDate.isAfter(endDate)) {
+            throw ValidationException("La fecha de inicio debe ser anterior a la fecha de fin")
+        }
+
+        if (startDate.isBefore(LocalDate.now())) {
+            throw ValidationException("La fecha de inicio no puede ser en el pasado")
+        }
+
+        val bookings = bookingRepository.findAll()
+            .filter { booking ->
+                booking.bookingDetails.any { detail -> detail.room.id == roomId } &&
+                        booking.status != BookingStatus.CANCELLED &&
+                        !(booking.checkOut.isBefore(startDate) || booking.checkIn.isAfter(endDate))
+            }
+
+        val occupiedRanges = bookings.map { booking ->
+            DateRange(
+                start = maxOf(booking.checkIn, startDate),
+                end = minOf(booking.checkOut.minusDays(1), endDate) // checkOut no incluye el día
+            )
+        }.sortedBy { it.start }
+
+        val allDates = generateSequence(startDate) { date ->
+            if (date.isBefore(endDate)) date.plusDays(1) else null
+        }.toList()
+
+        val availableDates = allDates.filter { date ->
+            occupiedRanges.none { range ->
+                !date.isBefore(range.start) && !date.isAfter(range.end)
+            }
+        }
+
+        return AvailabilityResponse(
+            roomId = roomId,
+            availableDates = availableDates,
+            occupiedRanges = occupiedRanges
+        )
+    }
 
     fun save(room: Room): Room {
         validateRoom(room)
