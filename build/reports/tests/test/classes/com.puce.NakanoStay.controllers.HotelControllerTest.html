@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.138s</div>
+<div class="counter">0.129s</div>
 <p>duration</p>
 </div>
 </td>
@@ -79,12 +79,12 @@
 </thead>
 <tr>
 <td class="success">should create hotel when post()</td>
-<td class="success">0.009s</td>
+<td class="success">0.008s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">should create hotel with null city and stars when post()</td>
-<td class="success">0.023s</td>
+<td class="success">0.020s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -99,17 +99,17 @@
 </tr>
 <tr>
 <td class="success">should return 400 when update hotel with validation error()</td>
-<td class="success">0.008s</td>
+<td class="success">0.007s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">should return 404 when delete non-existent hotel()</td>
-<td class="success">0.006s</td>
+<td class="success">0.005s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">should return 404 when get hotel by non-existent id()</td>
-<td class="success">0.006s</td>
+<td class="success">0.005s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -119,7 +119,7 @@
 </tr>
 <tr>
 <td class="success">should return 409 when create hotel with conflict error()</td>
-<td class="success">0.007s</td>
+<td class="success">0.006s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -129,7 +129,7 @@
 </tr>
 <tr>
 <td class="success">should return 500 when unexpected error occurs()</td>
-<td class="success">0.014s</td>
+<td class="success">0.015s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -139,22 +139,22 @@
 </tr>
 <tr>
 <td class="success">should return empty list when no hotels exist()</td>
-<td class="success">0.005s</td>
+<td class="success">0.006s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">should return hotel when get by id()</td>
-<td class="success">0.007s</td>
+<td class="success">0.006s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">should return hotel with null values when get by id()</td>
-<td class="success">0.009s</td>
+<td class="success">0.008s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">should update hotel when put()</td>
-<td class="success">0.010s</td>
+<td class="success">0.009s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -162,8 +162,8 @@
 <div class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>2025-08-17T21:10:28.576-05:00  INFO 23228 --- [NakanoStay] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.puce.NakanoStay.controllers.HotelControllerTest]: HotelControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2025-08-17T21:10:28.583-05:00  INFO 23228 --- [NakanoStay] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.puce.NakanoStay.NakanoStayApplication for test class com.puce.NakanoStay.controllers.HotelControllerTest
+<pre>2025-08-19T12:05:05.066-05:00  INFO 20296 --- [NakanoStay] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.puce.NakanoStay.controllers.HotelControllerTest]: HotelControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-08-19T12:05:05.073-05:00  INFO 20296 --- [NakanoStay] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.puce.NakanoStay.NakanoStayApplication for test class com.puce.NakanoStay.controllers.HotelControllerTest
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -174,12 +174,12 @@
 
  :: Spring Boot ::                (v3.5.0)
 
-2025-08-17T21:10:28.609-05:00  INFO 23228 --- [NakanoStay] [    Test worker] c.p.N.controllers.HotelControllerTest    : Starting HotelControllerTest using Java 21.0.7 with PID 23228 (started by Jeremy in C:\Users\Jeremy\OneDrive\Documentos\Programming\Spring\NakanoStay)
-2025-08-17T21:10:28.609-05:00  INFO 23228 --- [NakanoStay] [    Test worker] c.p.N.controllers.HotelControllerTest    : No active profile set, falling back to 1 default profile: &quot;default&quot;
-2025-08-17T21:10:28.841-05:00  INFO 23228 --- [NakanoStay] [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2025-08-17T21:10:28.841-05:00  INFO 23228 --- [NakanoStay] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2025-08-17T21:10:28.842-05:00  INFO 23228 --- [NakanoStay] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
-2025-08-17T21:10:28.846-05:00  INFO 23228 --- [NakanoStay] [    Test worker] c.p.N.controllers.HotelControllerTest    : Started HotelControllerTest in 0.26 seconds (process running for 10.59)
+2025-08-19T12:05:05.098-05:00  INFO 20296 --- [NakanoStay] [    Test worker] c.p.N.controllers.HotelControllerTest    : Starting HotelControllerTest using Java 21.0.7 with PID 20296 (started by Jeremy in C:\Users\Jeremy\OneDrive\Documentos\Programming\Spring\NakanoStay)
+2025-08-19T12:05:05.098-05:00  INFO 20296 --- [NakanoStay] [    Test worker] c.p.N.controllers.HotelControllerTest    : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2025-08-19T12:05:05.318-05:00  INFO 20296 --- [NakanoStay] [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2025-08-19T12:05:05.318-05:00  INFO 20296 --- [NakanoStay] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-08-19T12:05:05.319-05:00  INFO 20296 --- [NakanoStay] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2025-08-19T12:05:05.322-05:00  INFO 20296 --- [NakanoStay] [    Test worker] c.p.N.controllers.HotelControllerTest    : Started HotelControllerTest in 0.246 seconds (process running for 9.859)
 </pre>
 </span>
 </div>
@@ -191,7 +191,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="https://www.gradle.org">Gradle 8.14.2</a> at Aug 17, 2025, 9:10:30 PM</p>
+<a href="https://www.gradle.org">Gradle 8.14.2</a> at Aug 19, 2025, 12:05:07 PM</p>
 </div>
 </div>
 </body>

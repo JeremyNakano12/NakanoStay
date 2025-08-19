@@ -13,15 +13,23 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito.*
+import com.puce.NakanoStay.models.entities.Booking
+import com.puce.NakanoStay.models.entities.BookingDetail
+import com.puce.NakanoStay.models.enums.BookingStatus
+import com.puce.NakanoStay.repositories.BookingRepository
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 class RoomServiceTest {
     private lateinit var roomRepository: RoomRepository
+    private lateinit var bookingRepository: BookingRepository
     private lateinit var service: RoomService
 
     @BeforeEach
     fun setUp() {
         roomRepository = mock(RoomRepository::class.java)
-        service = RoomService(roomRepository)
+        bookingRepository = mock(BookingRepository::class.java)
+        service = RoomService(roomRepository, bookingRepository)
     }
 
     @Test
@@ -463,5 +471,352 @@ class RoomServiceTest {
 
         assertEquals("Habitación con id 200 no encontrada", exception.message)
         verify(roomRepository, never()).deleteById(any())
+    }
+
+    @Test
+    fun `should return full availability when no bookings exist`() {
+        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4, "test@hotel.com").apply { id = 1L }
+        val room = Room(hotel, "101", "Single", BigDecimal("50.00"), true).apply { id = 1L }
+        val startDate = LocalDate.of(2025, 10, 1)
+        val endDate = LocalDate.of(2025, 10, 4)
+
+        `when`(roomRepository.findById(1L)).thenReturn(Optional.of(room))
+        `when`(bookingRepository.findAll()).thenReturn(emptyList())
+
+        val result = service.getAvailability(1L, startDate, endDate)
+
+        assertEquals(1L, result.roomId)
+        assertEquals(4, result.availableDates.size)
+        assertEquals(LocalDate.of(2025, 10, 1), result.availableDates[0])
+        assertEquals(LocalDate.of(2025, 10, 4), result.availableDates[3])
+        assertTrue(result.occupiedRanges.isEmpty())
+    }
+
+    @Test
+    fun `should return availability with occupied ranges when bookings exist`() {
+        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4, "test@hotel.com").apply { id = 1L }
+        val room = Room(hotel, "101", "Single", BigDecimal("50.00"), true).apply { id = 1L }
+        val otherRoom = Room(hotel, "102", "Double", BigDecimal("80.00"), true).apply { id = 2L }
+
+        val startDate = LocalDate.of(2025, 10, 1)
+        val endDate = LocalDate.of(2025, 10, 10)
+
+        val relevantBooking = Booking(
+            bookingCode = "NKS-TEST123456",
+            guestName = "John Doe",
+            guestDni = "1234567890",
+            guestEmail = "john@test.com",
+            checkIn = LocalDate.of(2025, 10, 3),
+            checkOut = LocalDate.of(2025, 10, 6),
+            status = BookingStatus.CONFIRMED
+        )
+        val relevantDetail = BookingDetail(relevantBooking, room, 2, BigDecimal("150.00"))
+        relevantBooking.bookingDetails.add(relevantDetail)
+
+        val irrelevantBooking = Booking(
+            bookingCode = "NKS-OTHER123456",
+            guestName = "Jane Smith",
+            guestDni = "0987654321",
+            guestEmail = "jane@test.com",
+            checkIn = LocalDate.of(2025, 6, 2),
+            checkOut = LocalDate.of(2025, 6, 4),
+            status = BookingStatus.CONFIRMED
+        )
+        val irrelevantDetail = BookingDetail(irrelevantBooking, otherRoom, 1, BigDecimal("80.00"))
+        irrelevantBooking.bookingDetails.add(irrelevantDetail)
+
+        `when`(roomRepository.findById(1L)).thenReturn(Optional.of(room))
+        `when`(bookingRepository.findAll()).thenReturn(listOf(relevantBooking, irrelevantBooking))
+
+        val result = service.getAvailability(1L, startDate, endDate)
+
+        assertEquals(1L, result.roomId)
+        assertEquals(7, result.availableDates.size)
+        assertTrue(result.availableDates.contains(LocalDate.of(2025, 10, 1)))
+        assertTrue(result.availableDates.contains(LocalDate.of(2025, 10, 2)))
+        assertFalse(result.availableDates.contains(LocalDate.of(2025, 10, 3)))
+        assertFalse(result.availableDates.contains(LocalDate.of(2025, 10, 4)))
+        assertFalse(result.availableDates.contains(LocalDate.of(2025, 10, 5)))
+        assertTrue(result.availableDates.contains(LocalDate.of(2025, 10, 7)))
+
+        assertEquals(1, result.occupiedRanges.size)
+        assertEquals(LocalDate.of(2025, 10, 3), result.occupiedRanges[0].start)
+        assertEquals(LocalDate.of(2025, 10, 5), result.occupiedRanges[0].end) // checkOut - 1 day
+    }
+
+    @Test
+    fun `should ignore cancelled bookings in availability`() {
+        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4, "test@hotel.com").apply { id = 1L }
+        val room = Room(hotel, "101", "Single", BigDecimal("50.00"), true).apply { id = 1L }
+        val startDate = LocalDate.of(2025, 10, 1)
+        val endDate = LocalDate.of(2025, 10, 5)
+
+        val cancelledBooking = Booking(
+            bookingCode = "NKS-CANCELLED123",
+            guestName = "Cancelled User",
+            guestDni = "1111111111",
+            guestEmail = "cancelled@test.com",
+            checkIn = LocalDate.of(2025, 10, 2),
+            checkOut = LocalDate.of(2025, 10, 4),
+            status = BookingStatus.CANCELLED
+        )
+        val cancelledDetail = BookingDetail(cancelledBooking, room, 1, BigDecimal("100.00"))
+        cancelledBooking.bookingDetails.add(cancelledDetail)
+
+        `when`(roomRepository.findById(1L)).thenReturn(Optional.of(room))
+        `when`(bookingRepository.findAll()).thenReturn(listOf(cancelledBooking))
+
+        val result = service.getAvailability(1L, startDate, endDate)
+
+        assertEquals(1L, result.roomId)
+        assertEquals(5, result.availableDates.size)
+        assertTrue(result.occupiedRanges.isEmpty())
+    }
+
+    @Test
+    fun `should handle booking that extends beyond requested range`() {
+        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4, "test@hotel.com").apply { id = 1L }
+        val room = Room(hotel, "101", "Single", BigDecimal("50.00"), true).apply { id = 1L }
+        val startDate = LocalDate.of(2025, 10, 3)
+        val endDate = LocalDate.of(2025, 10, 7)
+
+        val extendedBooking = Booking(
+            bookingCode = "NKS-EXTENDED123",
+            guestName = "Extended User",
+            guestDni = "2222222222",
+            guestEmail = "extended@test.com",
+            checkIn = LocalDate.of(2025, 10, 1),
+            checkOut = LocalDate.of(2025, 10, 10),
+            status = BookingStatus.CONFIRMED
+        )
+        val extendedDetail = BookingDetail(extendedBooking, room, 2, BigDecimal("200.00"))
+        extendedBooking.bookingDetails.add(extendedDetail)
+
+        `when`(roomRepository.findById(1L)).thenReturn(Optional.of(room))
+        `when`(bookingRepository.findAll()).thenReturn(listOf(extendedBooking))
+
+        val result = service.getAvailability(1L, startDate, endDate)
+
+        assertEquals(1L, result.roomId)
+        assertTrue(result.availableDates.isEmpty())
+        assertEquals(1, result.occupiedRanges.size)
+        assertEquals(LocalDate.of(2025, 10, 3), result.occupiedRanges[0].start) // Limitado al inicio del rango
+        assertEquals(LocalDate.of(2025, 10, 7), result.occupiedRanges[0].end) // Limitado al final del rango
+    }
+
+    @Test
+    fun `should handle multiple overlapping bookings`() {
+        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4, "test@hotel.com").apply { id = 1L }
+        val room = Room(hotel, "101", "Single", BigDecimal("50.00"), true).apply { id = 1L }
+        val startDate = LocalDate.of(2025, 10, 1)
+        val endDate = LocalDate.of(2025, 10, 10)
+
+        val booking1 = Booking(
+            bookingCode = "NKS-FIRST123",
+            guestName = "First User",
+            guestDni = "1111111111",
+            guestEmail = "first@test.com",
+            checkIn = LocalDate.of(2025, 10, 2),
+            checkOut = LocalDate.of(2025, 10, 5),
+            status = BookingStatus.CONFIRMED
+        )
+        val detail1 = BookingDetail(booking1, room, 1, BigDecimal("100.00"))
+        booking1.bookingDetails.add(detail1)
+
+        val booking2 = Booking(
+            bookingCode = "NKS-SECOND123",
+            guestName = "Second User",
+            guestDni = "2222222222",
+            guestEmail = "second@test.com",
+            checkIn = LocalDate.of(2025, 10, 7),
+            checkOut = LocalDate.of(2025, 10, 9),
+            status = BookingStatus.PENDING
+        )
+        val detail2 = BookingDetail(booking2, room, 2, BigDecimal("150.00"))
+        booking2.bookingDetails.add(detail2)
+
+        `when`(roomRepository.findById(1L)).thenReturn(Optional.of(room))
+        `when`(bookingRepository.findAll()).thenReturn(listOf(booking1, booking2))
+
+        val result = service.getAvailability(1L, startDate, endDate)
+
+        assertEquals(1L, result.roomId)
+        assertEquals(5, result.availableDates.size)
+        assertTrue(result.availableDates.contains(LocalDate.of(2025, 10, 1)))
+        assertTrue(result.availableDates.contains(LocalDate.of(2025, 10, 6)))
+        assertTrue(result.availableDates.contains(LocalDate.of(2025, 10, 9)))
+
+        assertEquals(2, result.occupiedRanges.size)
+        assertEquals(LocalDate.of(2025, 10, 2), result.occupiedRanges[0].start)
+        assertEquals(LocalDate.of(2025, 10, 4), result.occupiedRanges[0].end)
+        assertEquals(LocalDate.of(2025, 10, 7), result.occupiedRanges[1].start)
+        assertEquals(LocalDate.of(2025, 10, 8), result.occupiedRanges[1].end)
+    }
+
+    @Test
+    fun `should handle booking with same room in multiple details`() {
+        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4, "test@hotel.com").apply { id = 1L }
+        val room = Room(hotel, "101", "Single", BigDecimal("50.00"), true).apply { id = 1L }
+        val startDate = LocalDate.of(2025, 10, 1)
+        val endDate = LocalDate.of(2025, 10, 5)
+
+        val multiDetailBooking = Booking(
+            bookingCode = "NKS-MULTI123",
+            guestName = "Multi User",
+            guestDni = "3333333333",
+            guestEmail = "multi@test.com",
+            checkIn = LocalDate.of(2025, 10, 2),
+            checkOut = LocalDate.of(2025, 10, 4),
+            status = BookingStatus.CONFIRMED
+        )
+        val detail1 = BookingDetail(multiDetailBooking, room, 1, BigDecimal("50.00"))
+        val detail2 = BookingDetail(multiDetailBooking, room, 1, BigDecimal("50.00"))
+        multiDetailBooking.bookingDetails.addAll(listOf(detail1, detail2))
+
+        `when`(roomRepository.findById(1L)).thenReturn(Optional.of(room))
+        `when`(bookingRepository.findAll()).thenReturn(listOf(multiDetailBooking))
+
+        val result = service.getAvailability(1L, startDate, endDate)
+
+        assertEquals(1L, result.roomId)
+        assertEquals(3, result.availableDates.size)
+        assertTrue(result.availableDates.contains(LocalDate.of(2025, 10, 1)))
+        assertTrue(result.availableDates.contains(LocalDate.of(2025, 10, 4)))
+
+        assertEquals(1, result.occupiedRanges.size)
+        assertEquals(LocalDate.of(2025, 10, 2), result.occupiedRanges[0].start)
+        assertEquals(LocalDate.of(2025, 10, 3), result.occupiedRanges[0].end)
+    }
+
+    @Test
+    fun `should throw ValidationException when start date is after end date`() {
+        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4, "test@hotel.com").apply { id = 1L }
+        val room = Room(hotel, "101", "Single", BigDecimal("50.00"), true).apply { id = 1L }
+        val startDate = LocalDate.of(2025, 6, 10)
+        val endDate = LocalDate.of(2025, 6, 5)
+
+        `when`(roomRepository.findById(1L)).thenReturn(Optional.of(room))
+
+        val exception = assertThrows<ValidationException> {
+            service.getAvailability(1L, startDate, endDate)
+        }
+
+        assertEquals("La fecha de inicio debe ser anterior a la fecha de fin", exception.message)
+    }
+
+    @Test
+    fun `should throw ValidationException when start date is in the past`() {
+        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4, "test@hotel.com").apply { id = 1L }
+        val room = Room(hotel, "101", "Single", BigDecimal("50.00"), true).apply { id = 1L }
+        val startDate = LocalDate.of(2024, 1, 1) // Pasado
+        val endDate = LocalDate.of(2025, 6, 5)
+
+        `when`(roomRepository.findById(1L)).thenReturn(Optional.of(room))
+
+        val exception = assertThrows<ValidationException> {
+            service.getAvailability(1L, startDate, endDate)
+        }
+
+        assertEquals("La fecha de inicio no puede ser en el pasado", exception.message)
+    }
+
+    @Test
+    fun `should throw NotFoundException when room does not exist for availability`() {
+        val startDate = LocalDate.of(2025, 10, 1)
+        val endDate = LocalDate.of(2025, 10, 5)
+
+        `when`(roomRepository.findById(99L)).thenReturn(Optional.empty())
+
+        val exception = assertThrows<NotFoundException> {
+            service.getAvailability(99L, startDate, endDate)
+        }
+
+        assertEquals("Habitación con id 99 no encontrada", exception.message)
+    }
+
+    @Test
+    fun `should handle single day availability request`() {
+        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4, "test@hotel.com").apply { id = 1L }
+        val room = Room(hotel, "101", "Single", BigDecimal("50.00"), true).apply { id = 1L }
+        val startDate = LocalDate.of(2025, 10, 1)
+        val endDate = LocalDate.of(2025, 10, 2)
+
+        `when`(roomRepository.findById(1L)).thenReturn(Optional.of(room))
+        `when`(bookingRepository.findAll()).thenReturn(emptyList())
+
+        val result = service.getAvailability(1L, startDate, endDate)
+
+        assertEquals(1L, result.roomId)
+        assertEquals(2, result.availableDates.size)
+        assertEquals(LocalDate.of(2025, 10, 1), result.availableDates[0])
+        assertTrue(result.occupiedRanges.isEmpty())
+    }
+
+    @Test
+    fun `should handle booking that starts on boundary date`() {
+        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4, "test@hotel.com").apply { id = 1L }
+        val room = Room(hotel, "101", "Single", BigDecimal("50.00"), true).apply { id = 1L }
+        val startDate = LocalDate.of(2025, 10, 1)
+        val endDate = LocalDate.of(2025, 10, 5)
+
+        val boundaryBooking = Booking(
+            bookingCode = "NKS-BOUNDARY123",
+            guestName = "Boundary User",
+            guestDni = "4444444444",
+            guestEmail = "boundary@test.com",
+            checkIn = LocalDate.of(2025, 10, 1),
+            checkOut = LocalDate.of(2025, 10, 3),
+            status = BookingStatus.CONFIRMED
+        )
+        val boundaryDetail = BookingDetail(boundaryBooking, room, 1, BigDecimal("100.00"))
+        boundaryBooking.bookingDetails.add(boundaryDetail)
+
+        `when`(roomRepository.findById(1L)).thenReturn(Optional.of(room))
+        `when`(bookingRepository.findAll()).thenReturn(listOf(boundaryBooking))
+
+        val result = service.getAvailability(1L, startDate, endDate)
+
+        assertEquals(1L, result.roomId)
+        assertEquals(3, result.availableDates.size)
+        assertTrue(result.availableDates.contains(LocalDate.of(2025, 10, 3)))
+        assertTrue(result.availableDates.contains(LocalDate.of(2025, 10, 4)))
+
+        assertEquals(1, result.occupiedRanges.size)
+        assertEquals(LocalDate.of(2025, 10, 1), result.occupiedRanges[0].start)
+        assertEquals(LocalDate.of(2025, 10, 2), result.occupiedRanges[0].end)
+    }
+
+    @Test
+    fun `should handle booking that ends on boundary date`() {
+        val hotel = Hotel("Test Hotel", "Test Address", "Test City", 4, "test@hotel.com").apply { id = 1L }
+        val room = Room(hotel, "101", "Single", BigDecimal("50.00"), true).apply { id = 1L }
+        val startDate = LocalDate.of(2025, 10, 1)
+        val endDate = LocalDate.of(2025, 10, 5)
+
+        val boundaryBooking = Booking(
+            bookingCode = "NKS-ENDBOUNDARY123",
+            guestName = "End Boundary User",
+            guestDni = "5555555555",
+            guestEmail = "endboundary@test.com",
+            checkIn = LocalDate.of(2025, 10, 3),
+            checkOut = LocalDate.of(2025, 10, 5),
+            status = BookingStatus.CONFIRMED
+        )
+        val boundaryDetail = BookingDetail(boundaryBooking, room, 1, BigDecimal("100.00"))
+        boundaryBooking.bookingDetails.add(boundaryDetail)
+
+        `when`(roomRepository.findById(1L)).thenReturn(Optional.of(room))
+        `when`(bookingRepository.findAll()).thenReturn(listOf(boundaryBooking))
+
+        val result = service.getAvailability(1L, startDate, endDate)
+
+        assertEquals(1L, result.roomId)
+        assertEquals(3, result.availableDates.size)
+        assertTrue(result.availableDates.contains(LocalDate.of(2025, 10, 1)))
+        assertTrue(result.availableDates.contains(LocalDate.of(2025, 10, 2)))
+
+        assertEquals(1, result.occupiedRanges.size)
+        assertEquals(LocalDate.of(2025, 10, 3), result.occupiedRanges[0].start)
+        assertEquals(LocalDate.of(2025, 10, 4), result.occupiedRanges[0].end)
     }
 }

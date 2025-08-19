@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.730s</div>
+<div class="counter">0.670s</div>
 <p>duration</p>
 </div>
 </td>
@@ -84,17 +84,17 @@
 </tr>
 <tr>
 <td class="success">should complete booking successfully()</td>
-<td class="success">0.007s</td>
+<td class="success">0.006s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">should confirm booking successfully()</td>
-<td class="success">0.007s</td>
+<td class="success">0.006s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">should create booking when post()</td>
-<td class="success">0.010s</td>
+<td class="success">0.011s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -104,17 +104,17 @@
 </tr>
 <tr>
 <td class="success">should delete booking when delete by id()</td>
-<td class="success">0.016s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">should return 400 when create booking with validation error()</td>
 <td class="success">0.014s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
+<td class="success">should return 400 when create booking with validation error()</td>
+<td class="success">0.013s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
 <td class="success">should return 404 when cancel non-existent booking()</td>
-<td class="success">0.009s</td>
+<td class="success">0.008s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -129,7 +129,7 @@
 </tr>
 <tr>
 <td class="success">should return 404 when deleting non-existent booking()</td>
-<td class="success">0.007s</td>
+<td class="success">0.006s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -144,47 +144,47 @@
 </tr>
 <tr>
 <td class="success">should return 404 when room not found for booking creation()</td>
-<td class="success">0.013s</td>
+<td class="success">0.011s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">should return 409 when create booking with conflict error()</td>
-<td class="success">0.093s</td>
+<td class="success">0.084s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">should return 409 when trying to cancel already cancelled booking()</td>
-<td class="success">0.009s</td>
+<td class="success">0.007s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">should return 409 when trying to complete non-confirmed booking()</td>
-<td class="success">0.007s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">should return 409 when trying to confirm already confirmed booking()</td>
 <td class="success">0.006s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
+<td class="success">should return 409 when trying to confirm already confirmed booking()</td>
+<td class="success">0.007s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
 <td class="success">should return 500 when unexpected error occurs()</td>
-<td class="success">0.296s</td>
+<td class="success">0.260s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">should return all bookings when get all()</td>
-<td class="success">0.010s</td>
+<td class="success">0.015s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">should return booking when get by code and dni()</td>
-<td class="success">0.168s</td>
+<td class="success">0.157s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">should return booking when get by id()</td>
-<td class="success">0.007s</td>
+<td class="success">0.008s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -197,8 +197,8 @@
 <div class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>2025-08-17T21:10:27.178-05:00  INFO 23228 --- [NakanoStay] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.puce.NakanoStay.controllers.BookingControllerTest]: BookingControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2025-08-17T21:10:27.235-05:00  INFO 23228 --- [NakanoStay] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.puce.NakanoStay.NakanoStayApplication for test class com.puce.NakanoStay.controllers.BookingControllerTest
+<pre>2025-08-19T12:05:03.747-05:00  INFO 20296 --- [NakanoStay] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.puce.NakanoStay.controllers.BookingControllerTest]: BookingControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-08-19T12:05:03.799-05:00  INFO 20296 --- [NakanoStay] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.puce.NakanoStay.NakanoStayApplication for test class com.puce.NakanoStay.controllers.BookingControllerTest
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -209,12 +209,12 @@
 
  :: Spring Boot ::                (v3.5.0)
 
-2025-08-17T21:10:27.265-05:00  INFO 23228 --- [NakanoStay] [    Test worker] c.p.N.controllers.BookingControllerTest  : Starting BookingControllerTest using Java 21.0.7 with PID 23228 (started by Jeremy in C:\Users\Jeremy\OneDrive\Documentos\Programming\Spring\NakanoStay)
-2025-08-17T21:10:27.266-05:00  INFO 23228 --- [NakanoStay] [    Test worker] c.p.N.controllers.BookingControllerTest  : No active profile set, falling back to 1 default profile: &quot;default&quot;
-2025-08-17T21:10:27.800-05:00  INFO 23228 --- [NakanoStay] [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2025-08-17T21:10:27.801-05:00  INFO 23228 --- [NakanoStay] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2025-08-17T21:10:27.802-05:00  INFO 23228 --- [NakanoStay] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
-2025-08-17T21:10:27.818-05:00  INFO 23228 --- [NakanoStay] [    Test worker] c.p.N.controllers.BookingControllerTest  : Started BookingControllerTest in 0.579 seconds (process running for 9.562)
+2025-08-19T12:05:03.823-05:00  INFO 20296 --- [NakanoStay] [    Test worker] c.p.N.controllers.BookingControllerTest  : Starting BookingControllerTest using Java 21.0.7 with PID 20296 (started by Jeremy in C:\Users\Jeremy\OneDrive\Documentos\Programming\Spring\NakanoStay)
+2025-08-19T12:05:03.824-05:00  INFO 20296 --- [NakanoStay] [    Test worker] c.p.N.controllers.BookingControllerTest  : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2025-08-19T12:05:04.350-05:00  INFO 20296 --- [NakanoStay] [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2025-08-19T12:05:04.351-05:00  INFO 20296 --- [NakanoStay] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-08-19T12:05:04.351-05:00  INFO 20296 --- [NakanoStay] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2025-08-19T12:05:04.369-05:00  INFO 20296 --- [NakanoStay] [    Test worker] c.p.N.controllers.BookingControllerTest  : Started BookingControllerTest in 0.566 seconds (process running for 8.906)
 </pre>
 </span>
 </div>
@@ -226,7 +226,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="https://www.gradle.org">Gradle 8.14.2</a> at Aug 17, 2025, 9:10:30 PM</p>
+<a href="https://www.gradle.org">Gradle 8.14.2</a> at Aug 19, 2025, 12:05:07 PM</p>
 </div>
 </div>
 </body>

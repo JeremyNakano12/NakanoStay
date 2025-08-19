@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.puce.NakanoStay.controllers.BookingControllerTest" tests="23" skipped="0" failures="0" errors="0" timestamp="2025-08-18T02:10:27.823Z" hostname="JEREMYNAKANO" time="0.749">
+<testsuite name="com.puce.NakanoStay.controllers.BookingControllerTest" tests="23" skipped="0" failures="0" errors="0" timestamp="2025-08-19T17:05:04.374Z" hostname="JEREMYNAKANO" time="0.688">
   <properties/>
-  <testcase name="should return 500 when unexpected error occurs()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.296"/>
-  <testcase name="should return booking when get by code and dni()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.168"/>
-  <testcase name="should return 409 when create booking with conflict error()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.093"/>
-  <testcase name="should return 400 when create booking with validation error()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.014"/>
+  <testcase name="should return 500 when unexpected error occurs()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.26"/>
+  <testcase name="should return booking when get by code and dni()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.157"/>
+  <testcase name="should return 409 when create booking with conflict error()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.084"/>
+  <testcase name="should return 400 when create booking with validation error()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.013"/>
   <testcase name="should return empty list when no bookings exist()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.007"/>
-  <testcase name="should return 404 when room not found for booking creation()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.013"/>
-  <testcase name="should delete booking when delete by id()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.016"/>
-  <testcase name="should return 404 when cancel non-existent booking()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.009"/>
+  <testcase name="should return 404 when room not found for booking creation()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.011"/>
+  <testcase name="should delete booking when delete by id()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.014"/>
+  <testcase name="should return 404 when cancel non-existent booking()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.008"/>
   <testcase name="should create booking with null phone when post()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.012"/>
-  <testcase name="should return 409 when trying to confirm already confirmed booking()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.006"/>
+  <testcase name="should return 409 when trying to confirm already confirmed booking()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.007"/>
   <testcase name="should cancel booking successfully()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.006"/>
-  <testcase name="should return 409 when trying to cancel already cancelled booking()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.009"/>
-  <testcase name="should return 404 when deleting non-existent booking()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.007"/>
+  <testcase name="should return 409 when trying to cancel already cancelled booking()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.007"/>
+  <testcase name="should return 404 when deleting non-existent booking()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.006"/>
   <testcase name="should return 404 when get booking by non-existent id()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.007"/>
   <testcase name="should return 404 when get booking by non-existent code and dni()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.006"/>
   <testcase name="should return 404 when complete non-existent booking()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.007"/>
-  <testcase name="should confirm booking successfully()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.007"/>
-  <testcase name="should complete booking successfully()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.007"/>
-  <testcase name="should return 409 when trying to complete non-confirmed booking()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.007"/>
-  <testcase name="should return booking when get by id()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.007"/>
-  <testcase name="should return all bookings when get all()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.01"/>
+  <testcase name="should confirm booking successfully()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.006"/>
+  <testcase name="should complete booking successfully()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.006"/>
+  <testcase name="should return 409 when trying to complete non-confirmed booking()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.006"/>
+  <testcase name="should return booking when get by id()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.008"/>
+  <testcase name="should return all bookings when get all()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.015"/>
   <testcase name="should return 404 when confirm non-existent booking()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.006"/>
-  <testcase name="should create booking when post()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.01"/>
-  <system-out><![CDATA[2025-08-17T21:10:27.178-05:00  INFO 23228 --- [NakanoStay] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.puce.NakanoStay.controllers.BookingControllerTest]: BookingControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2025-08-17T21:10:27.235-05:00  INFO 23228 --- [NakanoStay] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.puce.NakanoStay.NakanoStayApplication for test class com.puce.NakanoStay.controllers.BookingControllerTest
+  <testcase name="should create booking when post()" classname="com.puce.NakanoStay.controllers.BookingControllerTest" time="0.011"/>
+  <system-out><![CDATA[2025-08-19T12:05:03.747-05:00  INFO 20296 --- [NakanoStay] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.puce.NakanoStay.controllers.BookingControllerTest]: BookingControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-08-19T12:05:03.799-05:00  INFO 20296 --- [NakanoStay] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.puce.NakanoStay.NakanoStayApplication for test class com.puce.NakanoStay.controllers.BookingControllerTest
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -36,12 +36,12 @@
 
  :: Spring Boot ::                (v3.5.0)
 
-2025-08-17T21:10:27.265-05:00  INFO 23228 --- [NakanoStay] [    Test worker] c.p.N.controllers.BookingControllerTest  : Starting BookingControllerTest using Java 21.0.7 with PID 23228 (started by Jeremy in C:\Users\Jeremy\OneDrive\Documentos\Programming\Spring\NakanoStay)
-2025-08-17T21:10:27.266-05:00  INFO 23228 --- [NakanoStay] [    Test worker] c.p.N.controllers.BookingControllerTest  : No active profile set, falling back to 1 default profile: "default"
-2025-08-17T21:10:27.800-05:00  INFO 23228 --- [NakanoStay] [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2025-08-17T21:10:27.801-05:00  INFO 23228 --- [NakanoStay] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2025-08-17T21:10:27.802-05:00  INFO 23228 --- [NakanoStay] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
-2025-08-17T21:10:27.818-05:00  INFO 23228 --- [NakanoStay] [    Test worker] c.p.N.controllers.BookingControllerTest  : Started BookingControllerTest in 0.579 seconds (process running for 9.562)
+2025-08-19T12:05:03.823-05:00  INFO 20296 --- [NakanoStay] [    Test worker] c.p.N.controllers.BookingControllerTest  : Starting BookingControllerTest using Java 21.0.7 with PID 20296 (started by Jeremy in C:\Users\Jeremy\OneDrive\Documentos\Programming\Spring\NakanoStay)
+2025-08-19T12:05:03.824-05:00  INFO 20296 --- [NakanoStay] [    Test worker] c.p.N.controllers.BookingControllerTest  : No active profile set, falling back to 1 default profile: "default"
+2025-08-19T12:05:04.350-05:00  INFO 20296 --- [NakanoStay] [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2025-08-19T12:05:04.351-05:00  INFO 20296 --- [NakanoStay] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-08-19T12:05:04.351-05:00  INFO 20296 --- [NakanoStay] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2025-08-19T12:05:04.369-05:00  INFO 20296 --- [NakanoStay] [    Test worker] c.p.N.controllers.BookingControllerTest  : Started BookingControllerTest in 0.566 seconds (process running for 8.906)
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

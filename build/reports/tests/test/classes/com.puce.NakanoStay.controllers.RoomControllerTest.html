@@ -23,7 +23,7 @@
 <tr>
 <td>
 <div class="infoBox" id="tests">
-<div class="counter">21</div>
+<div class="counter">27</div>
 <p>tests</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.173s</div>
+<div class="counter">0.340s</div>
 <p>duration</p>
 </div>
 </td>
@@ -84,27 +84,37 @@
 </tr>
 <tr>
 <td class="success">should create room with null room type when post()</td>
-<td class="success">0.008s</td>
+<td class="success">0.009s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">should delete room when delete by id()</td>
-<td class="success">0.004s</td>
+<td class="success">0.005s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">should make room available when put available()</td>
-<td class="success">0.006s</td>
+<td class="success">0.005s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">should make room unavailable when put unavailable()</td>
-<td class="success">0.006s</td>
+<td class="success">0.005s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">should return 400 when create room with validation error()</td>
 <td class="success">0.009s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">should return 400 when get availability with invalid date range()</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">should return 400 when get availability with past start date()</td>
+<td class="success">0.008s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -114,7 +124,12 @@
 </tr>
 <tr>
 <td class="success">should return 404 when deleting non-existent room()</td>
-<td class="success">0.006s</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">should return 404 when get availability for non-existent room()</td>
+<td class="success">0.005s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -124,7 +139,7 @@
 </tr>
 <tr>
 <td class="success">should return 404 when making non-existent room available()</td>
-<td class="success">0.007s</td>
+<td class="success">0.005s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -149,27 +164,42 @@
 </tr>
 <tr>
 <td class="success">should return 409 when making already unavailable room unavailable()</td>
-<td class="success">0.006s</td>
+<td class="success">0.005s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">should return 500 when unexpected error occurs()</td>
-<td class="success">0.013s</td>
+<td class="success">0.014s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">should return all rooms when get all()</td>
-<td class="success">0.009s</td>
+<td class="success">0.008s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">should return empty list when hotel has no rooms()</td>
-<td class="success">0.007s</td>
+<td class="success">0.006s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">should return empty list when no rooms exist()</td>
-<td class="success">0.004s</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">should return room availability when get availability()</td>
+<td class="success">0.014s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">should return room availability with no available dates when room is fully occupied()</td>
+<td class="success">0.010s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">should return room availability with no occupied ranges when room is always available()</td>
+<td class="success">0.131s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -179,7 +209,7 @@
 </tr>
 <tr>
 <td class="success">should update room when put()</td>
-<td class="success">0.030s</td>
+<td class="success">0.027s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -187,8 +217,8 @@
 <div class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>2025-08-17T21:10:29.001-05:00  INFO 23228 --- [NakanoStay] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.puce.NakanoStay.controllers.RoomControllerTest]: RoomControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2025-08-17T21:10:29.007-05:00  INFO 23228 --- [NakanoStay] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.puce.NakanoStay.NakanoStayApplication for test class com.puce.NakanoStay.controllers.RoomControllerTest
+<pre>2025-08-19T12:05:05.470-05:00  INFO 20296 --- [NakanoStay] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.puce.NakanoStay.controllers.RoomControllerTest]: RoomControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-08-19T12:05:05.476-05:00  INFO 20296 --- [NakanoStay] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.puce.NakanoStay.NakanoStayApplication for test class com.puce.NakanoStay.controllers.RoomControllerTest
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -199,12 +229,12 @@
 
  :: Spring Boot ::                (v3.5.0)
 
-2025-08-17T21:10:29.025-05:00  INFO 23228 --- [NakanoStay] [    Test worker] c.p.N.controllers.RoomControllerTest     : Starting RoomControllerTest using Java 21.0.7 with PID 23228 (started by Jeremy in C:\Users\Jeremy\OneDrive\Documentos\Programming\Spring\NakanoStay)
-2025-08-17T21:10:29.026-05:00  INFO 23228 --- [NakanoStay] [    Test worker] c.p.N.controllers.RoomControllerTest     : No active profile set, falling back to 1 default profile: &quot;default&quot;
-2025-08-17T21:10:29.184-05:00  INFO 23228 --- [NakanoStay] [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2025-08-17T21:10:29.185-05:00  INFO 23228 --- [NakanoStay] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2025-08-17T21:10:29.185-05:00  INFO 23228 --- [NakanoStay] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
-2025-08-17T21:10:29.188-05:00  INFO 23228 --- [NakanoStay] [    Test worker] c.p.N.controllers.RoomControllerTest     : Started RoomControllerTest in 0.179 seconds (process running for 10.932)
+2025-08-19T12:05:05.498-05:00  INFO 20296 --- [NakanoStay] [    Test worker] c.p.N.controllers.RoomControllerTest     : Starting RoomControllerTest using Java 21.0.7 with PID 20296 (started by Jeremy in C:\Users\Jeremy\OneDrive\Documentos\Programming\Spring\NakanoStay)
+2025-08-19T12:05:05.498-05:00  INFO 20296 --- [NakanoStay] [    Test worker] c.p.N.controllers.RoomControllerTest     : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2025-08-19T12:05:05.662-05:00  INFO 20296 --- [NakanoStay] [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2025-08-19T12:05:05.663-05:00  INFO 20296 --- [NakanoStay] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-08-19T12:05:05.663-05:00  INFO 20296 --- [NakanoStay] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2025-08-19T12:05:05.666-05:00  INFO 20296 --- [NakanoStay] [    Test worker] c.p.N.controllers.RoomControllerTest     : Started RoomControllerTest in 0.189 seconds (process running for 10.203)
 </pre>
 </span>
 </div>
@@ -216,7 +246,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="https://www.gradle.org">Gradle 8.14.2</a> at Aug 17, 2025, 9:10:30 PM</p>
+<a href="https://www.gradle.org">Gradle 8.14.2</a> at Aug 19, 2025, 12:05:07 PM</p>
 </div>
 </div>
 </body>

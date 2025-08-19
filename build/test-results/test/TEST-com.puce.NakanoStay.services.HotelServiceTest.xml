@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.puce.NakanoStay.services.HotelServiceTest" tests="29" skipped="0" failures="0" errors="0" timestamp="2025-08-18T02:10:30.148Z" hostname="JEREMYNAKANO" time="0.11">
+<testsuite name="com.puce.NakanoStay.services.HotelServiceTest" tests="29" skipped="0" failures="0" errors="0" timestamp="2025-08-19T17:05:06.736Z" hostname="JEREMYNAKANO" time="0.098">
   <properties/>
-  <testcase name="should throw ValidationException when updating with invalid data()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.052"/>
+  <testcase name="should throw ValidationException when updating with invalid data()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.059"/>
   <testcase name="should throw ConflictException when updating with duplicate email()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.002"/>
   <testcase name="should throw ValidationException when hotel name is blank()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.001"/>
   <testcase name="should throw ValidationException when city is too long()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.002"/>
@@ -14,22 +14,22 @@
   <testcase name="should save hotel with null stars()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.001"/>
   <testcase name="should update hotel successfully()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.001"/>
   <testcase name="should save a valid hotel()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.001"/>
-  <testcase name="should validate various email formats correctly()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.004"/>
+  <testcase name="should validate various email formats correctly()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.003"/>
   <testcase name="should throw NotFoundException when updating non-existent hotel()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.002"/>
-  <testcase name="should throw ValidationException when email is too long()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.002"/>
+  <testcase name="should throw ValidationException when email is too long()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.001"/>
   <testcase name="should save hotel with 0 stars()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.001"/>
   <testcase name="should save hotel with 5 stars()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.001"/>
   <testcase name="should throw ValidationException when email is blank()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.001"/>
-  <testcase name="should throw ConflictException when hotel with same name and address exists()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.002"/>
-  <testcase name="should throw ValidationException when email is invalid()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.005"/>
+  <testcase name="should throw ConflictException when hotel with same name and address exists()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.001"/>
+  <testcase name="should throw ValidationException when email is invalid()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.001"/>
   <testcase name="should throw ValidationException when hotel address is blank()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.001"/>
   <testcase name="should throw NotFoundException when deleting non-existent hotel()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.002"/>
   <testcase name="should throw ValidationException when stars are more than 5()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.001"/>
-  <testcase name="should throw ValidationException when stars are negative()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.001"/>
-  <testcase name="should throw ConflictException when hotel with same email exists()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.002"/>
-  <testcase name="should return all hotels()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.001"/>
-  <testcase name="should throw ConflictException when updating with duplicate name and address()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.002"/>
-  <testcase name="should throw NotFoundException when hotel not found by id()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.001"/>
+  <testcase name="should throw ValidationException when stars are negative()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.002"/>
+  <testcase name="should throw ConflictException when hotel with same email exists()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.001"/>
+  <testcase name="should return all hotels()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.0"/>
+  <testcase name="should throw ConflictException when updating with duplicate name and address()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.001"/>
+  <testcase name="should throw NotFoundException when hotel not found by id()" classname="com.puce.NakanoStay.services.HotelServiceTest" time="0.002"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

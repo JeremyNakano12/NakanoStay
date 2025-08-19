@@ -31,7 +31,10 @@ import org.springframework.test.web.servlet.post
 import org.springframework.test.web.servlet.put
 import org.springframework.test.web.servlet.delete
 import java.math.BigDecimal
+import java.time.LocalDate
 import kotlin.test.assertEquals
+import com.puce.NakanoStay.models.responses.AvailabilityResponse
+import com.puce.NakanoStay.models.responses.DateRange
 
 @WebMvcTest(
     controllers = [RoomController::class],
@@ -485,6 +488,143 @@ class RoomControllerTest {
             .andExpect {
                 status { isInternalServerError() }
                 jsonPath("$.error") { value("Unexpected error: Database connection error") }
+            }
+    }
+
+    @Test
+    fun `should return room availability when get availability`() {
+        val startDate = LocalDate.of(2025, 6, 1)
+        val endDate = LocalDate.of(2025, 6, 10)
+        val availability = AvailabilityResponse(
+            roomId = 1L,
+            availableDates = listOf(
+                LocalDate.of(2025, 6, 1),
+                LocalDate.of(2025, 6, 2),
+                LocalDate.of(2025, 6, 8),
+                LocalDate.of(2025, 6, 9)
+            ),
+            occupiedRanges = listOf(
+                DateRange(LocalDate.of(2025, 6, 3), LocalDate.of(2025, 6, 7))
+            )
+        )
+
+        `when`(roomService.getAvailability(1L, startDate, endDate)).thenReturn(availability)
+
+        val result = mockMvc.get("$BASE_URL/1/availability?startDate=2025-06-01&endDate=2025-06-10")
+            .andExpect {
+                status { isOk() }
+                jsonPath("$.room_id") { value(1) }
+                jsonPath("$.available_dates") { isArray() }
+                jsonPath("$.available_dates.length()") { value(4) }
+                jsonPath("$.available_dates[0]") { value("2025-06-01") }
+                jsonPath("$.available_dates[1]") { value("2025-06-02") }
+                jsonPath("$.available_dates[2]") { value("2025-06-08") }
+                jsonPath("$.available_dates[3]") { value("2025-06-09") }
+                jsonPath("$.occupied_ranges") { isArray() }
+                jsonPath("$.occupied_ranges.length()") { value(1) }
+                jsonPath("$.occupied_ranges[0].start") { value("2025-06-03") }
+                jsonPath("$.occupied_ranges[0].end") { value("2025-06-07") }
+            }.andReturn()
+
+        assertEquals(200, result.response.status)
+        verify(roomService).getAvailability(1L, startDate, endDate)
+    }
+
+    @Test
+    fun `should return room availability with no occupied ranges when room is always available`() {
+        val startDate = LocalDate.of(2025, 6, 1)
+        val endDate = LocalDate.of(2025, 6, 5)
+        val availability = AvailabilityResponse(
+            roomId = 1L,
+            availableDates = listOf(
+                LocalDate.of(2025, 6, 1),
+                LocalDate.of(2025, 6, 2),
+                LocalDate.of(2025, 6, 3),
+                LocalDate.of(2025, 6, 4)
+            ),
+            occupiedRanges = emptyList()
+        )
+
+        `when`(roomService.getAvailability(1L, startDate, endDate)).thenReturn(availability)
+
+        val result = mockMvc.get("$BASE_URL/1/availability?startDate=2025-06-01&endDate=2025-06-05")
+            .andExpect {
+                status { isOk() }
+                jsonPath("$.room_id") { value(1) }
+                jsonPath("$.available_dates.length()") { value(4) }
+                jsonPath("$.occupied_ranges") { isEmpty() }
+            }.andReturn()
+
+        assertEquals(200, result.response.status)
+    }
+
+    @Test
+    fun `should return room availability with no available dates when room is fully occupied`() {
+        val startDate = LocalDate.of(2025, 6, 1)
+        val endDate = LocalDate.of(2025, 6, 5)
+        val availability = AvailabilityResponse(
+            roomId = 1L,
+            availableDates = emptyList(),
+            occupiedRanges = listOf(
+                DateRange(LocalDate.of(2025, 6, 1), LocalDate.of(2025, 6, 4))
+            )
+        )
+
+        `when`(roomService.getAvailability(1L, startDate, endDate)).thenReturn(availability)
+
+        val result = mockMvc.get("$BASE_URL/1/availability?startDate=2025-06-01&endDate=2025-06-05")
+            .andExpect {
+                status { isOk() }
+                jsonPath("$.room_id") { value(1) }
+                jsonPath("$.available_dates") { isEmpty() }
+                jsonPath("$.occupied_ranges.length()") { value(1) }
+            }.andReturn()
+
+        assertEquals(200, result.response.status)
+    }
+
+    @Test
+    fun `should return 404 when get availability for non-existent room`() {
+        val startDate = LocalDate.of(2025, 6, 1)
+        val endDate = LocalDate.of(2025, 6, 5)
+
+        `when`(roomService.getAvailability(99L, startDate, endDate))
+            .thenThrow(NotFoundException("Habitación con id 99 no encontrada"))
+
+        mockMvc.get("$BASE_URL/99/availability?startDate=2025-06-01&endDate=2025-06-05")
+            .andExpect {
+                status { isNotFound() }
+                jsonPath("$.error") { value("Habitación con id 99 no encontrada") }
+            }
+    }
+
+    @Test
+    fun `should return 400 when get availability with invalid date range`() {
+        val startDate = LocalDate.of(2025, 6, 10)
+        val endDate = LocalDate.of(2025, 6, 5)
+
+        `when`(roomService.getAvailability(1L, startDate, endDate))
+            .thenThrow(ValidationException("La fecha de inicio debe ser anterior a la fecha de fin"))
+
+        mockMvc.get("$BASE_URL/1/availability?startDate=2025-06-10&endDate=2025-06-05")
+            .andExpect {
+                status { isBadRequest() }
+                jsonPath("$.error") { value("La fecha de inicio debe ser anterior a la fecha de fin") }
+            }
+    }
+
+    @Test
+    fun `should return 400 when get availability with past start date`() {
+        val startDate = LocalDate.of(2024, 1, 1)
+        val endDate = LocalDate.of(2025, 6, 5)
+
+        `when`(roomService.getAvailability(1L, startDate, endDate))
+            .thenThrow(ValidationException("La fecha de inicio no puede ser en el pasado"))
+
+        mockMvc.get("$BASE_URL/1/availability?startDate=2024-01-01&endDate=2025-06-05")
+            .andExpect {
+                status { isBadRequest() }
+                jsonPath("$.error") { value("La fecha de inicio no puede ser en el pasado") }
             }
     }
 }
