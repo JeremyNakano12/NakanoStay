@@ -43,6 +43,7 @@ class RoomService(
             .filter { booking ->
                 booking.bookingDetails.any { detail -> detail.room.id == roomId } &&
                         booking.status != BookingStatus.CANCELLED &&
+                        booking.status != BookingStatus.COMPLETED &&
                         !(booking.checkOut.isBefore(startDate) || booking.checkIn.isAfter(endDate))
             }
 
