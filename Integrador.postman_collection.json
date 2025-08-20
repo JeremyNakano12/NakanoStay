@@ -7,106 +7,6 @@
 	},
 	"item": [
 		{
-			"name": "Users",
-			"item": [
-				{
-					"name": "Get Users",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/users",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create User",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"Akimi Lázaro\",\n    \"dni\": \"2222222222\",\n    \"email\": \"Alazaro@puce.edu.ec\",\n    \"phone\": \"0999999999\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/users",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get User by ID",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/users/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"users",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete User",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/users/delete/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"users",
-								"delete",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "Hotels",
 			"item": [
 				{
@@ -132,11 +32,51 @@
 				{
 					"name": "Create Hotels",
 					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "redirect_uri",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "User",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "https://us-east-1tu3brjfar.auth.us-east-1.amazoncognito.com/oauth2/token",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "https://us-east-1tu3brjfar.auth.us-east-1.amazoncognito.com/login",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "189o4nu8cku0f67gt27oc5ck80omoitb3irlrmcbor3r2etkgjp",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "4bn0scguucfpnu1j3mgnu4d4cf",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Puce Hotel\",\n    \"address\": \"Eloy Alfaro\",\n    \"city\": \"Quito\",\n    \"stars\": \"4\"\n}",
+							"raw": "{\n    \"name\": \"Sandia Hotel\",\n    \"address\": \"Shyris\",\n    \"city\": \"Quito\",\n    \"stars\": \"5\",\n    \"email\": \"jeremarinx@gmail.com\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -159,79 +99,53 @@
 					"response": []
 				},
 				{
-					"name": "Get Hotel by ID",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/hotels/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"hotels",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Hotel",
+					"name": "Edit Hotels",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "redirect_uri",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "User",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "https://us-east-1tu3brjfar.auth.us-east-1.amazoncognito.com/oauth2/token",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "https://us-east-1tu3brjfar.auth.us-east-1.amazoncognito.com/login",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "189o4nu8cku0f67gt27oc5ck80omoitb3irlrmcbor3r2etkgjp",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "4bn0scguucfpnu1j3mgnu4d4cf",
+									"type": "string"
+								}
+							]
 						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/hotels/delete/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"hotels",
-								"delete",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Hotels",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/hotels",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"hotels"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Hotels",
-					"request": {
-						"method": "POST",
+						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Puce Hotel\",\n    \"address\": \"Eloy Alfaro\",\n    \"city\": \"Quito\",\n    \"stars\": \"4\"\n}",
+							"raw": "{\n    \"name\": \"Sandia Hotel\",\n    \"address\": \"Av Amazonas\",\n    \"city\": \"Quito\",\n    \"stars\": \"5\",\n    \"email\": \"jeremynakano12@gmail.com\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -239,15 +153,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/hotels",
-							"protocol": "http",
+							"raw": "{{BaseURL}}/api/hotels/1",
 							"host": [
-								"localhost"
+								"{{BaseURL}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
-								"hotels"
+								"hotels",
+								"1"
 							]
 						}
 					},
@@ -259,12 +172,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/hotels/1",
-							"protocol": "http",
+							"raw": "{{BaseURL}}/api/hotels/1",
 							"host": [
-								"localhost"
+								"{{BaseURL}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"hotels",
@@ -283,12 +194,10 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/hotels/delete/1",
-							"protocol": "http",
+							"raw": "{{BaseURL}}/api/hotels/delete/1",
 							"host": [
-								"localhost"
+								"{{BaseURL}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"hotels",
@@ -310,12 +219,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/rooms",
-							"protocol": "http",
+							"raw": "{{BaseURL}}/api/rooms",
 							"host": [
-								"localhost"
+								"{{BaseURL}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"rooms"
@@ -327,11 +234,51 @@
 				{
 					"name": "Create Rooms",
 					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "redirect_uri",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "User",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "https://us-east-1tu3brjfar.auth.us-east-1.amazoncognito.com/oauth2/token",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "https://us-east-1tu3brjfar.auth.us-east-1.amazoncognito.com/login",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "189o4nu8cku0f67gt27oc5ck80omoitb3irlrmcbor3r2etkgjp",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "4bn0scguucfpnu1j3mgnu4d4cf",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"hotelId\": 1,\n    \"roomNumber\": \"112\",\n    \"roomType\": \"Suite\",\n   \"pricePerNight\": 200.25,\n    \"isAvailable\": false\n}",
+							"raw": "{\n    \"hotel_id\": 4,\n    \"room_number\": \"111\",\n    \"room_type\": \"Suite\",\n   \"price_per_night\": 450,\n    \"is_available\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -339,15 +286,301 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/rooms",
-							"protocol": "http",
+							"raw": "{{BaseURL}}/api/rooms",
 							"host": [
-								"localhost"
+								"{{BaseURL}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"rooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Rooms",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "redirect_uri",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "User",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "https://us-east-1tu3brjfar.auth.us-east-1.amazoncognito.com/oauth2/token",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "https://us-east-1tu3brjfar.auth.us-east-1.amazoncognito.com/login",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "189o4nu8cku0f67gt27oc5ck80omoitb3irlrmcbor3r2etkgjp",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "4bn0scguucfpnu1j3mgnu4d4cf",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"hotel_id\": 1,\n    \"room_number\": \"117\",\n    \"room_type\": \"Suite\",\n   \"price_per_night\": 200.25,\n    \"is_available\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/rooms/1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"rooms",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unavailable Room",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "redirect_uri",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "User",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "https://us-east-1tu3brjfar.auth.us-east-1.amazoncognito.com/oauth2/token",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "https://us-east-1tu3brjfar.auth.us-east-1.amazoncognito.com/login",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "189o4nu8cku0f67gt27oc5ck80omoitb3irlrmcbor3r2etkgjp",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "4bn0scguucfpnu1j3mgnu4d4cf",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/rooms/1/unavailable",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"rooms",
+								"1",
+								"unavailable"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Available Room",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "redirect_uri",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "User",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "https://us-east-1tu3brjfar.auth.us-east-1.amazoncognito.com/oauth2/token",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "https://us-east-1tu3brjfar.auth.us-east-1.amazoncognito.com/login",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "189o4nu8cku0f67gt27oc5ck80omoitb3irlrmcbor3r2etkgjp",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "4bn0scguucfpnu1j3mgnu4d4cf",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/rooms/1/available",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"rooms",
+								"1",
+								"available"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check availability",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "redirect_uri",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "User",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "https://us-east-1tu3brjfar.auth.us-east-1.amazoncognito.com/oauth2/token",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "https://us-east-1tu3brjfar.auth.us-east-1.amazoncognito.com/login",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "189o4nu8cku0f67gt27oc5ck80omoitb3irlrmcbor3r2etkgjp",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "4bn0scguucfpnu1j3mgnu4d4cf",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/rooms/3/availability?startDate=2025-08-20&endDate=2025-08-26",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"rooms",
+								"3",
+								"availability"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2025-08-20"
+								},
+								{
+									"key": "endDate",
+									"value": "2025-08-26"
+								}
 							]
 						}
 					},
@@ -359,12 +592,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/rooms/hotel/1",
-							"protocol": "http",
+							"raw": "{{BaseURL}}/api/rooms/hotel/1",
 							"host": [
-								"localhost"
+								"{{BaseURL}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"rooms",
@@ -384,108 +615,10 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/rooms/delete/3",
-							"protocol": "http",
+							"raw": "{{BaseURL}}/api/rooms/delete/3",
 							"host": [
-								"localhost"
+								"{{BaseURL}}"
 							],
-							"port": "8080",
-							"path": [
-								"api",
-								"rooms",
-								"delete",
-								"3"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Rooms",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/rooms",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"rooms"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Rooms",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"hotelId\": 1,\n    \"roomNumber\": \"112\",\n    \"roomType\": \"Suite\",\n   \"pricePerNight\": 200.25,\n    \"isAvailable\": false\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/rooms",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"rooms"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Room by Hotel",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/rooms/hotel/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"rooms",
-								"hotel",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Room",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/rooms/delete/3",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
 							"path": [
 								"api",
 								"rooms",
@@ -504,15 +637,53 @@
 				{
 					"name": "Get Bookings",
 					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "redirect_uri",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "User",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "https://us-east-1tu3brjfar.auth.us-east-1.amazoncognito.com/oauth2/token",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "https://us-east-1tu3brjfar.auth.us-east-1.amazoncognito.com/login",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "189o4nu8cku0f67gt27oc5ck80omoitb3irlrmcbor3r2etkgjp",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "4bn0scguucfpnu1j3mgnu4d4cf",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/bookings",
-							"protocol": "http",
+							"raw": "{{BaseURL}}/api/bookings",
 							"host": [
-								"localhost"
+								"{{BaseURL}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"bookings"
@@ -522,13 +693,79 @@
 					"response": []
 				},
 				{
+					"name": "Get Booking by Code",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURL}}/api/bookings/code/NKS-OEC3WF250819?dni=1761430592",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"bookings",
+								"code",
+								"NKS-OEC3WF250819"
+							],
+							"query": [
+								{
+									"key": "dni",
+									"value": "1761430592"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Create Bookings",
 					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "redirect_uri",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "User",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "https://us-east-1tu3brjfar.auth.us-east-1.amazoncognito.com/oauth2/token",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "https://us-east-1tu3brjfar.auth.us-east-1.amazoncognito.com/login",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "189o4nu8cku0f67gt27oc5ck80omoitb3irlrmcbor3r2etkgjp",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "4bn0scguucfpnu1j3mgnu4d4cf",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"userId\": 1,\n  \"checkIn\": \"2025-07-06\",\n  \"checkOut\": \"2025-07-10\",\n  \"status\": \"pending\",\n  \"details\": [\n    {\n      \"roomId\": 1,\n      \"guests\": 2,\n      \"priceAtBooking\": 250.00\n    }\n  ]\n}\n",
+							"raw": "{\n  \"guest_name\": \"Jeremy\",\n  \"guest_dni\": \"2222222222\",\n  \"guest_email\": \"jeremynakano12@gmail.com\",\n  \"guest_phone\": \"0984691042\",\n  \"check_in\": \"2025-11-05\",\n  \"check_out\": \"2025-11-07\",\n  \"details\": [\n    {\n      \"room_id\": 1,\n      \"guests\": 1\n    }\n  ]\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -536,12 +773,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/bookings",
-							"protocol": "http",
+							"raw": "{{BaseURL}}/api/bookings",
 							"host": [
-								"localhost"
+								"{{BaseURL}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"bookings"
@@ -556,12 +791,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/bookings/6",
-							"protocol": "http",
+							"raw": "{{BaseURL}}/api/bookings/6",
 							"host": [
-								"localhost"
+								"{{BaseURL}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"bookings",
@@ -572,110 +805,75 @@
 					"response": []
 				},
 				{
-					"name": "Delete Room Copy",
+					"name": "Delete Booking",
 					"request": {
 						"auth": {
-							"type": "noauth"
-						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/bookings/delete/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"bookings",
-								"delete",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Bookings",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/bookings",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"bookings"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Bookings",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"userId\": 1,\n  \"checkIn\": \"2025-07-06\",\n  \"checkOut\": \"2025-07-10\",\n  \"status\": \"pending\",\n  \"details\": [\n    {\n      \"roomId\": 1,\n      \"guests\": 2,\n      \"priceAtBooking\": 250.00\n    }\n  ]\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "redirect_uri",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "User",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "https://us-east-1tu3brjfar.auth.us-east-1.amazoncognito.com/oauth2/token",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "https://us-east-1tu3brjfar.auth.us-east-1.amazoncognito.com/login",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "189o4nu8cku0f67gt27oc5ck80omoitb3irlrmcbor3r2etkgjp",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "4bn0scguucfpnu1j3mgnu4d4cf",
+									"type": "string"
 								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/bookings",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"bookings"
 							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Booking by ID",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/bookings/6",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"bookings",
-								"6"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Room Copy",
-					"request": {
-						"auth": {
-							"type": "noauth"
 						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/bookings/delete/1",
+							"raw": "{{BaseURL}}/api/bookings/delete/57",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"bookings",
+								"delete",
+								"57"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Booking",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/bookings/code/NKS-8YHINW250813/cancel?dni=2222222222",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -684,14 +882,211 @@
 							"path": [
 								"api",
 								"bookings",
-								"delete",
-								"1"
+								"code",
+								"NKS-8YHINW250813",
+								"cancel"
+							],
+							"query": [
+								{
+									"key": "dni",
+									"value": "2222222222"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Confirm Booking",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "redirect_uri",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "User",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "https://us-east-1tu3brjfar.auth.us-east-1.amazoncognito.com/oauth2/token",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "https://us-east-1tu3brjfar.auth.us-east-1.amazoncognito.com/login",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "189o4nu8cku0f67gt27oc5ck80omoitb3irlrmcbor3r2etkgjp",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "4bn0scguucfpnu1j3mgnu4d4cf",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/bookings/code/NKS-8YHINW250813/confirm?dni=2222222222",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"bookings",
+								"code",
+								"NKS-8YHINW250813",
+								"confirm"
+							],
+							"query": [
+								{
+									"key": "dni",
+									"value": "2222222222"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Complete Booking",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "redirect_uri",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "User",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "https://us-east-1tu3brjfar.auth.us-east-1.amazoncognito.com/oauth2/token",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "https://us-east-1tu3brjfar.auth.us-east-1.amazoncognito.com/login",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "189o4nu8cku0f67gt27oc5ck80omoitb3irlrmcbor3r2etkgjp",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "4bn0scguucfpnu1j3mgnu4d4cf",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/bookings/code/NKS-8YHINW250813/complete?dni=2222222222",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"bookings",
+								"code",
+								"NKS-8YHINW250813",
+								"complete"
+							],
+							"query": [
+								{
+									"key": "dni",
+									"value": "2222222222"
+								}
 							]
 						}
 					},
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Get api key",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"admin@chocorocks.com\", \r\n  \"password\": \"Admin123.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://stkykhodcmvmqrwqhrcy.supabase.co/auth/v1/token?grant_type=password",
+					"protocol": "https",
+					"host": [
+						"stkykhodcmvmqrwqhrcy",
+						"supabase",
+						"co"
+					],
+					"path": [
+						"auth",
+						"v1",
+						"token"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "password"
+						}
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
 		}
 	]
 }
