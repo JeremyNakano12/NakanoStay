@@ -234,7 +234,7 @@ class BookingService(
             roomIds = roomIds,
             checkIn = booking.checkIn,
             checkOut = booking.checkOut,
-            excludedStatuses = listOf(BookingStatus.CANCELLED)
+            excludedStatuses = listOf(BookingStatus.CANCELLED, BookingStatus.COMPLETED)
         )
 
         if (hasConflict) {
