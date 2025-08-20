@@ -895,7 +895,7 @@ class BookingServiceTest {
             listOf(1L),
             booking.checkIn,
             booking.checkOut,
-            listOf(BookingStatus.CANCELLED)
+            listOf(BookingStatus.CANCELLED, BookingStatus.COMPLETED)
         )).thenReturn(true)
 
         val exception = assertThrows<ConflictException> {
